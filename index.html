@@ -30,13 +30,11 @@
 
     body {
       background-color: var(--bg-space);
-      /* Космический фон с легким паттерном звезд */
       background-image: 
         radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
         radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
         radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 230px 80px, #ffffff, rgba(0,0,0,0));
+        radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
       background-repeat: repeat;
       background-size: 300px 300px;
       color: var(--text-main);
@@ -45,7 +43,7 @@
       margin: 0 auto;
     }
 
-    /* Шапка в стиле Космической Лего-Академии */
+    /* Шапка */
     .hero-header {
       background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
       border: 4px solid #6366F1;
@@ -56,25 +54,11 @@
       margin-bottom: 16px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       position: relative;
-      overflow: hidden;
-    }
-
-    /* Эффект выступов Лего-кирпичиков сверху шапки */
-    .hero-header::before {
-      content: '🔴 🟡 🔵 🟢 🟣 🟡 🔴';
-      position: absolute;
-      top: 4px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 10px;
-      letter-spacing: 6px;
-      opacity: 0.7;
     }
 
     .hero-title {
       font-size: 26px;
       font-weight: 1000;
-      margin-top: 8px;
       margin-bottom: 6px;
       text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
@@ -132,7 +116,7 @@
       box-shadow: 0 2px 0px #D97706;
     }
 
-    /* Переключатель вкладок в виде Лего-модулей */
+    /* Вкладки */
     .tabs-nav {
       display: flex;
       gap: 10px;
@@ -173,43 +157,64 @@
       display: block;
     }
 
-    /* Карточки предметов (Группировка по предметам) */
-    .subject-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      border: 3px solid #E2E8F0;
-      position: relative;
-    }
-
-    .subject-header {
-      font-size: 20px;
-      font-weight: 1000;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 10px;
-      border-bottom: 2px dashed #E2E8F0;
-    }
-
-    .subject-title-text {
+    /* Фильтр периодов */
+    .filter-panel {
       display: flex;
       align-items: center;
       gap: 10px;
+      background: var(--card-bg);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-lego);
+    }
+
+    .filter-label {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+
+    .filter-select {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 2px solid #CBD5E1;
+      font-weight: 800;
+      font-size: 14px;
+      outline: none;
+      background: #F8FAFC;
+    }
+
+    /* Секции предметов */
+    .subject-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      border: 3px solid #E2E8F0;
+    }
+
+    .subject-title {
+      font-size: 22px;
+      font-weight: 1000;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 3px dashed #E2E8F0;
     }
 
     .task-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 14px;
+      gap: 14px;
+      padding: 14px 16px;
       border-radius: 14px;
       background: #F8FAFC;
       border: 2px solid #E2E8F0;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       cursor: pointer;
       transition: all 0.15s ease;
       box-shadow: 0 3px 0px #CBD5E1;
@@ -230,24 +235,23 @@
     }
 
     .task-date-badge {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 900;
-      background: #E2E8F0;
-      color: var(--text-muted);
-      padding: 2px 8px;
-      border-radius: 6px;
+      background: #DBEAFE;
+      color: var(--lego-blue);
+      padding: 3px 10px;
+      border-radius: 8px;
       display: inline-block;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .task-text {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--text-main);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
-    /* Выполненный Лего-модуль */
     .task-item.completed {
       background: #ECFDF5;
       border-color: #6EE7B7;
@@ -275,6 +279,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 14px;
+      margin-bottom: 24px;
     }
 
     .day-card {
@@ -285,12 +290,13 @@
       border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
 
-    .day-card.is-tomorrow {
+    .day-card.is-next-school-day {
       border-color: var(--lego-yellow);
       background: #FFFBEB;
-      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
       transform: translateY(-2px);
     }
 
@@ -302,9 +308,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
-    .tomorrow-badge {
+    .next-day-badge {
       background: var(--lego-yellow);
       color: #000;
       font-size: 10px;
@@ -347,6 +355,51 @@
       flex-shrink: 0;
     }
 
+    /* Чек-лист сбора в школу */
+    .pack-checklist-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      border: 3px solid var(--lego-yellow);
+    }
+
+    .pack-title {
+      font-size: 19px;
+      font-weight: 1000;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .pack-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #F8FAFC;
+      border-radius: 12px;
+      border: 2px solid #E2E8F0;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .pack-item.checked {
+      background: #ECFDF5;
+      border-color: #6EE7B7;
+      text-decoration: line-through;
+      color: #065F46;
+    }
+
     .empty-state {
       text-align: center;
       padding: 40px 20px;
@@ -358,38 +411,65 @@
 </head>
 <body>
 
-  <!-- Мотивирующий космический лего-баннер -->
   <header class="hero-header">
     <div class="hero-title">👨‍🚀 Лего-Академия Исследователя Саввы</div>
     <div class="hero-subtitle">
-      <span>👨‍🔬 Миссия: Собираем знания и покоряем новые вершины!</span>
+      <span>👨‍🔬 Миссия: Собираем знания и готовимся к школьным успехам!</span>
     </div>
   </header>
 
-  <!-- Статус синхронизации -->
   <div class="sync-bar">
     <div class="last-update" id="lastUpdate">Связь с ЦУП...</div>
     <button class="btn-refresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
   </div>
 
-  <!-- Вкладки в стиле Лего -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('homeworkTab', this)">📚 Задания по предметам</button>
-    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">🎒 Расписание (Завтра в школу)</button>
+    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">🎒 Расписание и Портфель</button>
   </div>
 
-  <!-- Вкладка 1: Домашка (Группировка по предметам) -->
+  <!-- Вкладка: Домашка -->
   <div id="homeworkTab" class="tab-content active">
+    
+    <div class="filter-panel">
+      <span class="filter-label">Период заданий:</span>
+      <select class="filter-select" id="periodFilter" onchange="renderHomeworkBySubjects()">
+        <option value="current">📅 Актуальные задания</option>
+        <option value="all">📜 Показать все (включая прошлые)</option>
+        <option value="uncompleted">⏳ Только невыполненные</option>
+      </select>
+    </div>
+
     <div id="homeworkContainer">Загрузка космических заданий...</div>
   </div>
 
-  <!-- Вкладка 2: Расписание -->
+  <!-- Вкладка: Расписание -->
   <div id="scheduleTab" class="tab-content">
     <div id="scheduleContainer">Загрузка расписания уроков...</div>
+
+    <!-- Чек-лист сбора портфеля -->
+    <div class="pack-checklist-card">
+      <div class="pack-title">
+        <span>🎒 Вечерний Лего-Чеклист: Собираем портфель в школу</span>
+      </div>
+      <div class="pack-grid" id="packChecklistGrid">
+        <!-- Генерируется скриптом -->
+      </div>
+    </div>
   </div>
 
   <script>
     let appData = { schedule: [], homework: [] };
+
+    // Базовый список вещей для вечернего сбора
+    const PACK_ITEMS = [
+      { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
+      { id: 'p_water', text: '💧 Бутылочка с водой' },
+      { id: 'p_pencils', text: '✏️ Поточить карандаши' },
+      { id: 'p_books', text: '📚 Проверить учебники и тетради' },
+      { id: 'p_form', text: '👕 Проверить школьную форму' },
+      { id: 'p_sport', text: '👟 Спортивная форма (если Физкультура)' }
+    ];
 
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -416,16 +496,38 @@
         
         renderSchedule();
         renderHomeworkBySubjects();
+        renderPackChecklist();
       } catch (error) {
         console.error('Ошибка:', error);
         document.getElementById('homeworkContainer').innerHTML = 
-          '<div class="empty-state">⚠️ Данные из таблицы ещё не поступали.<br>Нажмите кнопку «Обновить данные».</div>';
+          '<div class="empty-state">⚠️ Данные из таблицы ещё не поступали. Нажмите кнопку «Обновить данные».</div>';
         document.getElementById('scheduleContainer').innerHTML = 
           '<div class="empty-state">⚠️ Ожидание сигнала от расписания...</div>';
       }
     }
 
-    // Отрисовка домашки с СТРОГОЙ ГРУППИРОВКОЙ ПО ПРЕДМЕТАМ
+    // Красивое форматирование даты текстом (например: "16 октября, Пятница")
+    function formatPrettyDate(rawDateStr) {
+      if (!rawDateStr) return '';
+      // Если дата уже содержит слова, отдаем аккуратную строку
+      const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+      
+      const match = rawDateStr.match(/(\d{1,2})[\.\/](\d{1,2})/);
+      if (match) {
+        const dayNum = parseInt(match[1]);
+        const monthNum = parseInt(match[2]) - 1;
+        const monthName = months[monthNum] || '';
+        
+        // Извлекаем день недели если есть
+        let dayOfWeek = rawDateStr.split('-')[1] || rawDateStr.split(' ')[1] || '';
+        dayOfWeek = dayOfWeek.trim();
+
+        return `${dayNum} ${monthName}${dayOfWeek ? ', ' + dayOfWeek : ''}`;
+      }
+      return rawDateStr;
+    }
+
+    // Отрисовка домашки по СЕКЦИЯМ ПРЕДМЕТОВ
     function renderHomeworkBySubjects() {
       const container = document.getElementById('homeworkContainer');
       if (!appData.homework || appData.homework.length === 0) {
@@ -433,14 +535,18 @@
         return;
       }
 
+      const periodFilter = document.getElementById('periodFilter').value;
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
       const grouped = {};
 
-      // Группируем задания по названиям предметов
       appData.homework.forEach(dayBlock => {
         if (dayBlock.items) {
           dayBlock.items.forEach(item => {
-            const sub = item.subject || 'Разное';
+            const sub = item.subject || 'Другие предметы';
+            const isDone = !!savedState[item.id];
+
+            if (periodFilter === 'uncompleted' && isDone) return;
+
             if (!grouped[sub]) {
               grouped[sub] = {
                 icon: item.icon || '📌',
@@ -448,23 +554,20 @@
                 tasks: []
               };
             }
-            grouped[sub].tasks.push({ ...item, date: dayBlock.date });
+            grouped[sub].tasks.push({ ...item, prettyDate: formatPrettyDate(dayBlock.date) });
           });
         }
       });
 
       let html = '';
       for (const [subjectName, group] of Object.entries(grouped)) {
+        if (group.tasks.length === 0) continue;
+
         html += `
-          <div class="subject-card" style="border-top: 6px solid ${group.color};">
-            <div class="subject-header">
-              <div class="subject-title-text" style="color: ${group.color};">
-                <span style="font-size:24px;">${group.icon}</span>
-                <span>${subjectName}</span>
-              </div>
-              <span style="font-size:12px; font-weight:800; color:var(--text-muted);">
-                Заданий: ${group.tasks.length}
-              </span>
+          <div class="subject-section" style="border-top: 6px solid ${group.color};">
+            <div class="subject-title" style="color: ${group.color};">
+              <span style="font-size:28px;">${group.icon}</span>
+              <span>${subjectName}</span>
             </div>
 
             <div class="tasks-list">
@@ -474,7 +577,7 @@
                   <div class="task-item ${isChecked ? 'completed' : ''}" onclick="toggleTask('${t.id}')">
                     <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}')">
                     <div style="flex:1;">
-                      <div class="task-date-badge">🗓️ ${t.date}</div>
+                      <div class="task-date-badge">🗓️ ${t.prettyDate}</div>
                       <div class="task-text">${t.text}</div>
                     </div>
                   </div>
@@ -485,10 +588,10 @@
         `;
       }
 
-      container.innerHTML = html;
+      container.innerHTML = html || '<div class="empty-state">В этом разделе пока нет заданий! 👍</div>';
     }
 
-    // Отрисовка расписания уроков
+    // Отрисовка расписания с выделением СЛЕДУЮЩЕГО ШКОЛЬНОГО ДНЯ
     function renderSchedule() {
       const container = document.getElementById('scheduleContainer');
       if (!appData.schedule || appData.schedule.length === 0) {
@@ -498,19 +601,21 @@
 
       const daysOfWeek = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
       const todayIndex = new Date().getDay();
-      let tomorrowIndex = (todayIndex + 1) % 7;
-      if (tomorrowIndex === 0 || tomorrowIndex === 6) tomorrowIndex = 1; 
+      
+      // Определяем следующий учебный день (если сегодня пятница/суббота, следующий — понедельник)
+      let nextSchoolIndex = (todayIndex + 1) % 7;
+      if (nextSchoolIndex === 0 || nextSchoolIndex === 6) nextSchoolIndex = 1;
 
-      const tomorrowName = daysOfWeek[tomorrowIndex].toLowerCase();
+      const nextDayName = daysOfWeek[nextSchoolIndex].toLowerCase();
 
       let html = '<div class="schedule-grid">';
       appData.schedule.forEach(item => {
-        const isTomorrow = item.day.toLowerCase().includes(tomorrowName);
+        const isNextDay = item.day.toLowerCase().includes(nextDayName);
         html += `
-          <div class="day-card ${isTomorrow ? 'is-tomorrow' : ''}">
+          <div class="day-card ${isNextDay ? 'is-next-school-day' : ''}">
             <div class="day-header">
               <span>🗓️ ${item.day}</span>
-              ${isTomorrow ? '<span class="tomorrow-badge">🎒 Собираем завтра</span>' : ''}
+              ${isNextDay ? '<span class="next-day-badge">🎒 Собираем завтра</span>' : ''}
             </div>
             <ul class="lesson-list">
               ${item.lessons.map((lesson, idx) => `
@@ -527,11 +632,36 @@
       container.innerHTML = html;
     }
 
+    // Чек-лист сбора в школу
+    function renderPackChecklist() {
+      const grid = document.getElementById('packChecklistGrid');
+      const packState = JSON.parse(localStorage.getItem('pack_completed') || '{}');
+
+      let html = '';
+      PACK_ITEMS.forEach(item => {
+        const isChecked = !!packState[item.id];
+        html += `
+          <div class="pack-item ${isChecked ? 'checked' : ''}" onclick="togglePackItem('${item.id}')">
+            <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); togglePackItem('${item.id}')">
+            <span>${item.text}</span>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
     function toggleTask(id) {
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
       savedState[id] = !savedState[id];
       localStorage.setItem('hw_completed', JSON.stringify(savedState));
       renderHomeworkBySubjects();
+    }
+
+    function togglePackItem(id) {
+      const packState = JSON.parse(localStorage.getItem('pack_completed') || '{}');
+      packState[id] = !packState[id];
+      localStorage.setItem('pack_completed', JSON.stringify(packState));
+      renderPackChecklist();
     }
 
     loadData();
