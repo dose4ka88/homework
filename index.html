@@ -634,7 +634,7 @@
         nextSchoolIndex = 1; // Понедельник
       }
 
-      let html = '<div class="schedule-grid">';
+      let html = '<div class="schedule-grid">'; 
       appData.schedule.forEach(item => {
         const isToday = matchesDay(item.day, todayIndex);
         const isNextDay = matchesDay(item.day, nextSchoolIndex);
@@ -647,7 +647,7 @@
           <div class="day-card ${cardClass}">
             <div class="day-header">
               <span>🗓️ ${item.day}</span>
-              ${isNextDay ? '<span class="next-day-badge">🎒 Собираем завтра</span>' : ''}
+              ${isNextDay ? '<span class="next-day-badge">🎒 Завтра </span>' : ''}
               ${isToday && !isNextDay ? '<span class="today-badge">Сегодня</span>' : ''}
             </div>
             <ul class="lesson-list">
