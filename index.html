@@ -12,14 +12,13 @@
       --primary: #4F46E5;
       --primary-light: #EEF2FF;
       --accent-green: #10B981;
-      --accent-yellow: #F59E0B;
-      --accent-orange: #FF8A65;
+      --accent-orange: #F97316;
       --text-main: #1E293B;
       --text-muted: #64748B;
-      --radius-lg: 24px;
-      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
       --shadow-sm: 0 4px 14px rgba(0,0,0,0.04);
-      --shadow-md: 0 8px 24px rgba(79, 70, 229, 0.12);
+      --shadow-md: 0 8px 24px rgba(79, 70, 229, 0.15);
     }
 
     * {
@@ -32,59 +31,47 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding: 20px 14px 40px 14px;
-      max-width: 880px;
+      padding: 16px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
-    /* Персональная мотивирующая шапка */
+    /* Мотивирующая шапка */
     .hero-header {
       background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
       color: white;
       border-radius: var(--radius-lg);
-      padding: 24px 20px;
+      padding: 20px 16px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       box-shadow: var(--shadow-md);
       position: relative;
-      overflow: hidden;
-    }
-
-    .hero-header::after {
-      content: '⭐';
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
-      opacity: 0.8;
     }
 
     .hero-title {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 1000;
-      margin-bottom: 8px;
-      line-height: 1.25;
-      letter-spacing: -0.5px;
+      margin-bottom: 4px;
     }
 
     .hero-subtitle {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       opacity: 0.95;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.18);
       display: inline-block;
-      padding: 6px 14px;
-      border-radius: 12px;
-      margin-top: 4px;
+      padding: 4px 12px;
+      border-radius: 10px;
     }
 
+    /* Панель синхронизации */
     .sync-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       background: var(--card-bg);
-      padding: 12px 18px;
+      padding: 10px 16px;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
     }
@@ -115,22 +102,22 @@
       color: white;
     }
 
-    /* Разделы вкладок */
+    /* Вкладки */
     .tabs-nav {
       display: flex;
       gap: 10px;
       background: #E2E8F0;
-      padding: 6px;
-      border-radius: 18px;
+      padding: 5px;
+      border-radius: 16px;
       margin-bottom: 20px;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 14px;
+      padding: 12px;
       border: none;
       background: transparent;
-      border-radius: 14px;
+      border-radius: 12px;
       font-size: 16px;
       font-weight: 900;
       color: var(--text-muted);
@@ -156,28 +143,102 @@
       display: block;
     }
 
-    /* Панель фильтров и группировок для домашки */
-    .filter-panel {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-      background: var(--card-bg);
-      padding: 14px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
+    /* СЕТКА РАСПИСАНИЯ НА ОДНОМ ЭКРАНЕ */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
     }
 
-    .filter-group {
+    .day-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+
+    /* Подсветка "Завтра в школу" */
+    .day-card.is-tomorrow {
+      border-color: #F97316;
+      background: #FFF7ED;
+      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .day-header {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tomorrow-badge {
+      background: #F97316;
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .lesson-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
     }
 
-    .filter-label {
-      font-size: 13px;
+    .lesson-item {
+      padding: 8px 10px;
+      background: #F8FAFC;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .day-card.is-tomorrow .lesson-item {
+      background: #FFFFFF;
+      border-color: #FFEDD5;
+    }
+
+    .lesson-num {
+      background: #EEF2FF;
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
       font-weight: 900;
-      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* Карточки домашнего задания */
+    .filter-panel {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      background: var(--card-bg);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
     }
 
     .filter-select {
@@ -187,114 +248,27 @@
       background: #F8FAFC;
       font-weight: 800;
       font-size: 14px;
-      color: var(--text-main);
-      cursor: pointer;
       outline: none;
     }
 
-    .filter-select:focus {
-      border-color: var(--primary);
-    }
-
-    /* Горизонтальное расписание */
-    .horizontal-days-wrapper {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding: 8px 4px 20px 4px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .day-column {
-      flex: 0 0 280px;
-      scroll-snap-align: start;
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-      border: 2px solid transparent;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .day-column.is-today {
-      border-color: #6366F1;
-      background: #F5F3FF;
-      box-shadow: var(--shadow-md);
-    }
-
-    .day-header {
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--primary);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .today-badge {
-      background: #6366F1;
-      color: #FFF;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 8px;
-      text-transform: uppercase;
-    }
-
-    .lesson-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .lesson-item {
-      padding: 10px 14px;
-      background: #F8FAFC;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid #E2E8F0;
-    }
-
-    .lesson-num {
-      background: #EEF2FF;
-      color: var(--primary);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
-    /* Карточки домашки */
     .hw-day-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 22px;
-      margin-bottom: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
       box-shadow: var(--shadow-sm);
       border: 1px solid #E2E8F0;
     }
 
     .progress-box {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       background: #F1F5F9;
-      border-radius: 12px;
-      padding: 12px 16px;
+      border-radius: 10px;
+      padding: 10px 14px;
     }
 
     .progress-text {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 900;
       color: var(--text-main);
       display: flex;
@@ -303,9 +277,9 @@
     }
 
     .progress-bar-bg {
-      height: 10px;
+      height: 8px;
       background: #CBD5E1;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
     }
 
@@ -314,29 +288,25 @@
       background: var(--accent-green);
       width: 0%;
       transition: width 0.3s ease;
-      border-radius: 10px;
+      border-radius: 8px;
     }
 
     .task-item {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      padding: 16px;
-      border-radius: 16px;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 14px;
       background: #F8FAFC;
       border: 2px solid #F1F5F9;
-      margin-bottom: 12px;
-      transition: all 0.2s ease;
+      margin-bottom: 10px;
       cursor: pointer;
-    }
-
-    .task-item:hover {
-      border-color: #CBD5E1;
+      transition: all 0.2s ease;
     }
 
     .task-checkbox {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       accent-color: var(--accent-green);
       cursor: pointer;
       margin-top: 2px;
@@ -352,17 +322,17 @@
       align-items: center;
       gap: 6px;
       font-weight: 900;
-      font-size: 13px;
-      margin-bottom: 6px;
-      padding: 4px 10px;
-      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
     .task-text {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--text-main);
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
     .task-item.completed {
@@ -376,79 +346,50 @@
       opacity: 0.7;
     }
 
-    /* Группировка по предметам */
-    .subject-group-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow-sm);
-      border-left: 6px solid var(--primary);
-    }
-
-    .subject-group-title {
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .empty-state {
       text-align: center;
-      padding: 50px 20px;
+      padding: 40px 20px;
       color: var(--text-muted);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
     }
   </style>
 </head>
 <body>
 
-  <!-- Мотивирующий баннер для Саввы -->
+  <!-- Мотивирующий заголовок -->
   <header class="hero-header">
     <div class="hero-title">🚀 Савва, ты настоящий исследователь!</div>
-    <div class="hero-subtitle">Каждый день — это новая вершина знаний и успехов 🌟</div>
+    <div class="hero-subtitle">Каждый день — это шаг к новым успехам 🌟</div>
   </header>
 
-  <!-- Панель статуса и кнопки обновления -->
+  <!-- Статус синхронизации -->
   <div class="sync-bar">
     <div class="last-update" id="lastUpdate">Загрузка данных...</div>
     <button class="btn-refresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
   </div>
 
-  <!-- Навигация -->
+  <!-- Вкладки -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
-    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">📅 Расписание</button>
+    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">📅 Расписание уроков</button>
   </div>
 
-  <!-- Вкладка 1: Домашка -->
+  <!-- Вкладка: Домашка -->
   <div id="homeworkTab" class="tab-content active">
-    
-    <!-- Панель фильтров: Режим отображения и выбор предмета -->
     <div class="filter-panel">
-      <div class="filter-group">
-        <span class="filter-label">Вид:</span>
-        <select class="filter-select" id="viewMode" onchange="renderHomework()">
-          <option value="byDate">📅 По дням</option>
-          <option value="bySubject">📚 По предметам</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Предмет:</span>
-        <select class="filter-select" id="subjectFilter" onchange="renderHomework()">
-          <option value="all">Все предметы</option>
-        </select>
-      </div>
+      <select class="filter-select" id="viewMode" onchange="renderHomework()">
+        <option value="byDate">📅 По дням</option>
+        <option value="bySubject">📚 По предметам</option>
+      </select>
+      <select class="filter-select" id="subjectFilter" onchange="renderHomework()">
+        <option value="all">Все предметы</option>
+      </select>
     </div>
-
     <div id="homeworkContainer">Загрузка заданий...</div>
   </div>
 
-  <!-- Вкладка 2: Расписание -->
+  <!-- Вкладка: Расписание -->
   <div id="scheduleTab" class="tab-content">
     <div id="scheduleContainer">Загрузка расписания...</div>
   </div>
@@ -464,7 +405,6 @@
       btn.classList.add('active');
     }
 
-    // Принудительное обновление данных из таблицы без кэша
     async function forceRefreshData() {
       const btn = document.querySelector('.btn-refresh');
       btn.innerText = '⏳ Загрузка...';
@@ -474,9 +414,8 @@
 
     async function loadData() {
       try {
-        // Добавляем случайный параметр v= timestamp, чтобы мгновенно подтягивать свежий data.json
         const response = await fetch('data.json?v=' + new Date().getTime());
-        if (!response.ok) throw new Error('Файл не найден');
+        if (!response.ok) throw new Error('data.json не найден');
         appData = await response.json();
         
         document.getElementById('lastUpdate').innerText = 'Синхронизировано: ' + (appData.updatedAt || 'неизвестно');
@@ -486,48 +425,55 @@
         renderHomework();
       } catch (error) {
         console.error('Ошибка:', error);
-        document.getElementById('homeworkContainer').innerHTML = '<div class="empty-state">⏳ Ожидание обновления из Google Таблицы... Нажми «Обновить данные».</div>';
-        document.getElementById('scheduleContainer').innerHTML = '<div class="empty-state">⏳ Загрузка расписания...</div>';
+        document.getElementById('homeworkContainer').innerHTML = 
+          '<div class="empty-state">⚠️ Данные ещё не синхронизировались.<br>Проверь, создан ли файл <b>data.json</b> в репозитории на GitHub.</div>';
+        document.getElementById('scheduleContainer').innerHTML = 
+          '<div class="empty-state">⚠️ Ожидание синхронизации расписания...</div>';
       }
     }
 
-    // Заполнение списка предметов в фильтре
     function populateSubjectFilter() {
       const select = document.getElementById('subjectFilter');
       const subjects = new Set();
 
-      appData.homework.forEach(day => {
-        day.items.forEach(item => {
-          if (item.subject) subjects.add(item.subject);
+      if (appData.homework) {
+        appData.homework.forEach(day => {
+          if (day.items) {
+            day.items.forEach(item => { if (item.subject) subjects.add(item.subject); });
+          }
         });
-      });
+      }
 
       let options = '<option value="all">Все предметы</option>';
-      subjects.forEach(sub => {
-        options += `<option value="${sub}">${sub}</option>`;
-      });
+      subjects.forEach(sub => options += `<option value="${sub}">${sub}</option>`);
       select.innerHTML = options;
     }
 
-    // Отрисовка расписания
+    // Отрисовка расписания (СЕТКА НА ОДНОМ ЭКРАНЕ + ПОДСВЕТКА "ЗАВТРА")
     function renderSchedule() {
       const container = document.getElementById('scheduleContainer');
       if (!appData.schedule || appData.schedule.length === 0) {
-        container.innerHTML = '<div class="empty-state">Расписание пока не заполнено</div>';
+        container.innerHTML = '<div class="empty-state">Расписание пока не заполнено в Google Таблице</div>';
         return;
       }
 
+      // Вычисляем завтрашний день недели
       const daysOfWeek = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
-      const todayName = daysOfWeek[new Date().getDay()].toLowerCase();
+      const todayIndex = new Date().getDay();
+      // Если сегодня пятница (5) или суббота (6), завтрашний школьный день — понедельник
+      let tomorrowIndex = (todayIndex + 1) % 7;
+      if (tomorrowIndex === 0 || tomorrowIndex === 6) tomorrowIndex = 1; 
 
-      let html = '<div class="horizontal-days-wrapper">';
+      const tomorrowName = daysOfWeek[tomorrowIndex].toLowerCase();
+
+      let html = '<div class="schedule-grid">';
       appData.schedule.forEach(item => {
-        const isToday = item.day.toLowerCase().includes(todayName);
+        const isTomorrow = item.day.toLowerCase().includes(tomorrowName);
         html += `
-          <div class="day-column ${isToday ? 'is-today' : ''}">
+          <div class="day-card ${isTomorrow ? 'is-tomorrow' : ''}">
             <div class="day-header">
               <span>🗓️ ${item.day}</span>
-              ${isToday ? '<span class="today-badge">Сегодня</span>' : ''}
+              ${isTomorrow ? '<span class="tomorrow-badge">🎒 Завтра в школу</span>' : ''}
             </div>
             <ul class="lesson-list">
               ${item.lessons.map((lesson, idx) => `
@@ -544,11 +490,11 @@
       container.innerHTML = html;
     }
 
-    // Отрисовка домашнего задания с поддержкой режимов просмотра
+    // Отрисовка домашнего задания
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       if (!appData.homework || appData.homework.length === 0) {
-        container.innerHTML = '<div class="empty-state">Ура! Домашних заданий нет! 🎉</div>';
+        container.innerHTML = '<div class="empty-state">Ура! На сегодня домашних заданий нет! 🎉</div>';
         return;
       }
 
@@ -557,92 +503,74 @@
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
 
       if (viewMode === 'byDate') {
-        renderByDate(container, selectedSubject, savedState);
-      } else {
-        renderBySubject(container, selectedSubject, savedState);
-      }
-    }
+        let html = '';
+        appData.homework.forEach(dayBlock => {
+          const filteredItems = (dayBlock.items || []).filter(i => selectedSubject === 'all' || i.subject === selectedSubject);
+          if (filteredItems.length === 0) return;
 
-    // Отрисовка по дням
-    function renderByDate(container, filterSub, savedState) {
-      let html = '';
-      
-      appData.homework.forEach(dayBlock => {
-        const filteredItems = dayBlock.items.filter(i => filterSub === 'all' || i.subject === filterSub);
-        if (filteredItems.length === 0) return;
+          const totalTasks = filteredItems.length;
+          let completedCount = 0;
+          filteredItems.forEach(t => { if (savedState[t.id]) completedCount++; });
+          const progressPercent = Math.round((completedCount / totalTasks) * 100);
 
-        const totalTasks = filteredItems.length;
-        let completedCount = 0;
-        filteredItems.forEach(t => { if (savedState[t.id]) completedCount++; });
-        const progressPercent = Math.round((completedCount / totalTasks) * 100);
-
-        html += `
-          <div class="hw-day-card">
-            <div style="font-size:20px; font-weight:900; color: var(--primary); margin-bottom: 12px;">
-              📌 ${dayBlock.date}
-            </div>
-
-            <div class="progress-box">
-              <div class="progress-text">
-                <span>Прогресс выполнения:</span>
-                <span>${completedCount} из ${totalTasks} ${progressPercent === 100 ? '🎉 Молодец!' : ''}</span>
+          html += `
+            <div class="hw-day-card">
+              <div style="font-size:18px; font-weight:900; color: var(--primary); margin-bottom: 10px;">
+                📌 ${dayBlock.date}
               </div>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
-              </div>
-            </div>
 
-            <div class="tasks-list">
-              ${filteredItems.map(t => renderTaskHTML(t, savedState)).join('')}
-            </div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному фильтру</div>';
-    }
-
-    // Отрисовка с группировкой по предметам
-    function renderBySubject(container, filterSub, savedState) {
-      const grouped = {};
-
-      appData.homework.forEach(dayBlock => {
-        dayBlock.items.forEach(item => {
-          if (filterSub !== 'all' && item.subject !== filterSub) return;
-          if (!grouped[item.subject]) {
-            grouped[item.subject] = {
-              icon: item.icon,
-              color: item.color,
-              tasks: []
-            };
-          }
-          grouped[item.subject].tasks.push({ ...item, date: dayBlock.date });
-        });
-      });
-
-      let html = '';
-      for (const [subjectName, group] of Object.entries(grouped)) {
-        html += `
-          <div class="subject-group-card" style="border-left-color: ${group.color}">
-            <div class="subject-group-title" style="color: ${group.color}">
-              ${group.icon} ${subjectName}
-            </div>
-            <div class="tasks-list">
-              ${group.tasks.map(t => `
-                <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-top: 8px; margin-bottom: 4px;">
-                  🗓️ ${t.date}
+              <div class="progress-box">
+                <div class="progress-text">
+                  <span>Выполнено заданий:</span>
+                  <span>${completedCount} из ${totalTasks} ${progressPercent === 100 ? '🎉 Молодец!' : ''}</span>
                 </div>
-                ${renderTaskHTML(t, savedState)}
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
+                </div>
+              </div>
 
-      container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному предмету</div>';
+              <div class="tasks-list">
+                ${filteredItems.map(t => renderTaskHTML(t, savedState)).join('')}
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному предмету</div>';
+      } else {
+        // По предметам
+        const grouped = {};
+        appData.homework.forEach(dayBlock => {
+          (dayBlock.items || []).forEach(item => {
+            if (selectedSubject !== 'all' && item.subject !== selectedSubject) return;
+            if (!grouped[item.subject]) {
+              grouped[item.subject] = { icon: item.icon, color: item.color, tasks: [] };
+            }
+            grouped[item.subject].tasks.push({ ...item, date: dayBlock.date });
+          });
+        });
+
+        let html = '';
+        for (const [subName, group] of Object.entries(grouped)) {
+          html += `
+            <div class="hw-day-card" style="border-left: 5px solid ${group.color}">
+              <div style="font-size:18px; font-weight:900; color: ${group.color}; margin-bottom: 10px;">
+                ${group.icon} ${subName}
+              </div>
+              <div class="tasks-list">
+                ${group.tasks.map(t => `
+                  <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin: 6px 0 2px 0;">
+                    🗓️ ${t.date}
+                  </div>
+                  ${renderTaskHTML(t, savedState)}
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+        container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному предмету</div>';
+      }
     }
 
-    // Шаблон одной галочки/задания
     function renderTaskHTML(t, savedState) {
       const isChecked = !!savedState[t.id];
       return `
