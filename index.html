@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дневник Успехов Саввы 🚀</title>
+  <title>Космическая Лего-Академия Саввы 🚀🧱</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #F4F7FB;
-      --card-bg: #FFFFFF;
-      --primary: #4F46E5;
-      --primary-light: #EEF2FF;
-      --accent-green: #10B981;
-      --accent-orange: #F97316;
+      --bg-space: #0F172A;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --lego-red: #EF4444;
+      --lego-blue: #3B82F6;
+      --lego-yellow: #F59E0B;
+      --lego-green: #10B981;
+      --lego-purple: #8B5CF6;
       --text-main: #1E293B;
       --text-muted: #64748B;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --shadow-sm: 0 4px 14px rgba(0,0,0,0.04);
-      --shadow-md: 0 8px 24px rgba(79, 70, 229, 0.15);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow-lego: 0 6px 0px rgba(0, 0, 0, 0.15);
     }
 
     * {
@@ -29,39 +29,67 @@
     }
 
     body {
-      background-color: var(--bg-color);
+      background-color: var(--bg-space);
+      /* Космический фон с легким паттерном звезд */
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 230px 80px, #ffffff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 300px 300px;
       color: var(--text-main);
       padding: 16px;
-      max-width: 1100px;
+      max-width: 1050px;
       margin: 0 auto;
     }
 
-    /* Мотивирующая шапка */
+    /* Шапка в стиле Космической Лего-Академии */
     .hero-header {
-      background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
+      border: 4px solid #6366F1;
       color: white;
       border-radius: var(--radius-lg);
       padding: 20px 16px;
       text-align: center;
       margin-bottom: 16px;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Эффект выступов Лего-кирпичиков сверху шапки */
+    .hero-header::before {
+      content: '🔴 🟡 🔵 🟢 🟣 🟡 🔴';
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      letter-spacing: 6px;
+      opacity: 0.7;
     }
 
     .hero-title {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 1000;
-      margin-bottom: 4px;
+      margin-top: 8px;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .hero-subtitle {
       font-size: 14px;
       font-weight: 800;
-      opacity: 0.95;
-      background: rgba(255, 255, 255, 0.18);
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(5px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     /* Панель синхронизации */
@@ -73,7 +101,8 @@
       background: var(--card-bg);
       padding: 10px 16px;
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-lego);
+      border-bottom: 4px solid #CBD5E1;
     }
 
     .last-update {
@@ -83,10 +112,10 @@
     }
 
     .btn-refresh {
-      background: var(--primary-light);
-      color: var(--primary);
+      background: var(--lego-yellow);
+      color: #000;
       border: none;
-      padding: 8px 14px;
+      padding: 8px 16px;
       border-radius: 10px;
       font-weight: 900;
       font-size: 13px;
@@ -94,45 +123,46 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 0px #D97706;
+      transition: all 0.1s ease;
     }
 
-    .btn-refresh:hover {
-      background: var(--primary);
-      color: white;
+    .btn-refresh:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0px #D97706;
     }
 
-    /* Вкладки */
+    /* Переключатель вкладок в виде Лего-модулей */
     .tabs-nav {
       display: flex;
       gap: 10px;
-      background: #E2E8F0;
-      padding: 5px;
-      border-radius: 16px;
       margin-bottom: 20px;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 12px;
+      padding: 14px;
       border: none;
-      background: transparent;
-      border-radius: 12px;
+      background: #1E293B;
+      border-radius: 16px;
       font-size: 16px;
       font-weight: 900;
-      color: var(--text-muted);
+      color: #94A3B8;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      border: 2px solid #334155;
     }
 
     .tab-btn.active {
-      background: var(--card-bg);
-      color: var(--primary);
-      box-shadow: var(--shadow-sm);
+      background: var(--lego-blue);
+      color: white;
+      border-color: #60A5FA;
+      box-shadow: 0 6px 0px #1D4ED8;
+      transform: translateY(-2px);
     }
 
     .tab-content {
@@ -143,7 +173,104 @@
       display: block;
     }
 
-    /* СЕТКА РАСПИСАНИЯ НА ОДНОМ ЭКРАНЕ */
+    /* Карточки предметов (Группировка по предметам) */
+    .subject-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border: 3px solid #E2E8F0;
+      position: relative;
+    }
+
+    .subject-header {
+      font-size: 20px;
+      font-weight: 1000;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed #E2E8F0;
+    }
+
+    .subject-title-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 3px 0px #CBD5E1;
+    }
+
+    .task-item:hover {
+      border-color: var(--lego-blue);
+      transform: translateY(-1px);
+    }
+
+    .task-checkbox {
+      width: 26px;
+      height: 26px;
+      accent-color: var(--lego-green);
+      cursor: pointer;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .task-date-badge {
+      font-size: 11px;
+      font-weight: 900;
+      background: #E2E8F0;
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .task-text {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    /* Выполненный Лего-модуль */
+    .task-item.completed {
+      background: #ECFDF5;
+      border-color: #6EE7B7;
+      box-shadow: 0 3px 0px #A7F3D0;
+    }
+
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+      color: #065F46;
+      opacity: 0.75;
+    }
+
+    .task-item.completed::after {
+      content: '🧩 Модуль собран!';
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--lego-green);
+      margin-left: auto;
+      align-self: center;
+      white-space: nowrap;
+    }
+
+    /* Сетка расписания */
     .schedule-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -154,42 +281,37 @@
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       padding: 16px;
-      box-shadow: var(--shadow-sm);
-      border: 2px solid #E2E8F0;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
-      transition: all 0.2s ease;
     }
 
-    /* Подсветка "Завтра в школу" */
     .day-card.is-tomorrow {
-      border-color: #F97316;
-      background: #FFF7ED;
-      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
+      border-color: var(--lego-yellow);
+      background: #FFFBEB;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
       transform: translateY(-2px);
     }
 
     .day-header {
       font-size: 17px;
       font-weight: 900;
-      color: var(--primary);
+      color: var(--lego-blue);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 4px;
     }
 
     .tomorrow-badge {
-      background: #F97316;
-      color: #FFF;
+      background: var(--lego-yellow);
+      color: #000;
       font-size: 10px;
       font-weight: 900;
       padding: 3px 8px;
       border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      box-shadow: 0 2px 0px #D97706;
     }
 
     .lesson-list {
@@ -211,14 +333,9 @@
       border: 1px solid #E2E8F0;
     }
 
-    .day-card.is-tomorrow .lesson-item {
-      background: #FFFFFF;
-      border-color: #FFEDD5;
-    }
-
     .lesson-num {
-      background: #EEF2FF;
-      color: var(--primary);
+      background: #DBEAFE;
+      color: var(--lego-blue);
       width: 24px;
       height: 24px;
       border-radius: 50%;
@@ -230,126 +347,10 @@
       flex-shrink: 0;
     }
 
-    /* Карточки домашнего задания */
-    .filter-panel {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-      background: var(--card-bg);
-      padding: 12px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .filter-select {
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: 2px solid #E2E8F0;
-      background: #F8FAFC;
-      font-weight: 800;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .hw-day-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid #E2E8F0;
-    }
-
-    .progress-box {
-      margin-bottom: 14px;
-      background: #F1F5F9;
-      border-radius: 10px;
-      padding: 10px 14px;
-    }
-
-    .progress-text {
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--text-main);
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .progress-bar-bg {
-      height: 8px;
-      background: #CBD5E1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--accent-green);
-      width: 0%;
-      transition: width 0.3s ease;
-      border-radius: 8px;
-    }
-
-    .task-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px;
-      border-radius: 14px;
-      background: #F8FAFC;
-      border: 2px solid #F1F5F9;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .task-checkbox {
-      width: 24px;
-      height: 24px;
-      accent-color: var(--accent-green);
-      cursor: pointer;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .task-details {
-      flex: 1;
-    }
-
-    .task-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 900;
-      font-size: 12px;
-      margin-bottom: 4px;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    .task-text {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1.4;
-    }
-
-    .task-item.completed {
-      background: #F0FDF4;
-      border-color: #86EFAC;
-    }
-
-    .task-item.completed .task-text {
-      text-decoration: line-through;
-      color: #166534;
-      opacity: 0.7;
-    }
-
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: var(--text-muted);
+      color: #94A3B8;
       font-size: 16px;
       font-weight: 800;
     }
@@ -357,41 +358,34 @@
 </head>
 <body>
 
-  <!-- Мотивирующий заголовок -->
+  <!-- Мотивирующий космический лего-баннер -->
   <header class="hero-header">
-    <div class="hero-title">🚀 Савва, ты настоящий исследователь!</div>
-    <div class="hero-subtitle">Каждый день — это шаг к новым успехам 🌟</div>
+    <div class="hero-title">👨‍🚀 Лего-Академия Исследователя Саввы</div>
+    <div class="hero-subtitle">
+      <span>👨‍🔬 Миссия: Собираем знания и покоряем новые вершины!</span>
+    </div>
   </header>
 
   <!-- Статус синхронизации -->
   <div class="sync-bar">
-    <div class="last-update" id="lastUpdate">Загрузка данных...</div>
+    <div class="last-update" id="lastUpdate">Связь с ЦУП...</div>
     <button class="btn-refresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
   </div>
 
-  <!-- Вкладки -->
+  <!-- Вкладки в стиле Лего -->
   <div class="tabs-nav">
-    <button class="tab-btn active" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
-    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">📅 Расписание уроков</button>
+    <button class="tab-btn active" onclick="switchTab('homeworkTab', this)">📚 Задания по предметам</button>
+    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">🎒 Расписание (Завтра в школу)</button>
   </div>
 
-  <!-- Вкладка: Домашка -->
+  <!-- Вкладка 1: Домашка (Группировка по предметам) -->
   <div id="homeworkTab" class="tab-content active">
-    <div class="filter-panel">
-      <select class="filter-select" id="viewMode" onchange="renderHomework()">
-        <option value="byDate">📅 По дням</option>
-        <option value="bySubject">📚 По предметам</option>
-      </select>
-      <select class="filter-select" id="subjectFilter" onchange="renderHomework()">
-        <option value="all">Все предметы</option>
-      </select>
-    </div>
-    <div id="homeworkContainer">Загрузка заданий...</div>
+    <div id="homeworkContainer">Загрузка космических заданий...</div>
   </div>
 
-  <!-- Вкладка: Расписание -->
+  <!-- Вкладка 2: Расписание -->
   <div id="scheduleTab" class="tab-content">
-    <div id="scheduleContainer">Загрузка расписания...</div>
+    <div id="scheduleContainer">Загрузка расписания уроков...</div>
   </div>
 
   <script>
@@ -407,7 +401,7 @@
 
     async function forceRefreshData() {
       const btn = document.querySelector('.btn-refresh');
-      btn.innerText = '⏳ Загрузка...';
+      btn.innerText = '⏳ Связь...';
       await loadData();
       btn.innerText = '🔄 Обновить данные';
     }
@@ -418,49 +412,92 @@
         if (!response.ok) throw new Error('data.json не найден');
         appData = await response.json();
         
-        document.getElementById('lastUpdate').innerText = 'Синхронизировано: ' + (appData.updatedAt || 'неизвестно');
+        document.getElementById('lastUpdate').innerText = 'ЦУП обновлён: ' + (appData.updatedAt || 'неизвестно');
         
-        populateSubjectFilter();
         renderSchedule();
-        renderHomework();
+        renderHomeworkBySubjects();
       } catch (error) {
         console.error('Ошибка:', error);
         document.getElementById('homeworkContainer').innerHTML = 
-          '<div class="empty-state">⚠️ Данные ещё не синхронизировались.<br>Проверь, создан ли файл <b>data.json</b> в репозитории на GitHub.</div>';
+          '<div class="empty-state">⚠️ Данные из таблицы ещё не поступали.<br>Нажмите кнопку «Обновить данные».</div>';
         document.getElementById('scheduleContainer').innerHTML = 
-          '<div class="empty-state">⚠️ Ожидание синхронизации расписания...</div>';
+          '<div class="empty-state">⚠️ Ожидание сигнала от расписания...</div>';
       }
     }
 
-    function populateSubjectFilter() {
-      const select = document.getElementById('subjectFilter');
-      const subjects = new Set();
-
-      if (appData.homework) {
-        appData.homework.forEach(day => {
-          if (day.items) {
-            day.items.forEach(item => { if (item.subject) subjects.add(item.subject); });
-          }
-        });
-      }
-
-      let options = '<option value="all">Все предметы</option>';
-      subjects.forEach(sub => options += `<option value="${sub}">${sub}</option>`);
-      select.innerHTML = options;
-    }
-
-    // Отрисовка расписания (СЕТКА НА ОДНОМ ЭКРАНЕ + ПОДСВЕТКА "ЗАВТРА")
-    function renderSchedule() {
-      const container = document.getElementById('scheduleContainer');
-      if (!appData.schedule || appData.schedule.length === 0) {
-        container.innerHTML = '<div class="empty-state">Расписание пока не заполнено в Google Таблице</div>';
+    // Отрисовка домашки с СТРОГОЙ ГРУППИРОВКОЙ ПО ПРЕДМЕТАМ
+    function renderHomeworkBySubjects() {
+      const container = document.getElementById('homeworkContainer');
+      if (!appData.homework || appData.homework.length === 0) {
+        container.innerHTML = '<div class="empty-state">🎉 Все космические задания выполнены! Отдыхаем! 🚀</div>';
         return;
       }
 
-      // Вычисляем завтрашний день недели
+      const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
+      const grouped = {};
+
+      // Группируем задания по названиям предметов
+      appData.homework.forEach(dayBlock => {
+        if (dayBlock.items) {
+          dayBlock.items.forEach(item => {
+            const sub = item.subject || 'Разное';
+            if (!grouped[sub]) {
+              grouped[sub] = {
+                icon: item.icon || '📌',
+                color: item.color || '#3B82F6',
+                tasks: []
+              };
+            }
+            grouped[sub].tasks.push({ ...item, date: dayBlock.date });
+          });
+        }
+      });
+
+      let html = '';
+      for (const [subjectName, group] of Object.entries(grouped)) {
+        html += `
+          <div class="subject-card" style="border-top: 6px solid ${group.color};">
+            <div class="subject-header">
+              <div class="subject-title-text" style="color: ${group.color};">
+                <span style="font-size:24px;">${group.icon}</span>
+                <span>${subjectName}</span>
+              </div>
+              <span style="font-size:12px; font-weight:800; color:var(--text-muted);">
+                Заданий: ${group.tasks.length}
+              </span>
+            </div>
+
+            <div class="tasks-list">
+              ${group.tasks.map(t => {
+                const isChecked = !!savedState[t.id];
+                return `
+                  <div class="task-item ${isChecked ? 'completed' : ''}" onclick="toggleTask('${t.id}')">
+                    <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}')">
+                    <div style="flex:1;">
+                      <div class="task-date-badge">🗓️ ${t.date}</div>
+                      <div class="task-text">${t.text}</div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // Отрисовка расписания уроков
+    function renderSchedule() {
+      const container = document.getElementById('scheduleContainer');
+      if (!appData.schedule || appData.schedule.length === 0) {
+        container.innerHTML = '<div class="empty-state">Расписание пока не заполнялось</div>';
+        return;
+      }
+
       const daysOfWeek = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
       const todayIndex = new Date().getDay();
-      // Если сегодня пятница (5) или суббота (6), завтрашний школьный день — понедельник
       let tomorrowIndex = (todayIndex + 1) % 7;
       if (tomorrowIndex === 0 || tomorrowIndex === 6) tomorrowIndex = 1; 
 
@@ -473,7 +510,7 @@
           <div class="day-card ${isTomorrow ? 'is-tomorrow' : ''}">
             <div class="day-header">
               <span>🗓️ ${item.day}</span>
-              ${isTomorrow ? '<span class="tomorrow-badge">🎒 Завтра в школу</span>' : ''}
+              ${isTomorrow ? '<span class="tomorrow-badge">🎒 Собираем завтра</span>' : ''}
             </div>
             <ul class="lesson-list">
               ${item.lessons.map((lesson, idx) => `
@@ -490,107 +527,11 @@
       container.innerHTML = html;
     }
 
-    // Отрисовка домашнего задания
-    function renderHomework() {
-      const container = document.getElementById('homeworkContainer');
-      if (!appData.homework || appData.homework.length === 0) {
-        container.innerHTML = '<div class="empty-state">Ура! На сегодня домашних заданий нет! 🎉</div>';
-        return;
-      }
-
-      const viewMode = document.getElementById('viewMode').value;
-      const selectedSubject = document.getElementById('subjectFilter').value;
-      const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
-
-      if (viewMode === 'byDate') {
-        let html = '';
-        appData.homework.forEach(dayBlock => {
-          const filteredItems = (dayBlock.items || []).filter(i => selectedSubject === 'all' || i.subject === selectedSubject);
-          if (filteredItems.length === 0) return;
-
-          const totalTasks = filteredItems.length;
-          let completedCount = 0;
-          filteredItems.forEach(t => { if (savedState[t.id]) completedCount++; });
-          const progressPercent = Math.round((completedCount / totalTasks) * 100);
-
-          html += `
-            <div class="hw-day-card">
-              <div style="font-size:18px; font-weight:900; color: var(--primary); margin-bottom: 10px;">
-                📌 ${dayBlock.date}
-              </div>
-
-              <div class="progress-box">
-                <div class="progress-text">
-                  <span>Выполнено заданий:</span>
-                  <span>${completedCount} из ${totalTasks} ${progressPercent === 100 ? '🎉 Молодец!' : ''}</span>
-                </div>
-                <div class="progress-bar-bg">
-                  <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
-                </div>
-              </div>
-
-              <div class="tasks-list">
-                ${filteredItems.map(t => renderTaskHTML(t, savedState)).join('')}
-              </div>
-            </div>
-          `;
-        });
-        container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному предмету</div>';
-      } else {
-        // По предметам
-        const grouped = {};
-        appData.homework.forEach(dayBlock => {
-          (dayBlock.items || []).forEach(item => {
-            if (selectedSubject !== 'all' && item.subject !== selectedSubject) return;
-            if (!grouped[item.subject]) {
-              grouped[item.subject] = { icon: item.icon, color: item.color, tasks: [] };
-            }
-            grouped[item.subject].tasks.push({ ...item, date: dayBlock.date });
-          });
-        });
-
-        let html = '';
-        for (const [subName, group] of Object.entries(grouped)) {
-          html += `
-            <div class="hw-day-card" style="border-left: 5px solid ${group.color}">
-              <div style="font-size:18px; font-weight:900; color: ${group.color}; margin-bottom: 10px;">
-                ${group.icon} ${subName}
-              </div>
-              <div class="tasks-list">
-                ${group.tasks.map(t => `
-                  <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin: 6px 0 2px 0;">
-                    🗓️ ${t.date}
-                  </div>
-                  ${renderTaskHTML(t, savedState)}
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }
-        container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному предмету</div>';
-      }
-    }
-
-    function renderTaskHTML(t, savedState) {
-      const isChecked = !!savedState[t.id];
-      return `
-        <div class="task-item ${isChecked ? 'completed' : ''}" onclick="toggleTask('${t.id}')">
-          <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}')">
-          <div class="task-details">
-            <div class="task-badge" style="color: ${t.color}; background: ${t.color}1A;">
-              ${t.icon} ${t.subject}
-            </div>
-            <div class="task-text">${t.text}</div>
-          </div>
-        </div>
-      `;
-    }
-
     function toggleTask(id) {
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
       savedState[id] = !savedState[id];
       localStorage.setItem('hw_completed', JSON.stringify(savedState));
-      renderHomework();
+      renderHomeworkBySubjects();
     }
 
     loadData();
