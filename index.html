@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Школьный Дневник — Савва</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <title>Дневник Успехов Саввы 🚀</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #F0F4F8;
+      --bg-color: #F4F7FB;
       --card-bg: #FFFFFF;
       --primary: #4F46E5;
+      --primary-light: #EEF2FF;
       --accent-green: #10B981;
+      --accent-yellow: #F59E0B;
       --accent-orange: #FF8A65;
       --text-main: #1E293B;
       --text-muted: #64748B;
-      --radius: 22px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-sm: 0 4px 14px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 24px rgba(79, 70, 229, 0.12);
     }
 
     * {
@@ -27,35 +32,90 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding: 20px 14px;
-      max-width: 850px;
+      padding: 20px 14px 40px 14px;
+      max-width: 880px;
       margin: 0 auto;
     }
 
-    /* Шапка */
-    header {
+    /* Персональная мотивирующая шапка */
+    .hero-header {
+      background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
       text-align: center;
       margin-bottom: 20px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
     }
 
-    header h1 {
-      font-size: 32px;
-      font-weight: 900;
-      color: var(--primary);
+    .hero-header::after {
+      content: '⭐';
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      opacity: 0.8;
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 1000;
+      margin-bottom: 8px;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      font-weight: 800;
+      opacity: 0.95;
+      background: rgba(255, 255, 255, 0.15);
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 12px;
+      margin-top: 4px;
+    }
+
+    .sync-bar {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
     }
 
     .last-update {
       font-size: 13px;
       color: var(--text-muted);
-      font-weight: 700;
-      margin-top: 4px;
+      font-weight: 800;
     }
 
-    /* Навигация по основным разделам */
+    .btn-refresh {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-refresh:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Разделы вкладок */
     .tabs-nav {
       display: flex;
       gap: 10px;
@@ -71,11 +131,11 @@
       border: none;
       background: transparent;
       border-radius: 14px;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -85,8 +145,7 @@
     .tab-btn.active {
       background: var(--card-bg);
       color: var(--primary);
-      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.15);
-      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
     }
 
     .tab-content {
@@ -97,7 +156,47 @@
       display: block;
     }
 
-    /* Горизонтальный скролл для расписания по дням */
+    /* Панель фильтров и группировок для домашки */
+    .filter-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+      background: var(--card-bg);
+      padding: 14px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--text-muted);
+    }
+
+    .filter-select {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 2px solid #E2E8F0;
+      background: #F8FAFC;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--text-main);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Горизонтальное расписание */
     .horizontal-days-wrapper {
       display: flex;
       gap: 16px;
@@ -107,24 +206,14 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .horizontal-days-wrapper::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .horizontal-days-wrapper::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
-      border-radius: 10px;
-    }
-
     .day-column {
       flex: 0 0 280px;
       scroll-snap-align: start;
       background: var(--card-bg);
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       padding: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      box-shadow: var(--shadow-sm);
       border: 2px solid transparent;
-      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
     }
@@ -132,7 +221,7 @@
     .day-column.is-today {
       border-color: #6366F1;
       background: #F5F3FF;
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.18);
+      box-shadow: var(--shadow-md);
     }
 
     .day-header {
@@ -152,10 +241,8 @@
       padding: 3px 8px;
       border-radius: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
-    /* Список уроков */
     .lesson-list {
       list-style: none;
       display: flex;
@@ -166,7 +253,7 @@
     .lesson-item {
       padding: 10px 14px;
       background: #F8FAFC;
-      border-radius: 14px;
+      border-radius: 12px;
       font-weight: 800;
       font-size: 15px;
       display: flex;
@@ -189,27 +276,26 @@
       flex-shrink: 0;
     }
 
-    /* Карточки домашнего задания */
+    /* Карточки домашки */
     .hw-day-card {
       background: var(--card-bg);
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       padding: 22px;
       margin-bottom: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-sm);
       border: 1px solid #E2E8F0;
     }
 
-    /* Шкала прогресса */
     .progress-box {
       margin-bottom: 16px;
       background: #F1F5F9;
       border-radius: 12px;
-      padding: 10px 14px;
+      padding: 12px 16px;
     }
 
     .progress-text {
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--text-main);
       display: flex;
       justify-content: space-between;
@@ -246,7 +332,6 @@
 
     .task-item:hover {
       border-color: #CBD5E1;
-      transform: translateY(-1px);
     }
 
     .task-checkbox {
@@ -280,7 +365,6 @@
       line-height: 1.45;
     }
 
-    /* Выполненное задание */
     .task-item.completed {
       background: #F0FDF4;
       border-color: #86EFAC;
@@ -290,6 +374,25 @@
       text-decoration: line-through;
       color: #166534;
       opacity: 0.7;
+    }
+
+    /* Группировка по предметам */
+    .subject-group-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+      border-left: 6px solid var(--primary);
+    }
+
+    .subject-group-title {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .empty-state {
@@ -303,10 +406,17 @@
 </head>
 <body>
 
-  <header>
-    <h1>🎈 Школьный Дневник</h1>
-    <div class="last-update" id="lastUpdate">Синхронизация с таблицей...</div>
+  <!-- Мотивирующий баннер для Саввы -->
+  <header class="hero-header">
+    <div class="hero-title">🚀 Савва, ты настоящий исследователь!</div>
+    <div class="hero-subtitle">Каждый день — это новая вершина знаний и успехов 🌟</div>
   </header>
+
+  <!-- Панель статуса и кнопки обновления -->
+  <div class="sync-bar">
+    <div class="last-update" id="lastUpdate">Загрузка данных...</div>
+    <button class="btn-refresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
+  </div>
 
   <!-- Навигация -->
   <div class="tabs-nav">
@@ -314,12 +424,31 @@
     <button class="tab-btn" onclick="switchTab('scheduleTab', this)">📅 Расписание</button>
   </div>
 
-  <!-- Вкладка: Домашка -->
+  <!-- Вкладка 1: Домашка -->
   <div id="homeworkTab" class="tab-content active">
+    
+    <!-- Панель фильтров: Режим отображения и выбор предмета -->
+    <div class="filter-panel">
+      <div class="filter-group">
+        <span class="filter-label">Вид:</span>
+        <select class="filter-select" id="viewMode" onchange="renderHomework()">
+          <option value="byDate">📅 По дням</option>
+          <option value="bySubject">📚 По предметам</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Предмет:</span>
+        <select class="filter-select" id="subjectFilter" onchange="renderHomework()">
+          <option value="all">Все предметы</option>
+        </select>
+      </div>
+    </div>
+
     <div id="homeworkContainer">Загрузка заданий...</div>
   </div>
 
-  <!-- Вкладка: Расписание -->
+  <!-- Вкладка 2: Расписание -->
   <div id="scheduleTab" class="tab-content">
     <div id="scheduleContainer">Загрузка расписания...</div>
   </div>
@@ -335,24 +464,52 @@
       btn.classList.add('active');
     }
 
+    // Принудительное обновление данных из таблицы без кэша
+    async function forceRefreshData() {
+      const btn = document.querySelector('.btn-refresh');
+      btn.innerText = '⏳ Загрузка...';
+      await loadData();
+      btn.innerText = '🔄 Обновить данные';
+    }
+
     async function loadData() {
       try {
+        // Добавляем случайный параметр v= timestamp, чтобы мгновенно подтягивать свежий data.json
         const response = await fetch('data.json?v=' + new Date().getTime());
         if (!response.ok) throw new Error('Файл не найден');
         appData = await response.json();
         
-        document.getElementById('lastUpdate').innerText = 'Обновлено из таблицы: ' + (appData.updatedAt || 'неизвестно');
+        document.getElementById('lastUpdate').innerText = 'Синхронизировано: ' + (appData.updatedAt || 'неизвестно');
         
+        populateSubjectFilter();
         renderSchedule();
         renderHomework();
       } catch (error) {
-        console.error('Ошибка загрузки:', error);
-        document.getElementById('homeworkContainer').innerHTML = '<div class="empty-state">⏳ Ожидание первой синхронизации из Google Таблицы...</div>';
-        document.getElementById('scheduleContainer').innerHTML = '<div class="empty-state">⏳ Расписание загружается...</div>';
+        console.error('Ошибка:', error);
+        document.getElementById('homeworkContainer').innerHTML = '<div class="empty-state">⏳ Ожидание обновления из Google Таблицы... Нажми «Обновить данные».</div>';
+        document.getElementById('scheduleContainer').innerHTML = '<div class="empty-state">⏳ Загрузка расписания...</div>';
       }
     }
 
-    // Отрисовка расписания (горизонтальная лента карточек)
+    // Заполнение списка предметов в фильтре
+    function populateSubjectFilter() {
+      const select = document.getElementById('subjectFilter');
+      const subjects = new Set();
+
+      appData.homework.forEach(day => {
+        day.items.forEach(item => {
+          if (item.subject) subjects.add(item.subject);
+        });
+      });
+
+      let options = '<option value="all">Все предметы</option>';
+      subjects.forEach(sub => {
+        options += `<option value="${sub}">${sub}</option>`;
+      });
+      select.innerHTML = options;
+    }
+
+    // Отрисовка расписания
     function renderSchedule() {
       const container = document.getElementById('scheduleContainer');
       if (!appData.schedule || appData.schedule.length === 0) {
@@ -360,7 +517,6 @@
         return;
       }
 
-      // Определяем день недели для подсветки "Сегодня"
       const daysOfWeek = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
       const todayName = daysOfWeek[new Date().getDay()].toLowerCase();
 
@@ -388,25 +544,36 @@
       container.innerHTML = html;
     }
 
-    // Отрисовка домашнего задания
+    // Отрисовка домашнего задания с поддержкой режимов просмотра
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       if (!appData.homework || appData.homework.length === 0) {
-        container.innerHTML = '<div class="empty-state">Ура! На сегодня домашних заданий нет! ☀️</div>';
+        container.innerHTML = '<div class="empty-state">Ура! Домашних заданий нет! 🎉</div>';
         return;
       }
 
+      const viewMode = document.getElementById('viewMode').value;
+      const selectedSubject = document.getElementById('subjectFilter').value;
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
 
+      if (viewMode === 'byDate') {
+        renderByDate(container, selectedSubject, savedState);
+      } else {
+        renderBySubject(container, selectedSubject, savedState);
+      }
+    }
+
+    // Отрисовка по дням
+    function renderByDate(container, filterSub, savedState) {
       let html = '';
+      
       appData.homework.forEach(dayBlock => {
-        const totalTasks = dayBlock.items.length;
+        const filteredItems = dayBlock.items.filter(i => filterSub === 'all' || i.subject === filterSub);
+        if (filteredItems.length === 0) return;
+
+        const totalTasks = filteredItems.length;
         let completedCount = 0;
-
-        dayBlock.items.forEach(t => {
-          if (savedState[t.id]) completedCount++;
-        });
-
+        filteredItems.forEach(t => { if (savedState[t.id]) completedCount++; });
         const progressPercent = Math.round((completedCount / totalTasks) * 100);
 
         html += `
@@ -415,11 +582,10 @@
               📌 ${dayBlock.date}
             </div>
 
-            <!-- Интерактивный прогресс -->
             <div class="progress-box">
               <div class="progress-text">
                 <span>Прогресс выполнения:</span>
-                <span>${completedCount} из ${totalTasks} ${progressPercent === 100 ? '🎉 Готово!' : ''}</span>
+                <span>${completedCount} из ${totalTasks} ${progressPercent === 100 ? '🎉 Молодец!' : ''}</span>
               </div>
               <div class="progress-bar-bg">
                 <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
@@ -427,25 +593,69 @@
             </div>
 
             <div class="tasks-list">
-              ${dayBlock.items.map(t => {
-                const isChecked = !!savedState[t.id];
-                return `
-                  <div class="task-item ${isChecked ? 'completed' : ''}" onclick="toggleTask('${t.id}')">
-                    <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}')">
-                    <div class="task-details">
-                      <div class="task-badge" style="color: ${t.color}; background:${t.color}1A;">
-                        ${t.icon}${t.subject}
-                      </div>
-                      <div class="task-text">${t.text}</div>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
+              ${filteredItems.map(t => renderTaskHTML(t, savedState)).join('')}
             </div>
           </div>
         `;
       });
-      container.innerHTML = html;
+
+      container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному фильтру</div>';
+    }
+
+    // Отрисовка с группировкой по предметам
+    function renderBySubject(container, filterSub, savedState) {
+      const grouped = {};
+
+      appData.homework.forEach(dayBlock => {
+        dayBlock.items.forEach(item => {
+          if (filterSub !== 'all' && item.subject !== filterSub) return;
+          if (!grouped[item.subject]) {
+            grouped[item.subject] = {
+              icon: item.icon,
+              color: item.color,
+              tasks: []
+            };
+          }
+          grouped[item.subject].tasks.push({ ...item, date: dayBlock.date });
+        });
+      });
+
+      let html = '';
+      for (const [subjectName, group] of Object.entries(grouped)) {
+        html += `
+          <div class="subject-group-card" style="border-left-color: ${group.color}">
+            <div class="subject-group-title" style="color: ${group.color}">
+              ${group.icon} ${subjectName}
+            </div>
+            <div class="tasks-list">
+              ${group.tasks.map(t => `
+                <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-top: 8px; margin-bottom: 4px;">
+                  🗓️ ${t.date}
+                </div>
+                ${renderTaskHTML(t, savedState)}
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html || '<div class="empty-state">Нет заданий по выбранному предмету</div>';
+    }
+
+    // Шаблон одной галочки/задания
+    function renderTaskHTML(t, savedState) {
+      const isChecked = !!savedState[t.id];
+      return `
+        <div class="task-item ${isChecked ? 'completed' : ''}" onclick="toggleTask('${t.id}')">
+          <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}')">
+          <div class="task-details">
+            <div class="task-badge" style="color: ${t.color}; background: ${t.color}1A;">
+              ${t.icon} ${t.subject}
+            </div>
+            <div class="task-text">${t.text}</div>
+          </div>
+        </div>
+      `;
     }
 
     function toggleTask(id) {
