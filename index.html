@@ -53,7 +53,6 @@
       text-align: center;
       margin-bottom: 16px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-      position: relative;
     }
 
     .hero-title {
@@ -290,7 +289,6 @@
       border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
-      cursor: pointer;
     }
 
     .day-card.is-next-school-day {
@@ -430,7 +428,6 @@
 
   <!-- Вкладка: Домашка -->
   <div id="homeworkTab" class="tab-content active">
-    
     <div class="filter-panel">
       <span class="filter-label">Период заданий:</span>
       <select class="filter-select" id="periodFilter" onchange="renderHomeworkBySubjects()">
@@ -439,7 +436,6 @@
         <option value="uncompleted">⏳ Только невыполненные</option>
       </select>
     </div>
-
     <div id="homeworkContainer">Загрузка космических заданий...</div>
   </div>
 
@@ -447,21 +443,17 @@
   <div id="scheduleTab" class="tab-content">
     <div id="scheduleContainer">Загрузка расписания уроков...</div>
 
-    <!-- Чек-лист сбора портфеля -->
     <div class="pack-checklist-card">
       <div class="pack-title">
         <span>🎒 Вечерний Лего-Чеклист: Собираем портфель в школу</span>
       </div>
-      <div class="pack-grid" id="packChecklistGrid">
-        <!-- Генерируется скриптом -->
-      </div>
+      <div class="pack-grid" id="packChecklistGrid"></div>
     </div>
   </div>
 
   <script>
     let appData = { schedule: [], homework: [] };
 
-    // Базовый список вещей для вечернего сбора
     const PACK_ITEMS = [
       { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
       { id: 'p_water', text: '💧 Бутылочка с водой' },
@@ -506,28 +498,34 @@
       }
     }
 
-    // Красивое форматирование даты текстом (например: "16 октября, Пятница")
+    // Безопасное и красивое форматирование даты текстом
     function formatPrettyDate(rawDateStr) {
       if (!rawDateStr) return '';
-      // Если дата уже содержит слова, отдаем аккуратную строку
+      
+      // Словарь месяцев
       const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
       
+      // Ищем формат вида 16.10 или 16/10
       const match = rawDateStr.match(/(\d{1,2})[\.\/](\d{1,2})/);
       if (match) {
-        const dayNum = parseInt(match[1]);
-        const monthNum = parseInt(match[2]) - 1;
+        const dayNum = parseInt(match[1], 10);
+        const monthNum = parseInt(match[2], 10) - 1;
         const monthName = months[monthNum] || '';
         
-        // Извлекаем день недели если есть
-        let dayOfWeek = rawDateStr.split('-')[1] || rawDateStr.split(' ')[1] || '';
-        dayOfWeek = dayOfWeek.trim();
+        // Пытаемся найти день недели в строке (например, ПЕТЪК или понедельник)
+        let dayOfWeek = '';
+        const parts = rawDateStr.split(/[-–—]/);
+        if (parts.length > 1) {
+          dayOfWeek = parts[parts.length - 1].trim();
+        }
 
         return `${dayNum} ${monthName}${dayOfWeek ? ', ' + dayOfWeek : ''}`;
       }
+      
+      // Если дата не содержит цифр с точкой, возвращаем исходную строку как есть
       return rawDateStr;
     }
 
-    // Отрисовка домашки по СЕКЦИЯМ ПРЕДМЕТОВ
     function renderHomeworkBySubjects() {
       const container = document.getElementById('homeworkContainer');
       if (!appData.homework || appData.homework.length === 0) {
@@ -591,7 +589,6 @@
       container.innerHTML = html || '<div class="empty-state">В этом разделе пока нет заданий! 👍</div>';
     }
 
-    // Отрисовка расписания с выделением СЛЕДУЮЩЕГО ШКОЛЬНОГО ДНЯ
     function renderSchedule() {
       const container = document.getElementById('scheduleContainer');
       if (!appData.schedule || appData.schedule.length === 0) {
@@ -602,7 +599,6 @@
       const daysOfWeek = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
       const todayIndex = new Date().getDay();
       
-      // Определяем следующий учебный день (если сегодня пятница/суббота, следующий — понедельник)
       let nextSchoolIndex = (todayIndex + 1) % 7;
       if (nextSchoolIndex === 0 || nextSchoolIndex === 6) nextSchoolIndex = 1;
 
@@ -632,7 +628,6 @@
       container.innerHTML = html;
     }
 
-    // Чек-лист сбора в школу
     function renderPackChecklist() {
       const grid = document.getElementById('packChecklistGrid');
       const packState = JSON.parse(localStorage.getItem('pack_completed') || '{}');
