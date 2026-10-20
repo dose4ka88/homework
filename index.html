@@ -9,17 +9,17 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --bg-space: #0F172A;
-      --card-bg: rgba(255, 255, 255, 0.96);
+      --bg-space: #0B0F19;
+      --card-bg: rgba(255, 255, 255, 0.95);
       --lego-red: #EF4444;
       --lego-blue: #3B82F6;
       --lego-yellow: #F59E0B;
       --lego-green: #10B981;
       --text-main: #1E293B;
       --text-muted: #64748B;
-      --radius-lg: 22px;
+      --radius-lg: 24px;
       --radius-md: 16px;
-      --shadow-lego: 0 6px 0px rgba(0, 0, 0, 0.15);
+      --shadow-lego: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     * {
@@ -31,57 +31,100 @@
 
     body {
       background-color: var(--bg-space);
-      background-image: 
-        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
-      background-repeat: repeat;
-      background-size: 300px 300px;
       color: var(--text-main);
-      padding: 16px;
+      padding: 20px 16px 50px 16px;
       max-width: 1050px;
       margin: 0 auto;
+      position: relative;
+      overflow-x: hidden;
     }
 
+    /* АНИМИРОВАННЫЕ ЛЕТАЮЩИЕ КУБИКИ ЛЕГО НА ФОНЕ */
+    .lego-bg-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .lego-brick {
+      position: absolute;
+      opacity: 0.18;
+      border-radius: 6px;
+      animation: floatBrick 15s infinite linear;
+    }
+
+    /* Имитация лего-шипов на кубиках */
+    .lego-brick::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      right: 4px;
+      height: 6px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 3px;
+    }
+
+    .brick-1 { width: 60px; height: 30px; background: var(--lego-yellow); top: 10%; left: 5%; animation-duration: 22s; animation-delay: 0s; }
+    .brick-2 { width: 40px; height: 40px; background: var(--lego-red); top: 70%; left: 85%; animation-duration: 18s; animation-delay: 2s; }
+    .brick-3 { width: 80px; height: 30px; background: var(--lego-blue); top: 40%; left: 90%; animation-duration: 25s; animation-delay: 1s; }
+    .brick-4 { width: 50px; height: 50px; background: var(--lego-green); top: 80%; left: 10%; animation-duration: 20s; animation-delay: 4s; }
+    .brick-5 { width: 45px; height: 30px; background: #EC4899; top: 25%; left: 80%; animation-duration: 16s; animation-delay: 3s; }
+
+    @keyframes floatBrick {
+      0% { transform: translateY(0) rotate(0deg) scale(1); }
+      50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
+      100% { transform: translateY(0) rotate(360deg) scale(1); }
+    }
+
+    /* ШАПКА В ДУХЕ ТОПОВЫХ ПЛАТФОРМ */
     .hero-header {
-      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
-      border: 4px solid #6366F1;
+      background: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #8B5CF6 100%);
+      border: 4px solid rgba(255, 255, 255, 0.2);
       color: white;
       border-radius: var(--radius-lg);
-      padding: 20px 16px;
+      padding: 28px 20px;
       text-align: center;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+      box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4);
+      position: relative;
     }
 
     .hero-title {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 1000;
-      margin-bottom: 6px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      margin-bottom: 8px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      letter-spacing: -0.5px;
     }
 
     .hero-subtitle {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 800;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
+    /* ПАНЕЛЬ СИНХРОНИЗАЦИИ */
     .sync-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       background: var(--card-bg);
-      padding: 10px 16px;
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-lego);
       border-bottom: 4px solid #CBD5E1;
@@ -97,8 +140,8 @@
       background: var(--lego-yellow);
       color: #000;
       border: none;
-      padding: 8px 16px;
-      border-radius: 10px;
+      padding: 10px 18px;
+      border-radius: 12px;
       font-weight: 900;
       font-size: 13px;
       cursor: pointer;
@@ -106,7 +149,12 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 0px #D97706;
-      transition: all 0.1s ease;
+      transition: all 0.15s ease;
+    }
+
+    .btn-refresh:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
     }
 
     .btn-refresh:active {
@@ -114,35 +162,43 @@
       box-shadow: 0 2px 0px #D97706;
     }
 
+    /* ВКЛАДКИ */
     .tabs-nav {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 22px;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 14px;
+      padding: 16px;
       border: none;
-      background: #1E293B;
-      border-radius: 16px;
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
       font-size: 16px;
       font-weight: 900;
       color: #94A3B8;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      border: 2px solid #334155;
+      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .tab-btn:hover {
+      color: #FFF;
+      background: rgba(51, 65, 85, 0.9);
     }
 
     .tab-btn.active {
       background: var(--lego-blue);
       color: white;
       border-color: #60A5FA;
-      box-shadow: 0 6px 0px #1D4ED8;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4), 0 4px 0px #1D4ED8;
       transform: translateY(-2px);
     }
 
@@ -152,16 +208,23 @@
 
     .tab-content.active {
       display: block;
+      animation: fadeIn 0.3s ease;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ФИЛЬТР ДОМАШКИ */
     .filter-panel {
       display: flex;
       align-items: center;
       gap: 12px;
       background: var(--card-bg);
-      padding: 12px 18px;
+      padding: 14px 20px;
       border-radius: var(--radius-md);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       box-shadow: var(--shadow-lego);
       border-left: 6px solid var(--lego-blue);
     }
@@ -173,8 +236,8 @@
     }
 
     .filter-select {
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 9px 14px;
+      border-radius: 12px;
       border: 2px solid #CBD5E1;
       font-weight: 800;
       font-size: 14px;
@@ -182,30 +245,35 @@
       background: #F8FAFC;
       color: var(--text-main);
       cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--lego-blue);
     }
 
     /* КАРТОЧКА ДНЯ ДОМАШКИ */
     .hw-day-block {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 22px;
-      margin-bottom: 22px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-      border: 3px solid #E2E8F0;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border: 3px solid rgba(226, 232, 240, 0.8);
       transition: all 0.3s ease;
     }
 
     .hw-day-block.day-completed {
       border: 4px solid #F59E0B !important;
-      background: #FEF3C7 !important;
-      box-shadow: 0 0 30px rgba(245, 158, 11, 0.4) !important;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45) !important;
     }
 
     .day-title-header {
       font-size: 22px;
       font-weight: 1000;
       color: var(--lego-blue);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -218,16 +286,22 @@
       color: #000;
       font-weight: 1000;
       font-size: 13px;
-      padding: 4px 12px;
-      border-radius: 10px;
-      box-shadow: 0 3px 0px #D97706;
+      padding: 5px 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 0px #D97706;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
     }
 
     .progress-box {
       background: #F1F5F9;
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 18px;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
     }
 
     .progress-text {
@@ -235,7 +309,7 @@
       font-weight: 900;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .progress-bar-bg {
@@ -250,46 +324,53 @@
       background: var(--lego-green);
       width: 0%;
       transition: width 0.4s ease;
+      border-radius: 10px;
     }
 
     .subject-subgroup {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       background: #FFFFFF;
-      padding: 14px;
+      padding: 16px;
       border-radius: var(--radius-md);
       border-left: 6px solid var(--lego-blue);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border-top: 1px solid #F1F5F9;
+      border-right: 1px solid #F1F5F9;
+      border-bottom: 1px solid #F1F5F9;
     }
 
     .subject-subgroup-title {
       font-size: 17px;
       font-weight: 900;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .task-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 12px;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
       background: #F8FAFC;
       border: 2px solid #E2E8F0;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
 
     .task-item:hover {
       border-color: var(--lego-blue);
+      transform: translateY(-1px);
+      background: #FFFFFF;
     }
 
     .task-checkbox {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       accent-color: var(--lego-green);
       cursor: pointer;
       margin-top: 2px;
@@ -317,45 +398,49 @@
     /* СЕТКА РАСПИСАНИЯ */
     .schedule-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
       margin-bottom: 24px;
     }
 
     .day-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
       border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
       transition: all 0.25s ease;
     }
 
+    .day-card:hover {
+      transform: translateY(-2px);
+    }
+
     .day-card.is-next-school-day {
       border: 4px solid #10B981 !important;
-      background: #F0FDF4 !important;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.6), 0 8px 20px rgba(16, 185, 129, 0.3) !important;
+      background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%) !important;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.5), 0 8px 20px rgba(16, 185, 129, 0.2) !important;
       transform: translateY(-4px);
     }
 
     .day-card.is-today {
       border: 3px solid #3B82F6 !important;
-      background: #EFF6FF !important;
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4) !important;
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%) !important;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.35) !important;
     }
 
     .day-header {
       font-size: 18px;
       font-weight: 900;
       color: var(--lego-blue);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 6px;
     }
 
     .next-day-badge {
@@ -363,9 +448,9 @@
       color: #FFFFFF;
       font-size: 11px;
       font-weight: 1000;
-      padding: 4px 10px;
+      padding: 5px 10px;
       border-radius: 8px;
-      box-shadow: 0 2px 0px #059669;
+      box-shadow: 0 3px 0px #059669;
       animation: pulseGreen 2s infinite;
     }
 
@@ -374,7 +459,7 @@
       color: #FFFFFF;
       font-size: 10px;
       font-weight: 900;
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 6px;
     }
 
@@ -392,9 +477,9 @@
     }
 
     .lesson-item {
-      padding: 8px 10px;
+      padding: 9px 12px;
       background: #F8FAFC;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 800;
       font-size: 14px;
       display: flex;
@@ -406,8 +491,8 @@
     .lesson-num {
       background: #DBEAFE;
       color: var(--lego-blue);
-      width: 24px;
-      height: 24px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -417,19 +502,20 @@
       flex-shrink: 0;
     }
 
+    /* ЧЕК-ЛИСТ СБОРА ПОРТФЕЛЯ */
     .pack-checklist-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       border: 3px solid var(--lego-yellow);
     }
 
     .pack-title {
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 1000;
       color: var(--text-main);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -437,21 +523,27 @@
 
     .pack-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
     }
 
     .pack-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       background: #F8FAFC;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 2px solid #E2E8F0;
       font-weight: 800;
       font-size: 14px;
       cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pack-item:hover {
+      border-color: var(--lego-yellow);
+      background: #FFFFFF;
     }
 
     .pack-item.checked {
@@ -463,16 +555,26 @@
 
     .empty-state {
       text-align: center;
-      padding: 50px 20px;
+      padding: 60px 20px;
       color: #94A3B8;
       font-size: 18px;
       font-weight: 800;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lego);
     }
   </style>
 </head>
 <body>
+
+  <!-- Летающие лего-кубики на фоне -->
+  <div class="lego-bg-shapes">
+    <div class="lego-brick brick-1"></div>
+    <div class="lego-brick brick-2"></div>
+    <div class="lego-brick brick-3"></div>
+    <div class="lego-brick brick-4"></div>
+    <div class="lego-brick brick-5"></div>
+  </div>
 
   <header class="hero-header">
     <div class="hero-title">👨‍🚀 Лего-Академия Исследователя Саввы</div>
@@ -540,7 +642,6 @@
       6: ['събота', 'суббота', 'saturday', 'сб']
     };
 
-    // Расширенный словарь для определения предметов
     const SUBJECT_CONFIG = {
       'БЕЛ': { name: 'Български език и литература', icon: '📖', color: '#3B82F6' },
       'БЪЛГАРСКИ': { name: 'Български език и литература', icon: '📖', color: '#3B82F6' },
@@ -618,15 +719,11 @@
       }
     }
 
-    // ВСЕЯДНЫЙ И НАДЕЖНЫЙ ПАРСЕР ТЕКСТА
     function parseRawTextToSubjects(rawItems) {
       const parsedSubjects = {};
 
       rawItems.forEach(item => {
         const fullText = item.text || '';
-        
-        // Разделяем текст по запятым, точкам с запятой или переносам строк, либо ищем слова-метки предметов
-        // Проверяем наличие ключевых слов в тексте
         let foundSubject = null;
         const upperText = fullText.toUpperCase();
 
@@ -647,7 +744,6 @@
           }
           parsedSubjects[foundSubject.name].tasks.push(fullText);
         } else {
-          // Если предмет не распознан по ключевым словам, проверяем первую строку или относим к Общим заданиям
           const fallbackName = item.subject && item.subject !== 'Другое' ? item.subject : 'Школьные задания';
           if (!parsedSubjects[fallbackName]) {
             parsedSubjects[fallbackName] = {
@@ -677,7 +773,6 @@
 
       appData.homework.forEach((dayBlock, dayIndex) => {
         const prettyDate = formatPrettyDate(dayBlock.date);
-        
         const parsedSubjectGroups = parseRawTextToSubjects(dayBlock.items || []);
 
         let dayTotalTasks = 0;
