@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Космическая Лего-Академия Саввы 🚀🧱</title>
+  <title>Дневник Исследователя Саввы 🚀🌌</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
   <!-- Библиотека canvas-confetti для праздничного салюта -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -58,7 +58,6 @@
       animation: floatBrick 15s infinite linear;
     }
 
-    /* Имитация лего-шипов на кубиках */
     .lego-brick::after {
       content: '';
       position: absolute;
@@ -70,11 +69,11 @@
       border-radius: 3px;
     }
 
-    .brick-1 { width: 60px; height: 30px; background: var(--lego-yellow); top: 10%; left: 5%; animation-duration: 22s; animation-delay: 0s; }
-    .brick-2 { width: 40px; height: 40px; background: var(--lego-red); top: 70%; left: 85%; animation-duration: 18s; animation-delay: 2s; }
-    .brick-3 { width: 80px; height: 30px; background: var(--lego-blue); top: 40%; left: 90%; animation-duration: 25s; animation-delay: 1s; }
-    .brick-4 { width: 50px; height: 50px; background: var(--lego-green); top: 80%; left: 10%; animation-duration: 20s; animation-delay: 4s; }
-    .brick-5 { width: 45px; height: 30px; background: #EC4899; top: 25%; left: 80%; animation-duration: 16s; animation-delay: 3s; }
+    .brick-1 { width: 60px; height: 30px; background: var(--lego-yellow); top: 10%; left: 5%; animation-duration: 22s; }
+    .brick-2 { width: 40px; height: 40px; background: var(--lego-red); top: 70%; left: 85%; animation-duration: 18s; }
+    .brick-3 { width: 80px; height: 30px; background: var(--lego-blue); top: 40%; left: 90%; animation-duration: 25s; }
+    .brick-4 { width: 50px; height: 50px; background: var(--lego-green); top: 80%; left: 10%; animation-duration: 20s; }
+    .brick-5 { width: 45px; height: 30px; background: #EC4899; top: 25%; left: 80%; animation-duration: 16s; }
 
     @keyframes floatBrick {
       0% { transform: translateY(0) rotate(0deg) scale(1); }
@@ -82,38 +81,76 @@
       100% { transform: translateY(0) rotate(360deg) scale(1); }
     }
 
-    /* ШАПКА В ДУХЕ ТОПОВЫХ ПЛАТФОРМ */
+    /* УЛЬТРАКОСМИЧЕСКАЯ И ИНТЕРАКТИВНАЯ ШАПКА */
     .hero-header {
-      background: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #8B5CF6 100%);
-      border: 4px solid rgba(255, 255, 255, 0.2);
+      background: radial-gradient(circle at 50% 50%, #312E81 0%, #1E1B4B 60%, #0F172A 100%);
+      border: 3px solid #6366F1;
       color: white;
       border-radius: var(--radius-lg);
-      padding: 28px 20px;
+      padding: 30px 20px;
       text-align: center;
       margin-bottom: 20px;
-      box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4);
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.4), inset 0 0 20px rgba(99, 102, 241, 0.2);
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Лазерная анимированная линия сканирования в шапке */
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #38BDF8, transparent);
+      animation: laserScan 4s infinite linear;
+    }
+
+    @keyframes laserScan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .hero-badge-space {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38BDF8;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
 
     .hero-title {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 1000;
       margin-bottom: 8px;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      background: linear-gradient(135deg, #FFFFFF 30%, #93C5FD 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
       letter-spacing: -0.5px;
     }
 
     .hero-subtitle {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      background: rgba(255, 255, 255, 0.2);
+      color: #E2E8F0;
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 6px 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
     /* ПАНЕЛЬ СИНХРОНИЗАЦИИ */
@@ -245,11 +282,6 @@
       background: #F8FAFC;
       color: var(--text-main);
       cursor: pointer;
-      transition: border-color 0.2s;
-    }
-
-    .filter-select:focus {
-      border-color: var(--lego-blue);
     }
 
     /* КАРТОЧКА ДНЯ ДОМАШКИ */
@@ -576,10 +608,12 @@
     <div class="lego-brick brick-5"></div>
   </div>
 
+  <!-- Персонализированный космический заголовок -->
   <header class="hero-header">
-    <div class="hero-title">👨‍🚀 Лего-Академия Исследователя Саввы</div>
+    <div class="hero-badge-space">🚀 Бортовой компьютер сектор №1</div>
+    <div class="hero-title">Мой дневник: Савва</div>
     <div class="hero-subtitle">
-      <span>👨‍🔬 Миссия: Выполняем задания и получаем космические победы!</span>
+      <span>🌌 Академия Знаний &bull; Миссия активна</span>
     </div>
   </header>
 
@@ -595,7 +629,6 @@
 
   <!-- Вкладка 1: Домашка -->
   <div id="homeworkTab" class="tab-content active">
-    
     <div class="filter-panel">
       <span class="filter-label">Показать:</span>
       <select class="filter-select" id="statusFilter" onchange="renderHomework()">
