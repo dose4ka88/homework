@@ -540,9 +540,10 @@
       6: ['събота', 'суббота', 'saturday', 'сб']
     };
 
-    // Словари предметных иконок и цветов
+    // Расширенный словарь для определения предметов
     const SUBJECT_CONFIG = {
       'БЕЛ': { name: 'Български език и литература', icon: '📖', color: '#3B82F6' },
+      'БЪЛГАРСКИ': { name: 'Български език и литература', icon: '📖', color: '#3B82F6' },
       'МАТЕМАТИКА': { name: 'Математика', icon: '🔢', color: '#10B981' },
       'МАТ': { name: 'Математика', icon: '🔢', color: '#10B981' },
       'РОДИНОЗНАНИЕ': { name: 'Родинознание', icon: '🌍', color: '#F59E0B' },
@@ -617,48 +618,41 @@
       }
     }
 
-    // УМНЫЙ ПАРСЕР: Разделяет длинный текст из Вайбера на отдельные предметы
+    // ВСЕЯДНЫЙ И НАДЕЖНЫЙ ПАРСЕР ТЕКСТА
     function parseRawTextToSubjects(rawItems) {
       const parsedSubjects = {};
 
       rawItems.forEach(item => {
         const fullText = item.text || '';
         
-        // Регулярное выражение для поиска ключевых предметов (например, БЕЛ:, Математика -, РОДИНОЗНАНИЕ:)
-        const pattern = /(БЕЛ|МАТЕМАТИКА|МАТ|РОДИНОЗНАНИЕ|РОД|ФВС|МУЗИКА|МУЗ|ИЗО|ТЕХНОЛОГИИ)[:\s–-]+/gi;
-        
-        const matches = [...fullText.matchAll(pattern)];
+        // Разделяем текст по запятым, точкам с запятой или переносам строк, либо ищем слова-метки предметов
+        // Проверяем наличие ключевых слов в тексте
+        let foundSubject = null;
+        const upperText = fullText.toUpperCase();
 
-        if (matches.length > 0) {
-          for (let i = 0; i < matches.length; i++) {
-            const currentMatch = matches[i];
-            const keyUpper = currentMatch[1].toUpperCase();
-            
-            const startIdx = currentMatch.index + currentMatch[0].length;
-            const endIdx = (i + 1 < matches.length) ? matches[i + 1].index : fullText.length;
-            
-            const taskText = fullText.substring(startIdx, endIdx).trim();
-
-            const config = SUBJECT_CONFIG[keyUpper] || { name: keyUpper, icon: '📌', color: '#3B82F6' };
-            
-            if (!parsedSubjects[config.name]) {
-              parsedSubjects[config.name] = {
-                icon: config.icon,
-                color: config.color,
-                tasks: []
-              };
-            }
-            if (taskText) {
-              parsedSubjects[config.name].tasks.push(taskText);
-            }
+        for (const [key, config] of Object.entries(SUBJECT_CONFIG)) {
+          if (upperText.includes(key)) {
+            foundSubject = config;
+            break;
           }
+        }
+
+        if (foundSubject) {
+          if (!parsedSubjects[foundSubject.name]) {
+            parsedSubjects[foundSubject.name] = {
+              icon: foundSubject.icon,
+              color: foundSubject.color,
+              tasks: []
+            };
+          }
+          parsedSubjects[foundSubject.name].tasks.push(fullText);
         } else {
-          // Если названия предметов в тексте не найдены
-          const fallbackName = item.subject || 'Другие предметы';
+          // Если предмет не распознан по ключевым словам, проверяем первую строку или относим к Общим заданиям
+          const fallbackName = item.subject && item.subject !== 'Другое' ? item.subject : 'Школьные задания';
           if (!parsedSubjects[fallbackName]) {
             parsedSubjects[fallbackName] = {
               icon: item.icon || '📌',
-              color: item.color || '#3B82F6',
+              color: '#3B82F6',
               tasks: []
             };
           }
@@ -669,7 +663,6 @@
       return parsedSubjects;
     }
 
-    // Отрисовка Домашки по Дням -> Предметам -> Заданиям
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       if (!appData.homework || appData.homework.length === 0) {
@@ -685,12 +678,10 @@
       appData.homework.forEach((dayBlock, dayIndex) => {
         const prettyDate = formatPrettyDate(dayBlock.date);
         
-        // Разбираем сырой текст на раздельные предметы
         const parsedSubjectGroups = parseRawTextToSubjects(dayBlock.items || []);
 
         let dayTotalTasks = 0;
         let dayCompletedTasks = 0;
-
         const renderedGroups = {};
 
         Object.entries(parsedSubjectGroups).forEach(([subName, groupData]) => {
@@ -701,4 +692,188 @@
           };
 
           groupData.tasks.forEach((taskText, taskIdx) => {
-            const uniqueTaskId = `hw_${dayIndex}_${sub
+            const uniqueTaskId = `hw_${dayIndex}_${subName.replace(/\s+/g, '_')}_${taskIdx}`;
+            const isDone = !!savedState[uniqueTaskId];
+
+            dayTotalTasks++;
+            if (isDone) dayCompletedTasks++;
+
+            renderedGroups[subName].items.push({
+              id: uniqueTaskId,
+              text: taskText,
+              isDone: isDone
+            });
+          });
+        });
+
+        const isDayAllDone = (dayTotalTasks > 0) && (dayCompletedTasks === dayTotalTasks);
+        const progressPercent = dayTotalTasks > 0 ? Math.round((dayCompletedTasks / dayTotalTasks) * 100) : 0;
+
+        if (statusFilter === 'active' && isDayAllDone) return;
+        if (statusFilter === 'completed' && !isDayAllDone) return;
+
+        visibleBlocksCount++;
+
+        html += `
+          <div class="hw-day-block ${isDayAllDone ? 'day-completed' : ''}">
+            <div class="day-title-header">
+              <span>🗓️ ${prettyDate}</span>
+              ${isDayAllDone ? '<span class="day-completed-badge">🏆 МИССИЯ ВЫПОЛНЕНА! 🎉</span>' : ''}
+            </div>
+
+            <div class="progress-box">
+              <div class="progress-text">
+                <span>Прогресс дня:</span>
+                <span>${dayCompletedTasks} из ${dayTotalTasks} выполнено (${progressPercent}%)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
+              </div>
+            </div>
+
+            <div class="subjects-container">
+              ${Object.entries(renderedGroups).map(([subName, group]) => `
+                <div class="subject-subgroup" style="border-left-color: ${group.color};">
+                  <div class="subject-subgroup-title" style="color: ${group.color};">
+                    <span>${group.icon}</span>
+                    <span>${subName}</span>
+                  </div>
+                  <div class="tasks-list">
+                    ${group.items.map(t => `
+                      <div class="task-item ${t.isDone ? 'completed' : ''}" onclick="toggleTask('${t.id}', '${dayIndex}')">
+                        <input type="checkbox" class="task-checkbox" ${t.isDone ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}', '${dayIndex}')">
+                        <div class="task-text">${t.text}</div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      if (visibleBlocksCount === 0) {
+        if (statusFilter === 'active') {
+          container.innerHTML = '<div class="empty-state">🎉 Настоящий триумф! Нет невыполненных заданий!<br>Все дни закрыты на 100%! 🚀</div>';
+        } else if (statusFilter === 'completed') {
+          container.innerHTML = '<div class="empty-state">⏳ Пока нет полностью выполненных дней.<br>Выполняй галочки, и они появятся здесь!</div>';
+        } else {
+          container.innerHTML = '<div class="empty-state">Список заданий пуст.</div>';
+        }
+      } else {
+        container.innerHTML = html;
+      }
+    }
+
+    function matchesDay(cardDayText, dayIndex) {
+      const text = cardDayText.toLowerCase();
+      const keywords = DAY_MAP[dayIndex] || [];
+      return keywords.some(kw => text.includes(kw));
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById('scheduleContainer');
+      if (!appData.schedule || appData.schedule.length === 0) {
+        container.innerHTML = '<div class="empty-state">Расписание пока не заполнялось</div>';
+        return;
+      }
+
+      const todayIndex = new Date().getDay();
+      let nextSchoolIndex = (todayIndex + 1) % 7;
+      if (nextSchoolIndex === 0 || nextSchoolIndex === 6) nextSchoolIndex = 1;
+
+      let html = '<div class="schedule-grid">';
+      appData.schedule.forEach(item => {
+        const isToday = matchesDay(item.day, todayIndex);
+        const isNextDay = matchesDay(item.day, nextSchoolIndex);
+
+        let cardClass = '';
+        if (isNextDay) cardClass = 'is-next-school-day';
+        else if (isToday) cardClass = 'is-today';
+
+        html += `
+          <div class="day-card ${cardClass}">
+            <div class="day-header">
+              <span>🗓️ ${item.day}</span>
+              ${isNextDay ? '<span class="next-day-badge">🎒 Собираем завтра</span>' : ''}
+              ${isToday && !isNextDay ? '<span class="today-badge">Сегодня</span>' : ''}
+            </div>
+            <ul class="lesson-list">
+              ${item.lessons.map((lesson, idx) => `
+                <li class="lesson-item">
+                  <span class="lesson-num">${idx + 1}</span>
+                  <span>${lesson}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function renderPackChecklist() {
+      const grid = document.getElementById('packChecklistGrid');
+      const packState = JSON.parse(localStorage.getItem('pack_completed') || '{}');
+
+      let html = '';
+      PACK_ITEMS.forEach(item => {
+        const isChecked = !!packState[item.id];
+        html += `
+          <div class="pack-item ${isChecked ? 'checked' : ''}" onclick="togglePackItem('${item.id}')">
+            <input type="checkbox" class="task-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); togglePackItem('${item.id}')">
+            <span>${item.text}</span>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    function toggleTask(id, dayIndex) {
+      const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
+      const wasDoneBefore = !!savedState[id];
+      
+      savedState[id] = !wasDoneBefore;
+      localStorage.setItem('hw_completed', JSON.stringify(savedState));
+
+      if (!wasDoneBefore) {
+        const dayBlock = appData.homework[dayIndex];
+        if (dayBlock && dayBlock.items) {
+          const parsedSubjectGroups = parseRawTextToSubjects(dayBlock.items || []);
+          let total = 0;
+          let completed = 0;
+
+          Object.entries(parsedSubjectGroups).forEach(([subName, groupData]) => {
+            groupData.tasks.forEach((_, taskIdx) => {
+              const uniqueTaskId = `hw_${dayIndex}_${subName.replace(/\s+/g, '_')}_${taskIdx}`;
+              total++;
+              if (savedState[uniqueTaskId]) completed++;
+            });
+          });
+
+          if (total > 0 && completed === total) {
+            launchVictoryFireworks();
+            setTimeout(() => {
+              renderHomework();
+            }, 1200);
+            return;
+          }
+        }
+      }
+
+      renderHomework();
+    }
+
+    function togglePackItem(id) {
+      const packState = JSON.parse(localStorage.getItem('pack_completed') || '{}');
+      packState[id] = !packState[id];
+      localStorage.setItem('pack_completed', JSON.stringify(packState));
+      renderPackChecklist();
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
