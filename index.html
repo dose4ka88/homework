@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Космическая Лего-Академия Саввы 🚀🧱</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
-  <!-- Библиотека canvas-confetti для красочного фейерверка -->
+  <!-- Библиотека canvas-confetti для праздничного салюта -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
@@ -154,6 +154,37 @@
       display: block;
     }
 
+    /* ФИЛЬТР ДОМАШКИ */
+    .filter-panel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-lego);
+      border-left: 6px solid var(--lego-blue);
+    }
+
+    .filter-label {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+
+    .filter-select {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 2px solid #CBD5E1;
+      font-weight: 800;
+      font-size: 14px;
+      outline: none;
+      background: #F8FAFC;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
     /* КАРТОЧКА ДНЯ ДОМАШКИ */
     .hw-day-block {
       background: var(--card-bg);
@@ -165,7 +196,6 @@
       transition: all 0.3s ease;
     }
 
-    /* ПОБЕДНЫЙ СТИЛЬ: День полностью выполнен */
     .hw-day-block.day-completed {
       border: 4px solid #F59E0B !important;
       background: #FEF3C7 !important;
@@ -192,15 +222,8 @@
       padding: 4px 12px;
       border-radius: 10px;
       box-shadow: 0 3px 0px #D97706;
-      animation: bounce 1s infinite alternate;
     }
 
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-3px); }
-    }
-
-    /* Прогресс-бар дня */
     .progress-box {
       background: #F1F5F9;
       border-radius: 12px;
@@ -230,7 +253,6 @@
       transition: width 0.4s ease;
     }
 
-    /* Блок Предмета внутри дня */
     .subject-subgroup {
       margin-bottom: 16px;
       background: #FFFFFF;
@@ -249,7 +271,6 @@
       gap: 8px;
     }
 
-    /* Каждая галочка/задание */
     .task-item {
       display: flex;
       align-items: flex-start;
@@ -294,7 +315,7 @@
       opacity: 0.75;
     }
 
-    /* Сетка расписания */
+    /* СЕТКА РАСПИСАНИЯ */
     .schedule-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -443,10 +464,12 @@
 
     .empty-state {
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
       color: #94A3B8;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
     }
   </style>
 </head>
@@ -469,8 +492,19 @@
     <button class="tab-btn" onclick="switchTab('scheduleTab', this)">🎒 Расписание и Портфель</button>
   </div>
 
-  <!-- Вкладка 1: Домашка по Дням и Предметам -->
+  <!-- Вкладка 1: Домашка -->
   <div id="homeworkTab" class="tab-content active">
+    
+    <!-- Фильтр по статусу выполненности -->
+    <div class="filter-panel">
+      <span class="filter-label">Показать:</span>
+      <select class="filter-select" id="statusFilter" onchange="renderHomework()">
+        <option value="active">⏳ Невыполненные (Актуальные)</option>
+        <option value="completed">🏆 Выполненные задания</option>
+        <option value="all">📜 Все дни</option>
+      </select>
+    </div>
+
     <div id="homeworkContainer">Загрузка заданий...</div>
   </div>
 
@@ -564,24 +598,14 @@
       return rawDateStr;
     }
 
-    // Запуск праздничного космического фейерверка!
     function launchVictoryFireworks() {
       if (typeof confetti === 'function') {
-        // Запуск двух залпов конфетти по бокам экрана
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6, x: 0.2 }
-        });
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6, x: 0.8 }
-        });
+        confetti({ particleCount: 90, spread: 80, origin: { y: 0.6, x: 0.2 } });
+        confetti({ particleCount: 90, spread: 80, origin: { y: 0.6, x: 0.8 } });
       }
     }
 
-    // Отрисовка Домашки: Группировка ПО ДНЯМ -> ПО ПРЕДМЕТАМ
+    // Отрисовка Домашки с фильтрацией выполненных/невыполненных дней
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       if (!appData.homework || appData.homework.length === 0) {
@@ -589,13 +613,14 @@
         return;
       }
 
+      const statusFilter = document.getElementById('statusFilter').value; // active | completed | all
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
       let html = '';
+      let visibleBlocksCount = 0;
 
       appData.homework.forEach((dayBlock, dayIndex) => {
         const prettyDate = formatPrettyDate(dayBlock.date);
         
-        // Группируем элементы внутри этого дня по предметам
         const subjectGroups = {};
         let dayTotalTasks = 0;
         let dayCompletedTasks = 0;
@@ -610,7 +635,6 @@
             };
           }
 
-          // ГАРАНТИРУЕМ УНИКАЛЬНЫЙ ID ДЛЯ КАЖДОЙ ГАЛОЧКИ:
           const uniqueTaskId = `hw_${dayIndex}_${subName}_${itemIdx}`;
           const isDone = !!savedState[uniqueTaskId];
 
@@ -627,6 +651,12 @@
         const isDayAllDone = (dayTotalTasks > 0) && (dayCompletedTasks === dayTotalTasks);
         const progressPercent = dayTotalTasks > 0 ? Math.round((dayCompletedTasks / dayTotalTasks) * 100) : 0;
 
+        // ПРИМЕНЕНИЕ ФИЛЬТРА:
+        if (statusFilter === 'active' && isDayAllDone) return; // Скрываем полностью сделанный день
+        if (statusFilter === 'completed' && !isDayAllDone) return; // Показываем только закрытые дни
+
+        visibleBlocksCount++;
+
         html += `
           <div class="hw-day-block ${isDayAllDone ? 'day-completed' : ''}">
             <div class="day-title-header">
@@ -634,7 +664,6 @@
               ${isDayAllDone ? '<span class="day-completed-badge">🏆 МИССИЯ ВЫПОЛНЕНА! 🎉</span>' : ''}
             </div>
 
-            <!-- Шкала прогресса -->
             <div class="progress-box">
               <div class="progress-text">
                 <span>Прогресс дня:</span>
@@ -645,7 +674,6 @@
               </div>
             </div>
 
-            <!-- Список предметов -->
             <div class="subjects-container">
               ${Object.entries(subjectGroups).map(([subName, group]) => `
                 <div class="subject-subgroup" style="border-left-color: ${group.color};">
@@ -668,7 +696,17 @@
         `;
       });
 
-      container.innerHTML = html;
+      if (visibleBlocksCount === 0) {
+        if (statusFilter === 'active') {
+          container.innerHTML = '<div class="empty-state">🎉 Настоящий триумф! Нет невыполненных заданий!<br>Все дни закрыты на 100%! 🚀</div>';
+        } else if (statusFilter === 'completed') {
+          container.innerHTML = '<div class="empty-state">⏳ Пока нет полностью выполненных дней.<br>Выполняй галочки, и они появятся здесь!</div>';
+        } else {
+          container.innerHTML = '<div class="empty-state">Список заданий пуст.</div>';
+        }
+      } else {
+        container.innerHTML = html;
+      }
     }
 
     function matchesDay(cardDayText, dayIndex) {
@@ -736,7 +774,6 @@
       grid.innerHTML = html;
     }
 
-    // Переключение состояния одной галочки
     function toggleTask(id, dayIndex) {
       const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
       const wasDoneBefore = !!savedState[id];
@@ -744,34 +781,32 @@
       savedState[id] = !wasDoneBefore;
       localStorage.setItem('hw_completed', JSON.stringify(savedState));
 
-      // Перерисовываем UI
-      renderHomework();
-
-      // Проверяем, не завершил ли ребенок ВСЕ задания за этот день после клика
+      // Если после этого клика абсолютно все задания дня стали выполненными:
       if (!wasDoneBefore) {
-        checkIfDayJustCompleted(dayIndex);
+        const dayBlock = appData.homework[dayIndex];
+        if (dayBlock && dayBlock.items) {
+          let total = 0;
+          let completed = 0;
+
+          (dayBlock.items || []).forEach((item, itemIdx) => {
+            const subName = item.subject || 'Другие предметы';
+            const uniqueTaskId = `hw_${dayIndex}_${subName}_${itemIdx}`;
+            total++;
+            if (savedState[uniqueTaskId]) completed++;
+          });
+
+          if (total > 0 && completed === total) {
+            launchVictoryFireworks();
+            // Делаем небольшую задержку перед скрытием дня, чтобы Савва успел насладиться салютом!
+            setTimeout(() => {
+              renderHomework();
+            }, 1200);
+            return;
+          }
+        }
       }
-    }
 
-    function checkIfDayJustCompleted(dayIndex) {
-      const savedState = JSON.parse(localStorage.getItem('hw_completed') || '{}');
-      const dayBlock = appData.homework[dayIndex];
-      if (!dayBlock || !dayBlock.items) return;
-
-      let total = 0;
-      let completed = 0;
-
-      (dayBlock.items || []).forEach((item, itemIdx) => {
-        const subName = item.subject || 'Другие предметы';
-        const uniqueTaskId = `hw_${dayIndex}_${subName}_${itemIdx}`;
-        total++;
-        if (savedState[uniqueTaskId]) completed++;
-      });
-
-      // Если выполнены абсолютно все задания дня — запуск праздничного салюта!
-      if (total > 0 && completed === total) {
-        launchVictoryFireworks();
-      }
+      renderHomework();
     }
 
     function togglePackItem(id) {
