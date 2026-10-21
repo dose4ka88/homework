@@ -399,6 +399,7 @@
       border-radius: 10px;
     }
 
+    /* КАРТОЧКА ПРЕДМЕТА */
     .subject-subgroup {
       margin-bottom: 18px;
       background: #FFFFFF;
@@ -774,7 +775,7 @@
   <div id="scheduleTab" class="tab-content">
     <div id="scheduleContainer">Загрузка расписания уроков...</div>
 
-    <div class="pack-checklist-card">
+    <div class="pack-checklist-card" style="margin-top: 24px;">
       <div class="pack-title">
         <span id="packTitle">🎒 Вечерний Чек-лист: Собираем портфель в школу</span>
       </div>
@@ -934,11 +935,68 @@
       'РОДИНОЗНАНИЕ': { name: 'Родинознание', icon: '🌍', color: '#F59E0B' },
       'РОД': { name: 'Родинознание', icon: '🌍', color: '#F59E0B' },
       'ФВС': { name: 'Физкултура и спорт', icon: '⚽', color: '#EF4444' },
+      'ФИЗИЧЕСКО': { name: 'Физкултура и спорт', icon: '⚽', color: '#EF4444' },
       'МУЗИКА': { name: 'Музика', icon: '🎵', color: '#8B5CF6' },
       'МУЗ': { name: 'Музика', icon: '🎵', color: '#8B5CF6' },
       'ИЗО': { name: 'Изобразително изкуство', icon: '🎨', color: '#EC4899' },
-      'ТЕХНОЛОГИИ': { name: 'Технологии и предприемачество', icon: '🛠️', color: '#14B8A6' }
+      'ИЗОБРАЗИТЕЛНО': { name: 'Изобразително изкуство', icon: '🎨', color: '#EC4899' },
+      'ТЕХНОЛОГИИ': { name: 'Технологии и предприемачество', icon: '🛠️', color: '#14B8A6' },
+      'ТЕХНОЛОГИЯ': { name: 'Технологии и предприемачество', icon: '🛠️', color: '#14B8A6' }
     };
+
+    // Умный определитель предмета по тексту задания
+    function parseTextIntoSubjects(text) {
+      if (!text) return [{ name: 'Задание', icon: '📌', color: '#3B82F6', text: '' }];
+      
+      // Пытаемся разбить текст по номерам предметов (например, "1. БЕЛ...", "2. Математика...")
+      let parts = text.split(/(?=\d+\.\s*(?:БЕЛ|Бел|Математика|Родинознание|Музика|Изобразително|Технология|Физическо))/g);
+      
+      if (parts.length <= 1) {
+        // Если номеров нет, попробуем разделить по точкам с новой строки или просто вернем целиком
+        parts = [text];
+      }
+
+      const results = [];
+      parts.forEach(part => {
+        let p = part.trim();
+        if (!p) return;
+        
+        let subName = 'Школьные задания';
+        let icon = '📌';
+        let color = '#3B82F6';
+        
+        const upper = p.toUpperCase();
+        if (upper.includes('БЕЛ') || upper.includes('БУКВАР') || upper.includes('ЧЕТЕНЕ') || upper.includes('ГРАМАТИКА')) {
+          subName = 'Български език и литература';
+          icon = '📖';
+          color = '#3B82F6';
+        } else if (upper.includes('МАТЕМАТИКА') || upper.includes('СБОРНИК') || upper.includes('ЦИФРА') || upper.includes('СЪБИРАНЕ')) {
+          subName = 'Математика';
+          icon = '🔢';
+          color = '#10B981';
+        } else if (upper.includes('РОДИНОЗНАНИЕ') || upper.includes('ПРАВАТА')) {
+          subName = 'Родинознание';
+          icon = '🌍';
+          color = '#F59E0B';
+        } else if (upper.includes('МУЗИКА')) {
+          subName = 'Музика';
+          icon = '🎵';
+          color = '#8B5CF6';
+        } else if (upper.includes('ИЗОБРАЗИТЕЛНО')) {
+          subName = 'Изобразително изкуство';
+          icon = '🎨';
+          color = '#EC4899';
+        } else if (upper.includes('ТЕХНОЛОГИИ') || upper.includes('ТЕХНОЛОГИЯ')) {
+          subName = 'Технологии и предприемачество';
+          icon = '🛠️';
+          color = '#14B8A6';
+        }
+
+        results.push({ name: subName, icon: icon, color: color, text: p });
+      });
+
+      return results;
+    }
 
     // Функция переключения языка
     function setLanguage(lang) {
@@ -1035,7 +1093,7 @@
       }
     }
 
-    // ОТРИСОВКА КАРТОЧЕК КАНИКУЛ С АВТОМАТИЧЕСКИМ ОТСЧЕТОМ
+    // ОТРИСОВКА КАРТОЧЕК КАНИКУЛ
     function renderVacations() {
       const container = document.getElementById('vacationsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1043,7 +1101,6 @@
       now.setHours(0, 0, 0, 0);
 
       let nearestVacationFound = false;
-
       let html = '';
       VACATIONS_DATA.forEach(v => {
         const start = new Date(v.startDate + 'T00:00:00');
@@ -1081,50 +1138,10 @@
           </div>
         `;
       });
-
       container.innerHTML = html;
     }
 
-    function parseRawTextToSubjects(rawItems) {
-      const parsedSubjects = {};
-
-      rawItems.forEach(item => {
-        const fullText = item.text || '';
-        let foundSubject = null;
-        const upperText = fullText.toUpperCase();
-
-        for (const [key, config] of Object.entries(SUBJECT_CONFIG)) {
-          if (upperText.includes(key)) {
-            foundSubject = config;
-            break;
-          }
-        }
-
-        if (foundSubject) {
-          if (!parsedSubjects[foundSubject.name]) {
-            parsedSubjects[foundSubject.name] = {
-              icon: foundSubject.icon,
-              color: foundSubject.color,
-              tasks: []
-            };
-          }
-          parsedSubjects[foundSubject.name].tasks.push(fullText);
-        } else {
-          const fallbackName = item.subject && item.subject !== 'Другое' ? item.subject : (currentLang === 'bg' ? 'Училищни задачи' : 'Школьные задания');
-          if (!parsedSubjects[fallbackName]) {
-            parsedSubjects[fallbackName] = {
-              icon: item.icon || '📌',
-              color: '#3B82F6',
-              tasks: []
-            };
-          }
-          parsedSubjects[fallbackName].tasks.push(fullText);
-        }
-      });
-
-      return parsedSubjects;
-    }
-
+    // ОТРИСОВКА ДОМАШКИ С РАЗДЕЛЕНИЕМ ПО ПРЕДМЕТАМ
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1141,31 +1158,35 @@
 
       appData.homework.forEach((dayBlock, dayIndex) => {
         const prettyDate = formatPrettyDate(dayBlock.date);
-        const parsedSubjectGroups = parseRawTextToSubjects(dayBlock.items || []);
+        const items = dayBlock.items || [];
 
         let dayTotalTasks = 0;
         let dayCompletedTasks = 0;
-        const renderedGroups = {};
+        let tasksHtml = '';
 
-        Object.entries(parsedSubjectGroups).forEach(([subName, groupData]) => {
-          renderedGroups[subName] = {
-            icon: groupData.icon,
-            color: groupData.color,
-            items: []
-          };
+        items.forEach((item, itemIdx) => {
+          const rawText = item.text || item.subject || '';
+          const parsedSubs = parseTextIntoSubjects(rawText);
 
-          groupData.tasks.forEach((taskText, taskIdx) => {
-            const uniqueTaskId = `hw_${dayIndex}_${subName.replace(/\s+/g, '_')}_${taskIdx}`;
+          parsedSubs.forEach((sub, subIdx) => {
+            const uniqueTaskId = `hw_${dayIndex}_${itemIdx}_${subIdx}`;
             const isDone = !!savedState[uniqueTaskId];
 
             dayTotalTasks++;
             if (isDone) dayCompletedTasks++;
 
-            renderedGroups[subName].items.push({
-              id: uniqueTaskId,
-              text: taskText,
-              isDone: isDone
-            });
+            tasksHtml += `
+              <div class="subject-subgroup" style="border-left-color: ${sub.color};">
+                <div class="subject-subgroup-title" style="color: ${sub.color};">
+                  <span>${sub.icon}</span>
+                  <span>${sub.name}</span>
+                </div>
+                <div class="task-item ${isDone ? 'completed' : ''}" onclick="toggleTask('${uniqueTaskId}', '${dayIndex}')">
+                  <input type="checkbox" class="task-checkbox" ${isDone ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${uniqueTaskId}', '${dayIndex}')">
+                  <div class="task-text">${sub.text}</div>
+                </div>
+              </div>
+            `;
           });
         });
 
@@ -1195,35 +1216,16 @@
             </div>
 
             <div class="subjects-container">
-              ${Object.entries(renderedGroups).map(([subName, group]) => `
-                <div class="subject-subgroup" style="border-left-color: ${group.color};">
-                  <div class="subject-subgroup-title" style="color: ${group.color};">
-                    <span>${group.icon}</span>
-                    <span>${subName}</span>
-                  </div>
-                  <div class="tasks-list">
-                    ${group.items.map(t => `
-                      <div class="task-item ${t.isDone ? 'completed' : ''}" onclick="toggleTask('${t.id}', '${dayIndex}')">
-                        <input type="checkbox" class="task-checkbox" ${t.isDone ? 'checked' : ''} onclick="event.stopPropagation(); toggleTask('${t.id}', '${dayIndex}')">
-                        <div class="task-text">${t.text}</div>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              `).join('')}
+              ${tasksHtml}
             </div>
           </div>
         `;
       });
 
       if (visibleBlocksCount === 0) {
-        if (statusFilter === 'active') {
-          container.innerHTML = `<div class="empty-state">${t.emptyActive}</div>`;
-        } else if (statusFilter === 'completed') {
-          container.innerHTML = `<div class="empty-state">${t.emptyCompleted}</div>`;
-        } else {
-          container.innerHTML = `<div class="empty-state">${t.emptyAll}</div>`;
-        }
+        if (statusFilter === 'active') container.innerHTML = `<div class="empty-state">${t.emptyActive}</div>`;
+        else if (statusFilter === 'completed') container.innerHTML = `<div class="empty-state">${t.emptyCompleted}</div>`;
+        else container.innerHTML = `<div class="empty-state">${t.emptyAll}</div>`;
       } else {
         container.innerHTML = html;
       }
@@ -1304,16 +1306,18 @@
       savedState[id] = !wasDoneBefore;
       localStorage.setItem('hw_completed', JSON.stringify(savedState));
 
+      // Проверка на салют при завершении всех заданий дня
       if (!wasDoneBefore) {
         const dayBlock = appData.homework[dayIndex];
         if (dayBlock && dayBlock.items) {
-          const parsedSubjectGroups = parseRawTextToSubjects(dayBlock.items || []);
           let total = 0;
           let completed = 0;
 
-          Object.entries(parsedSubjectGroups).forEach(([subName, groupData]) => {
-            groupData.tasks.forEach((_, taskIdx) => {
-              const uniqueTaskId = `hw_${dayIndex}_${subName.replace(/\s+/g, '_')}_${taskIdx}`;
+          dayBlock.items.forEach((item, itemIdx) => {
+            const rawText = item.text || item.subject || '';
+            const parsedSubs = parseTextIntoSubjects(rawText);
+            parsedSubs.forEach((_, subIdx) => {
+              const uniqueTaskId = `hw_${dayIndex}_${itemIdx}_${subIdx}`;
               total++;
               if (savedState[uniqueTaskId]) completed++;
             });
@@ -1321,14 +1325,11 @@
 
           if (total > 0 && completed === total) {
             launchVictoryFireworks();
-            setTimeout(() => {
-              renderHomework();
-            }, 1200);
+            setTimeout(() => { renderHomework(); }, 1200);
             return;
           }
         }
       }
-
       renderHomework();
     }
 
