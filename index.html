@@ -81,7 +81,7 @@
       100% { transform: translateY(0) rotate(360deg) scale(1); }
     }
 
-    /* УЛЬТРАКОСМИЧЕСКАЯ И ИНТЕРАКТИВНАЯ ШАПКА */
+    /* УЛЬТРАКОСМИЧЕСКАЯ ШАПКА */
     .hero-header {
       background: radial-gradient(circle at 50% 50%, #312E81 0%, #1E1B4B 60%, #0F172A 100%);
       border: 3px solid #6366F1;
@@ -95,7 +95,6 @@
       overflow: hidden;
     }
 
-    /* Лазерная анимированная линия сканирования в шапке */
     .hero-header::before {
       content: '';
       position: absolute;
@@ -153,7 +152,7 @@
       border: 1px solid rgba(255,255,255,0.15);
     }
 
-    /* ПАНЕЛЬ СИНХРОНИЗАЦИИ */
+    /* ПАНЕЛЬ СИНХРОНИЗАЦИИ И ЯЗЫКОВ */
     .sync-bar {
       display: flex;
       align-items: center;
@@ -165,19 +164,59 @@
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-lego);
       border-bottom: 4px solid #CBD5E1;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .last-update {
       font-size: 13px;
       color: var(--text-muted);
       font-weight: 800;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Переключатель языков */
+    .lang-switch {
+      display: flex;
+      background: #E2E8F0;
+      padding: 3px;
+      border-radius: 12px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn.active {
+      background: #FFFFFF;
+      color: var(--lego-blue);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .btn-refresh {
       background: var(--lego-yellow);
       color: #000;
       border: none;
-      padding: 10px 18px;
+      padding: 8px 16px;
       border-radius: 12px;
       font-weight: 900;
       font-size: 13px;
@@ -534,7 +573,6 @@
       flex-shrink: 0;
     }
 
-    /* ЧЕК-ЛИСТ СБОРА ПОРТФЕЛЯ */
     .pack-checklist-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -608,33 +646,41 @@
     <div class="lego-brick brick-5"></div>
   </div>
 
-  <!-- Персонализированный космический заголовок -->
   <header class="hero-header">
-    <div class="hero-badge-space">🚀 Бортовой компьютер сектор</div>
-    <div class="hero-title">Мой дневник</div>
+    <div class="hero-badge-space" id="headerBadge">🚀 Бортовой компьютер сектор №1</div>
+    <div class="hero-title" id="headerTitle">Мой дневник: Савва</div>
     <div class="hero-subtitle">
-      <span>🌌 Академия Знаний &bull; Миссия активна</span>
+      <span id="headerSubtitle">🌌 Академия Знаний &bull; Миссия активна</span>
     </div>
   </header>
 
   <div class="sync-bar">
     <div class="last-update" id="lastUpdate">Связь с ЦУП...</div>
-    <button class="btn-refresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
+    
+    <div class="actions-group">
+      <!-- Переключатель языков -->
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btnRu" onclick="setLanguage('ru')">RU 🇷🇺</button>
+        <button class="lang-btn" id="btnBg" onclick="setLanguage('bg')">BG 🇧🇬</button>
+      </div>
+      
+      <button class="btn-refresh" id="btnRefresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
+    </div>
   </div>
 
   <div class="tabs-nav">
-    <button class="tab-btn active" onclick="switchTab('homeworkTab', this)">📝 Домашка по дням</button>
-    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">🎒 Расписание и Портфель</button>
+    <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка по дням</button>
+    <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание и Портфель</button>
   </div>
 
   <!-- Вкладка 1: Домашка -->
   <div id="homeworkTab" class="tab-content active">
     <div class="filter-panel">
-      <span class="filter-label">Показать:</span>
+      <span class="filter-label" id="filterLabel">Показать:</span>
       <select class="filter-select" id="statusFilter" onchange="renderHomework()">
-        <option value="active">⏳ Невыполненные (Актуальные)</option>
-        <option value="completed">🏆 Выполненные задания</option>
-        <option value="all">📜 Все дни</option>
+        <option value="active" id="optActive">⏳ Невыполненные (Актуальные)</option>
+        <option value="completed" id="optCompleted">🏆 Выполненные задания</option>
+        <option value="all" id="optAll">📜 Все дни</option>
       </select>
     </div>
 
@@ -647,23 +693,84 @@
 
     <div class="pack-checklist-card">
       <div class="pack-title">
-        <span>🎒 Вечерний Лего-Чеклист: Собираем портфель в школу</span>
+        <span id="packTitle">🎒 Вечерний Лего-Чеклист: Собираем портфель в школу</span>
       </div>
       <div class="pack-grid" id="packChecklistGrid"></div>
     </div>
   </div>
 
   <script>
+    let currentLang = localStorage.getItem('app_lang') || 'ru';
     let appData = { schedule: [], homework: [] };
 
-    const PACK_ITEMS = [
-      { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
-      { id: 'p_water', text: '💧 Бутылочка с водой' },
-      { id: 'p_pencils', text: '✏️ Поточить карандаши' },
-      { id: 'p_books', text: '📚 Проверить учебники и тетради' },
-      { id: 'p_form', text: '👕 Проверить школьную форму' },
-      { id: 'p_sport', text: '👟 Спортивная форма (если Физкультура)' }
-    ];
+    // СЛОВАРЬ ПЕРЕВОДОВ ИНТЕРФЕЙСА
+    const TRANSLATIONS = {
+      ru: {
+        badge: '🚀 Бортовой компьютер сектор №1',
+        title: 'Мой дневник: Савва',
+        subtitle: '🌌 Академия Знаний • Миссия активна',
+        lastUpdatePrefix: 'ЦУП обновлён: ',
+        btnRefresh: '🔄 Обновить данные',
+        tabHw: '📝 Домашка по дням',
+        tabSchedule: '🎒 Расписание и Портфель',
+        filterLabel: 'Показать:',
+        optActive: '⏳ Невыполненные (Актуальные)',
+        optCompleted: '🏆 Выполненные задания',
+        optAll: '📜 Все дни',
+        missionDone: '🏆 МИССИЯ ВЫПОЛНЕНА! 🎉',
+        dayProgress: 'Прогресс дня:',
+        doneOf: 'выполнено',
+        packTitle: '🎒 Вечерний Лего-Чеклист: Собираем портфель в школу',
+        nextDayBadge: '🎒 Собираем завтра',
+        todayBadge: 'Сегодня',
+        emptyActive: '🎉 Настоящий триумф! Нет невыполненных заданий!<br>Все дни закрыты на 100%! 🚀',
+        emptyCompleted: '⏳ Пока нет полностью выполненных дней.<br>Выполняй галочки, и они появятся здесь!',
+        emptyAll: 'Список заданий пуст.',
+        packItems: [
+          { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
+          { id: 'p_water', text: '💧 Бутылочка с водой' },
+          { id: 'p_pencils', text: '✏️ Поточить карандаши' },
+          { id: 'p_books', text: '📚 Проверить учебники и тетради' },
+          { id: 'p_form', text: '👕 Проверить школьную форму' },
+          { id: 'p_sport', text: '👟 Спортивная форма (если Физкультура)' }
+        ]
+      },
+      bg: {
+        badge: '🚀 Бортов компютър сектор №1',
+        title: 'Моят дневник: Савва',
+        subtitle: '🌌 Академия на Знанията • Активна мисия',
+        lastUpdatePrefix: 'ЦУП е обновен: ',
+        btnRefresh: '🔄 Обнови данни',
+        tabHw: '📝 Домашно по дни',
+        tabSchedule: '🎒 Програма и Раница',
+        filterLabel: 'Покажи:',
+        optActive: '⏳ Неизпълнени (Актуални)',
+        optCompleted: '🏆 Завършени задачи',
+        optAll: '📜 Всички дни',
+        missionDone: '🏆 МИСИЯТА Е ИЗПЪЛНЕНА! 🎉',
+        dayProgress: 'Прогрес за деня:',
+        doneOf: 'изпълнени',
+        packTitle: '🎒 Вечерен Лего-Чеклист: Приготвяне на раницата за училище',
+        nextDayBadge: '🎒 Подготви за утре',
+        todayBadge: 'Днес',
+        emptyActive: '🎉 Истински триумф! Няма неизпълнени задачи!<br>Всички дни са завършени на 100%! 🚀',
+        emptyCompleted: '⏳ Все още няма напълно завършени дни.<br>Маркирай задачите и те ще се появят тук!',
+        emptyAll: 'Списъкът със задачи е празен.',
+        packItems: [
+          { id: 'p_lunch', text: '🍱 Кутия за храна (ланчбокс)' },
+          { id: 'p_water', text: '💧 бутилка с вода' },
+          { id: 'p_pencils', text: '✏️ Подостряне на моливи' },
+          { id: 'p_books', text: '📚 Проверка на учебници и тетрадки' },
+          { id: 'p_form', text: '👕 Проверка на училищната униформа' },
+          { id: 'p_sport', text: '👟 Спортен екип (ако има ФВС)' }
+        ]
+      }
+    };
+
+    const MONTHS_MAP = {
+      ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
+      bg: ['януари', 'февруари', 'март', 'април', 'май', 'юни', 'юли', 'август', 'септември', 'октомври', 'ноември', 'декември']
+    };
 
     const DAY_MAP = {
       0: ['неделя', 'воскресенье', 'sunday'],
@@ -689,6 +796,35 @@
       'ТЕХНОЛОГИИ': { name: 'Технологии и предприемачество', icon: '🛠️', color: '#14B8A6' }
     };
 
+    // Функция переключения языка
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('app_lang', lang);
+
+      document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+      document.getElementById('btnBg').classList.toggle('active', lang === 'bg');
+
+      updateInterfaceTexts();
+      renderHomework();
+      renderSchedule();
+      renderPackChecklist();
+    }
+
+    function updateInterfaceTexts() {
+      const t = TRANSLATIONS[currentLang];
+      document.getElementById('headerBadge').innerText = t.badge;
+      document.getElementById('headerTitle').innerText = t.title;
+      document.getElementById('headerSubtitle').innerHTML = t.subtitle;
+      document.getElementById('btnRefresh').innerText = t.btnRefresh;
+      document.getElementById('tabHwBtn').innerText = t.tabHw;
+      document.getElementById('tabScheduleBtn').innerText = t.tabSchedule;
+      document.getElementById('filterLabel').innerText = t.filterLabel;
+      document.getElementById('optActive').innerText = t.optActive;
+      document.getElementById('optCompleted').innerText = t.optCompleted;
+      document.getElementById('optAll').innerText = t.optAll;
+      document.getElementById('packTitle').innerText = t.packTitle;
+    }
+
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -699,9 +835,9 @@
 
     async function forceRefreshData() {
       const btn = document.querySelector('.btn-refresh');
-      btn.innerText = '⏳ Связь...';
+      btn.innerText = '⏳ ...';
       await loadData();
-      btn.innerText = '🔄 Обновить данные';
+      btn.innerText = TRANSLATIONS[currentLang].btnRefresh;
     }
 
     async function loadData() {
@@ -710,7 +846,7 @@
         if (!response.ok) throw new Error('data.json не найден');
         appData = await response.json();
         
-        document.getElementById('lastUpdate').innerText = 'ЦУП обновлён: ' + (appData.updatedAt || 'неизвестно');
+        document.getElementById('lastUpdate').innerText = TRANSLATIONS[currentLang].lastUpdatePrefix + (appData.updatedAt || '');
         
         renderSchedule();
         renderHomework();
@@ -726,7 +862,7 @@
 
     function formatPrettyDate(rawDateStr) {
       if (!rawDateStr) return '';
-      const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+      const months = MONTHS_MAP[currentLang];
       
       const match = rawDateStr.match(/(\d{1,2})[\.\/](\d{1,2})/);
       if (match) {
@@ -777,7 +913,7 @@
           }
           parsedSubjects[foundSubject.name].tasks.push(fullText);
         } else {
-          const fallbackName = item.subject && item.subject !== 'Другое' ? item.subject : 'Школьные задания';
+          const fallbackName = item.subject && item.subject !== 'Другое' ? item.subject : (currentLang === 'bg' ? 'Училищни задачи' : 'Школьные задания');
           if (!parsedSubjects[fallbackName]) {
             parsedSubjects[fallbackName] = {
               icon: item.icon || '📌',
@@ -794,8 +930,10 @@
 
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
+      const t = TRANSLATIONS[currentLang];
+
       if (!appData.homework || appData.homework.length === 0) {
-        container.innerHTML = '<div class="empty-state">🎉 Все космические задания выполнены! Отдыхаем! 🚀</div>';
+        container.innerHTML = `<div class="empty-state">${t.emptyActive}</div>`;
         return;
       }
 
@@ -846,13 +984,13 @@
           <div class="hw-day-block ${isDayAllDone ? 'day-completed' : ''}">
             <div class="day-title-header">
               <span>🗓️ ${prettyDate}</span>
-              ${isDayAllDone ? '<span class="day-completed-badge">🏆 МИССИЯ ВЫПОЛНЕНА! 🎉</span>' : ''}
+              ${isDayAllDone ? `<span class="day-completed-badge">${t.missionDone}</span>` : ''}
             </div>
 
             <div class="progress-box">
               <div class="progress-text">
-                <span>Прогресс дня:</span>
-                <span>${dayCompletedTasks} из ${dayTotalTasks} выполнено (${progressPercent}%)</span>
+                <span>${t.dayProgress}</span>
+                <span>${dayCompletedTasks} / ${dayTotalTasks} ${t.doneOf} (${progressPercent}%)</span>
               </div>
               <div class="progress-bar-bg">
                 <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
@@ -883,11 +1021,11 @@
 
       if (visibleBlocksCount === 0) {
         if (statusFilter === 'active') {
-          container.innerHTML = '<div class="empty-state">🎉 Настоящий триумф! Нет невыполненных заданий!<br>Все дни закрыты на 100%! 🚀</div>';
+          container.innerHTML = `<div class="empty-state">${t.emptyActive}</div>`;
         } else if (statusFilter === 'completed') {
-          container.innerHTML = '<div class="empty-state">⏳ Пока нет полностью выполненных дней.<br>Выполняй галочки, и они появятся здесь!</div>';
+          container.innerHTML = `<div class="empty-state">${t.emptyCompleted}</div>`;
         } else {
-          container.innerHTML = '<div class="empty-state">Список заданий пуст.</div>';
+          container.innerHTML = `<div class="empty-state">${t.emptyAll}</div>`;
         }
       } else {
         container.innerHTML = html;
@@ -902,8 +1040,10 @@
 
     function renderSchedule() {
       const container = document.getElementById('scheduleContainer');
+      const t = TRANSLATIONS[currentLang];
+
       if (!appData.schedule || appData.schedule.length === 0) {
-        container.innerHTML = '<div class="empty-state">Расписание пока не заполнялось</div>';
+        container.innerHTML = `<div class="empty-state">${t.emptyAll}</div>`;
         return;
       }
 
@@ -924,8 +1064,8 @@
           <div class="day-card ${cardClass}">
             <div class="day-header">
               <span>🗓️ ${item.day}</span>
-              ${isNextDay ? '<span class="next-day-badge">🎒Собрать на завтра </span>' : ''}
-              ${isToday && !isNextDay ? '<span class="today-badge">Сегодня</span>' : ''}
+              ${isNextDay ? `<span class="next-day-badge">${t.nextDayBadge}</span>` : ''}
+              ${isToday && !isNextDay ? `<span class="today-badge">${t.todayBadge}</span>` : ''}
             </div>
             <ul class="lesson-list">
               ${item.lessons.map((lesson, idx) => `
@@ -945,9 +1085,10 @@
     function renderPackChecklist() {
       const grid = document.getElementById('packChecklistGrid');
       const packState = JSON.parse(localStorage.getItem('pack_completed') || '{}');
+      const t = TRANSLATIONS[currentLang];
 
       let html = '';
-      PACK_ITEMS.forEach(item => {
+      t.packItems.forEach(item => {
         const isChecked = !!packState[item.id];
         html += `
           <div class="pack-item ${isChecked ? 'checked' : ''}" onclick="togglePackItem('${item.id}')">
@@ -1001,6 +1142,8 @@
       renderPackChecklist();
     }
 
+    // Инициализация языка при загрузке
+    setLanguage(currentLang);
     loadData();
   </script>
 </body>
