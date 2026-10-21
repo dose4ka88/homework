@@ -182,7 +182,6 @@
       gap: 10px;
     }
 
-    /* Переключатель языков */
     .lang-switch {
       display: flex;
       background: #E2E8F0;
@@ -241,18 +240,20 @@
     /* ВКЛАДКИ */
     .tabs-nav {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 22px;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 16px;
+      min-width: 150px;
+      padding: 14px 10px;
       border: none;
       background: rgba(30, 41, 59, 0.8);
       backdrop-filter: blur(10px);
       border-radius: 18px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
       color: #94A3B8;
       cursor: pointer;
@@ -573,6 +574,86 @@
       flex-shrink: 0;
     }
 
+    /* РАЗДЕЛ КАНИКУЛ */
+    .vacations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .vacation-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      border: 3px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .vacation-card.is-next-vacation {
+      border: 4px solid #F59E0B !important;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45) !important;
+      transform: translateY(-4px);
+    }
+
+    .vacation-icon-box {
+      font-size: 38px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .vacation-name {
+      font-size: 19px;
+      font-weight: 1000;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .vacation-dates {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--lego-blue);
+      background: #EFF6FF;
+      padding: 6px 12px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 12px;
+      border: 1px solid #DBEAFE;
+    }
+
+    .vacation-countdown {
+      margin-top: auto;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 13px;
+      text-align: center;
+      background: #F1F5F9;
+      color: var(--text-muted);
+    }
+
+    .vacation-card.is-next-vacation .vacation-countdown {
+      background: #F59E0B;
+      color: #000;
+      box-shadow: 0 3px 0px #D97706;
+      animation: pulseGold 2s infinite;
+    }
+
+    @keyframes pulseGold {
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+
+    /* ЧЕК-ЛИСТ СБОРА ПОРТФЕЛЯ */
     .pack-checklist-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -648,7 +729,7 @@
 
   <header class="hero-header">
     <div class="hero-badge-space" id="headerBadge">🚀 Бортовой компьютер</div>
-    <div class="hero-title" id="headerTitle">Мой дневник</div>
+    <div class="hero-title" id="headerTitle">Мой дневник 1Б</div>
     <div class="hero-subtitle">
       <span id="headerSubtitle">🌌 Академия Знаний &bull; Миссия активна</span>
     </div>
@@ -668,9 +749,11 @@
     </div>
   </div>
 
+  <!-- Вкладки -->
   <div class="tabs-nav">
     <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка по дням</button>
     <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание и Портфель</button>
+    <button class="tab-btn" id="tabVacationsBtn" onclick="switchTab('vacationsTab', this)">🎉 Каникулы</button>
   </div>
 
   <!-- Вкладка 1: Домашка -->
@@ -699,20 +782,70 @@
     </div>
   </div>
 
+  <!-- Вкладка 3: Каникулы -->
+  <div id="vacationsTab" class="tab-content">
+    <div class="vacations-grid" id="vacationsContainer"></div>
+  </div>
+
   <script>
     let currentLang = localStorage.getItem('app_lang') || 'ru';
     let appData = { schedule: [], homework: [] };
+
+    // График каникул 2026/2027 учебного года
+    const VACATIONS_DATA = [
+      {
+        id: 'autumn',
+        icon: '🍂',
+        title: { ru: 'Осенние каникулы', bg: 'Есенна ваканция' },
+        startDate: '2026-10-31',
+        endDate: '2026-11-02',
+        dateText: { ru: '31.10.2026 – 02.11.2026', bg: '31.10.2026 г. – 02.11.2026 г.' }
+      },
+      {
+        id: 'christmas',
+        icon: '🎄',
+        title: { ru: 'Рождественские каникулы', bg: 'Коледна ваканция' },
+        startDate: '2026-12-24',
+        endDate: '2027-01-03',
+        dateText: { ru: '24.12.2026 – 03.01.2027', bg: '24.12.2026 г. – 03.01.2027 г.' }
+      },
+      {
+        id: 'midterm',
+        icon: '❄️',
+        title: { ru: 'Межсеместровый перерыв', bg: 'Междусрочна ваканция' },
+        startDate: '2027-01-30',
+        endDate: '2027-02-02',
+        dateText: { ru: '30.01.2027 – 02.02.2027', bg: '30.01.2027 г. – 02.02.2027 г.' }
+      },
+      {
+        id: 'spring',
+        icon: '🌱',
+        title: { ru: 'Весенние каникулы', bg: 'Пролетна ваканция' },
+        startDate: '2027-04-03',
+        endDate: '2027-04-11',
+        dateText: { ru: '03.04.2027 – 11.04.2027', bg: '03.04.2027 г. – 11.04.2027 г.' }
+      },
+      {
+        id: 'summer_start',
+        icon: '☀️',
+        title: { ru: 'Конец учебного года (1 класс)', bg: 'Край на учебната година (1. клас)' },
+        startDate: '2027-06-02',
+        endDate: '2027-08-31',
+        dateText: { ru: 'С 02.06.2027 (Летние каникулы!)', bg: 'От 02.06.2027 г. (Лятна ваканция!)' }
+      }
+    ];
 
     // СЛОВАРЬ ПЕРЕВОДОВ ИНТЕРФЕЙСА
     const TRANSLATIONS = {
       ru: {
         badge: '🚀 Бортовой компьютер',
-        title: 'Мой дневник',
+        title: 'Мой дневник 1Б',
         subtitle: '🌌 Академия Знаний • Миссия активна',
         lastUpdatePrefix: 'ЦУП обновлён: ',
         btnRefresh: '🔄 Обновить данные',
         tabHw: '📝 Домашка по дням',
         tabSchedule: '🎒 Расписание и Портфель',
+        tabVacations: '🎉 Каникулы',
         filterLabel: 'Показать:',
         optActive: '⏳ Невыполненные (Актуальные)',
         optCompleted: '🏆 Выполненные задания',
@@ -720,12 +853,17 @@
         missionDone: '🏆 МИССИЯ ВЫПОЛНЕНА! 🎉',
         dayProgress: 'Прогресс дня:',
         doneOf: 'выполнено',
-        packTitle: '🎒 Вечерний Лего-Чеклист: Собираем портфель в школу',
+        packTitle: '🎒 Вечерний Чек-лист: Собираем портфель в школу',
         nextDayBadge: '🎒 Собираем завтра',
         todayBadge: 'Сегодня',
         emptyActive: '🎉 Настоящий триумф! Нет невыполненных заданий!<br>Все дни закрыты на 100%! 🚀',
         emptyCompleted: '⏳ Пока нет полностью выполненных дней.<br>Выполняй галочки, и они появятся здесь!',
         emptyAll: 'Список заданий пуст.',
+        daysLeftPrefix: '⏳ До каникул осталось: ',
+        daysLeftSuffix: ' дн.',
+        vacationNow: '🎉 Каникулы прямо сейчас! Ура!',
+        vacationPassed: '✅ Успешно пройдены',
+        nearestBadge: '🌟 БЛИЖАЙШИЕ КАНИКУЛЫ',
         packItems: [
           { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
           { id: 'p_water', text: '💧 Бутылочка с водой' },
@@ -737,12 +875,13 @@
       },
       bg: {
         badge: '🚀 Бортов компютър',
-        title: 'Моят дневник',
+        title: 'Моят дневник 1Б',
         subtitle: '🌌 Академия на Знанията • Активна мисия',
         lastUpdatePrefix: 'ЦУП е обновен: ',
         btnRefresh: '🔄 Обнови данни',
         tabHw: '📝 Домашно по дни',
         tabSchedule: '🎒 Програма и Раница',
+        tabVacations: '🎉 Ваканции',
         filterLabel: 'Покажи:',
         optActive: '⏳ Неизпълнени (Актуални)',
         optCompleted: '🏆 Завършени задачи',
@@ -756,6 +895,11 @@
         emptyActive: '🎉 Истински триумф! Няма неизпълнени задачи!<br>Всички дни са завършени на 100%! 🚀',
         emptyCompleted: '⏳ Все още няма напълно завършени дни.<br>Маркирай задачите и те ще се появят тук!',
         emptyAll: 'Списъкът със задачи е празен.',
+        daysLeftPrefix: '⏳ Остават до ваканцията: ',
+        daysLeftSuffix: ' дни',
+        vacationNow: '🎉 Ваканцията е в разгара си! Ура!',
+        vacationPassed: '✅ Преминала ваканция',
+        nearestBadge: '🌟 СЛЕДВАЩА ВАКАНЦИЯ',
         packItems: [
           { id: 'p_lunch', text: '🍱 Кутия за храна (ланчбокс)' },
           { id: 'p_water', text: '💧 бутилка с вода' },
@@ -807,6 +951,7 @@
       updateInterfaceTexts();
       renderHomework();
       renderSchedule();
+      renderVacations();
       renderPackChecklist();
     }
 
@@ -818,6 +963,7 @@
       document.getElementById('btnRefresh').innerText = t.btnRefresh;
       document.getElementById('tabHwBtn').innerText = t.tabHw;
       document.getElementById('tabScheduleBtn').innerText = t.tabSchedule;
+      document.getElementById('tabVacationsBtn').innerText = t.tabVacations;
       document.getElementById('filterLabel').innerText = t.filterLabel;
       document.getElementById('optActive').innerText = t.optActive;
       document.getElementById('optCompleted').innerText = t.optCompleted;
@@ -850,6 +996,7 @@
         
         renderSchedule();
         renderHomework();
+        renderVacations();
         renderPackChecklist();
       } catch (error) {
         console.error('Ошибка:', error);
@@ -886,6 +1033,56 @@
         confetti({ particleCount: 90, spread: 80, origin: { y: 0.6, x: 0.2 } });
         confetti({ particleCount: 90, spread: 80, origin: { y: 0.6, x: 0.8 } });
       }
+    }
+
+    // ОТРИСОВКА КАРТОЧЕК КАНИКУЛ С АВТОМАТИЧЕСКИМ ОТСЧЕТОМ
+    function renderVacations() {
+      const container = document.getElementById('vacationsContainer');
+      const t = TRANSLATIONS[currentLang];
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+
+      let nearestVacationFound = false;
+
+      let html = '';
+      VACATIONS_DATA.forEach(v => {
+        const start = new Date(v.startDate + 'T00:00:00');
+        const end = new Date(v.endDate + 'T23:59:59');
+
+        let isNearest = false;
+        let countdownText = '';
+
+        if (now >= start && now <= end) {
+          countdownText = t.vacationNow;
+          isNearest = true;
+          nearestVacationFound = true;
+        } else if (now < start) {
+          const diffTime = start - now;
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          countdownText = `${t.daysLeftPrefix} <b>${diffDays}</b> ${t.daysLeftSuffix}`;
+
+          if (!nearestVacationFound) {
+            isNearest = true;
+            nearestVacationFound = true;
+          }
+        } else {
+          countdownText = t.vacationPassed;
+        }
+
+        html += `
+          <div class="vacation-card ${isNearest ? 'is-next-vacation' : ''}">
+            <div class="vacation-icon-box">
+              <span>${v.icon}</span>
+              ${isNearest ? `<span style="font-size:11px; font-weight:1000; background:#F59E0B; color:#000; padding:3px 8px; border-radius:8px;">${t.nearestBadge}</span>` : ''}
+            </div>
+            <div class="vacation-name">${v.title[currentLang]}</div>
+            <div class="vacation-dates">📅 ${v.dateText[currentLang]}</div>
+            <div class="vacation-countdown">${countdownText}</div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
     }
 
     function parseRawTextToSubjects(rawItems) {
@@ -1142,22 +1339,9 @@
       renderPackChecklist();
     }
 
-    // Инициализация языка при загрузке
+    // Инициализация при загрузке
     setLanguage(currentLang);
     loadData();
   </script>
-<!-- Default Statcounter code for Diary 1 B
-https://dose4ka88.github.io/homework/ -->
-<script type="text/javascript">
-var sc_project=13361343; 
-var sc_invisible=1; 
-var sc_security="86bb4229"; 
-</script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
-href="https://statcounter.com/" target="_blank"><img class="statcounter"
-src="https://c.statcounter.com/13361343/0/86bb4229/1/" alt="Web Analytics"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- End of Statcounter Code --></body>
+</body>
 </html>
