@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дневник 1Б 🚀🌌</title>
+  <title>Дневник 1Б 🚀</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
-  <!-- Библиотека canvas-confetti для праздничного салюта -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
@@ -22,867 +21,150 @@
       --shadow-lego: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Nunito', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+    body { background-color: var(--bg-space); color: var(--text-main); padding: 20px 16px 50px 16px; max-width: 1050px; margin: 0 auto; }
 
-    body {
-      background-color: var(--bg-space);
-      color: var(--text-main);
-      padding: 20px 16px 50px 16px;
-      max-width: 1050px;
-      margin: 0 auto;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* АНИМИРОВАННЫЕ ЛЕТАЮЩИЕ КУБИКИ ЛЕГО НА ФОНЕ */
-    .lego-bg-shapes {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .lego-brick {
-      position: absolute;
-      opacity: 0.18;
-      border-radius: 6px;
-      animation: floatBrick 15s infinite linear;
-    }
-
-    .lego-brick::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 4px;
-      right: 4px;
-      height: 6px;
-      background: rgba(255,255,255,0.4);
-      border-radius: 3px;
-    }
-
-    .brick-1 { width: 60px; height: 30px; background: var(--lego-yellow); top: 10%; left: 5%; animation-duration: 22s; }
-    .brick-2 { width: 40px; height: 40px; background: var(--lego-red); top: 70%; left: 85%; animation-duration: 18s; }
-    .brick-3 { width: 80px; height: 30px; background: var(--lego-blue); top: 40%; left: 90%; animation-duration: 25s; }
-    .brick-4 { width: 50px; height: 50px; background: var(--lego-green); top: 80%; left: 10%; animation-duration: 20s; }
-    .brick-5 { width: 45px; height: 30px; background: #EC4899; top: 25%; left: 80%; animation-duration: 16s; }
-
-    @keyframes floatBrick {
-      0% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
-      100% { transform: translateY(0) rotate(360deg) scale(1); }
-    }
-
-    /* УЛЬТРАКОСМИЧЕСКАЯ ШАПКА */
     .hero-header {
       background: radial-gradient(circle at 50% 50%, #312E81 0%, #1E1B4B 60%, #0F172A 100%);
-      border: 3px solid #6366F1;
-      color: white;
-      border-radius: var(--radius-lg);
-      padding: 30px 20px;
-      text-align: center;
-      margin-bottom: 20px;
-      box-shadow: 0 0 40px rgba(99, 102, 241, 0.4), inset 0 0 20px rgba(99, 102, 241, 0.2);
-      position: relative;
-      overflow: hidden;
+      border: 3px solid #6366F1; color: white; border-radius: var(--radius-lg);
+      padding: 30px 20px; text-align: center; margin-bottom: 20px;
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
     }
-
-    .hero-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #38BDF8, transparent);
-      animation: laserScan 4s infinite linear;
-    }
-
-    @keyframes laserScan {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
     .hero-badge-space {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      color: #38BDF8;
-      font-size: 12px;
-      font-weight: 900;
-      padding: 4px 12px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+      display: inline-block; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38BDF8; font-size: 12px; font-weight: 900; padding: 4px 12px; border-radius: 20px;
+      text-transform: uppercase; margin-bottom: 10px;
     }
+    .hero-title { font-size: 32px; font-weight: 1000; margin-bottom: 8px; color: #FFF; }
+    .hero-subtitle { font-size: 14px; font-weight: 800; color: #E2E8F0; background: rgba(255, 255, 255, 0.1); display: inline-block; padding: 6px 16px; border-radius: 12px; }
 
-    .hero-title {
-      font-size: 32px;
-      font-weight: 1000;
-      margin-bottom: 8px;
-      background: linear-gradient(135deg, #FFFFFF 30%, #93C5FD 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-      letter-spacing: -0.5px;
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      font-weight: 800;
-      color: #E2E8F0;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    /* ПАНЕЛЬ СИНХРОНИЗАЦИИ И ЯЗЫКОВ */
     .sync-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      padding: 12px 20px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lego);
-      border-bottom: 4px solid #CBD5E1;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .last-update {
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 800;
-      flex: 1;
-      min-width: 180px;
-    }
-
-    .actions-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .lang-switch {
-      display: flex;
-      background: #E2E8F0;
-      padding: 3px;
-      border-radius: 12px;
-      gap: 2px;
-    }
-
-    .lang-btn {
-      border: none;
-      background: transparent;
-      padding: 6px 12px;
-      border-radius: 9px;
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .lang-btn.active {
-      background: #FFFFFF;
-      color: var(--lego-blue);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .btn-refresh {
-      background: var(--lego-yellow);
-      color: #000;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-weight: 900;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 0px #D97706;
-      transition: all 0.15s ease;
-    }
-
-    .btn-refresh:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
-    }
-
-    .btn-refresh:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0px #D97706;
-    }
-
-    /* ВКЛАДКИ */
-    .tabs-nav {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 22px;
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      flex: 1;
-      min-width: 130px;
-      padding: 12px 8px;
-      border: none;
-      background: rgba(30, 41, 59, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      font-size: 13px;
-      font-weight: 900;
-      color: #94A3B8;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      border: 2px solid rgba(255,255,255,0.08);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .tab-btn:hover {
-      color: #FFF;
-      background: rgba(51, 65, 85, 0.9);
-    }
-
-    .tab-btn.active {
-      background: var(--lego-blue);
-      color: white;
-      border-color: #60A5FA;
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4), 0 4px 0px #1D4ED8;
-      transform: translateY(-2px);
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ФИЛЬТР ДОМАШКИ */
-    .filter-panel {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--card-bg);
-      padding: 14px 20px;
-      border-radius: var(--radius-md);
-      margin-bottom: 22px;
-      box-shadow: var(--shadow-lego);
-      border-left: 6px solid var(--lego-blue);
-    }
-
-    .filter-label {
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--text-main);
-    }
-
-    .filter-select {
-      padding: 9px 14px;
-      border-radius: 12px;
-      border: 2px solid #CBD5E1;
-      font-weight: 800;
-      font-size: 14px;
-      outline: none;
-      background: #F8FAFC;
-      color: var(--text-main);
-      cursor: pointer;
-    }
-
-    /* КАРТОЧКА ДНЯ ДОМАШКИ */
-    .hw-day-block {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      border: 3px solid rgba(226, 232, 240, 0.8);
-      transition: all 0.3s ease;
-    }
-
-    .hw-day-block.day-completed {
-      border: 4px solid #F59E0B !important;
-      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
-      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45) !important;
-    }
-
-    .day-title-header {
-      font-size: 22px;
-      font-weight: 1000;
-      color: var(--lego-blue);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .day-completed-badge {
-      background: #F59E0B;
-      color: #000;
-      font-weight: 1000;
-      font-size: 13px;
-      padding: 5px 14px;
-      border-radius: 12px;
-      box-shadow: 0 4px 0px #D97706;
-      animation: bounce 1s infinite alternate;
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-4px); }
-    }
-
-    .progress-box {
-      background: #F1F5F9;
-      border-radius: 14px;
-      padding: 12px 16px;
-      margin-bottom: 20px;
-    }
-
-    .progress-text {
-      font-size: 13px;
-      font-weight: 900;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .progress-bar-bg {
-      height: 10px;
-      background: #CBD5E1;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--lego-green);
-      width: 0%;
-      transition: width 0.4s ease;
-      border-radius: 10px;
-    }
-
-    .subject-subgroup {
-      margin-bottom: 18px;
-      background: #FFFFFF;
-      padding: 16px;
-      border-radius: var(--radius-md);
-      border-left: 6px solid var(--lego-blue);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-      border-top: 1px solid #F1F5F9;
-      border-right: 1px solid #F1F5F9;
-      border-bottom: 1px solid #F1F5F9;
-    }
-
-    .subject-subgroup-title {
-      font-size: 17px;
-      font-weight: 900;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .task-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: #F8FAFC;
-      border: 2px solid #E2E8F0;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-
-    .task-item:hover {
-      border-color: var(--lego-blue);
-      transform: translateY(-1px);
-      background: #FFFFFF;
-    }
-
-    .task-checkbox {
-      width: 26px;
-      height: 26px;
-      accent-color: var(--lego-green);
-      cursor: pointer;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .task-text {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1.45;
-    }
-
-    .task-item.completed {
-      background: #ECFDF5;
-      border-color: #6EE7B7;
-    }
-
-    .task-item.completed .task-text {
-      text-decoration: line-through;
-      color: #065F46;
-      opacity: 0.75;
-    }
-
-    /* СЕТКА РАСПИСАНИЯ */
-    .schedule-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .day-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      border: 3px solid #E2E8F0;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.25s ease;
-    }
-
-    .day-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .day-card.is-next-school-day {
-      border: 4px solid #10B981 !important;
-      background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%) !important;
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.5), 0 8px 20px rgba(16, 185, 129, 0.2) !important;
-      transform: translateY(-4px);
-    }
-
-    .day-card.is-today {
-      border: 3px solid #3B82F6 !important;
-      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%) !important;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.35) !important;
-    }
-
-    .day-header {
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--lego-blue);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .next-day-badge {
-      background: #10B981;
-      color: #FFFFFF;
-      font-size: 11px;
-      font-weight: 1000;
-      padding: 5px 10px;
-      border-radius: 8px;
-      box-shadow: 0 3px 0px #059669;
-      animation: pulseGreen 2s infinite;
-    }
-
-    .today-badge {
-      background: #3B82F6;
-      color: #FFFFFF;
-      font-size: 10px;
-      font-weight: 900;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-
-    @keyframes pulseGreen {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    .lesson-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .lesson-item {
-      padding: 9px 12px;
-      background: #F8FAFC;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid #E2E8F0;
-    }
-
-    .lesson-num {
-      background: #DBEAFE;
-      color: var(--lego-blue);
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
-    /* РАЗДЕЛ КАНИКУЛ */
-    .vacations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-
-    .vacation-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-      border: 3px solid #E2E8F0;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .vacation-card.is-next-vacation {
-      border: 4px solid #F59E0B !important;
-      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
-      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45) !important;
-      transform: translateY(-4px);
-    }
-
-    .vacation-icon-box {
-      font-size: 38px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .vacation-name {
-      font-size: 19px;
-      font-weight: 1000;
-      color: var(--text-main);
-      margin-bottom: 6px;
-    }
-
-    .vacation-dates {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--lego-blue);
-      background: #EFF6FF;
-      padding: 6px 12px;
-      border-radius: 10px;
-      display: inline-block;
-      margin-bottom: 12px;
-      border: 1px solid #DBEAFE;
-    }
-
-    .vacation-countdown {
-      margin-top: auto;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-weight: 900;
-      font-size: 13px;
-      text-align: center;
-      background: #F1F5F9;
-      color: var(--text-muted);
-    }
-
-    .vacation-card.is-next-vacation .vacation-countdown {
-      background: #F59E0B;
-      color: #000;
-      box-shadow: 0 3px 0px #D97706;
-      animation: pulseGold 2s infinite;
-    }
-
-    @keyframes pulseGold {
-      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-    }
-
-    /* СТИЛИ ДЛЯ ОБЪЯВЛЕНИЙ, РЕСУРСОВ И СОБЫТИЙ */
-    .section-title {
-      font-size: 20px;
-      font-weight: 1000;
-      color: #FFFFFF;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-
-    .announcement-card, .resource-card, .event-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-lego);
-      border: 3px solid #E2E8F0;
-    }
-
-    .announcement-card.important {
-      border-color: var(--lego-red);
-      background: linear-gradient(135deg, #FEF2F2 0%, #FFF 100%);
-    }
-
-    .announcement-date, .event-date {
-      font-size: 12px;
-      font-weight: 900;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .announcement-header {
-      font-size: 18px;
-      font-weight: 1000;
-      color: var(--text-main);
-      margin-bottom: 8px;
-    }
-
-    .announcement-text {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .resources-grid, .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .resource-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .resource-category {
-      font-size: 11px;
-      font-weight: 1000;
-      text-transform: uppercase;
-      color: var(--lego-blue);
-      margin-bottom: 4px;
-    }
-
-    .resource-link {
-      font-size: 16px;
-      font-weight: 1000;
-      color: var(--lego-blue);
-      text-decoration: none;
-      margin-bottom: 6px;
-      display: inline-block;
-    }
-
-    .resource-link:hover {
-      text-decoration: underline;
-    }
-
-    /* ЧЕК-ЛИСТ СБОРА ПОРТФЕЛЯ */
-    .pack-checklist-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      border: 3px solid var(--lego-yellow);
-      margin-top: 24px;
-    }
-
-    .pack-title {
-      font-size: 20px;
-      font-weight: 1000;
-      color: var(--text-main);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .pack-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-
-    .pack-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      background: #F8FAFC;
-      border-radius: 14px;
-      border: 2px solid #E2E8F0;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .pack-item:hover {
-      border-color: var(--lego-yellow);
-      background: #FFFFFF;
-    }
-
-    .pack-item.checked {
-      background: #ECFDF5;
-      border-color: #6EE7B7;
-      text-decoration: line-through;
-      color: #065F46;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 50px 20px;
-      color: #94A3B8;
-      font-size: 16px;
-      font-weight: 800;
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lego);
-    }
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+      background: var(--card-bg); padding: 12px 20px; border-radius: var(--radius-md); box-shadow: var(--shadow-lego); gap: 10px; flex-wrap: wrap;
+    }
+    .last-update { font-size: 13px; color: var(--text-muted); font-weight: 800; }
+    .actions-group { display: flex; align-items: center; gap: 10px; }
+    .lang-switch { display: flex; background: #E2E8F0; padding: 3px; border-radius: 12px; gap: 2px; }
+    .lang-btn { border: none; background: transparent; padding: 6px 12px; border-radius: 9px; font-size: 13px; font-weight: 900; color: var(--text-muted); cursor: pointer; }
+    .lang-btn.active { background: #FFFFFF; color: var(--lego-blue); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .btn-refresh { background: var(--lego-yellow); color: #000; border: none; padding: 8px 16px; border-radius: 12px; font-weight: 900; font-size: 13px; cursor: pointer; box-shadow: 0 4px 0px #D97706; }
+
+    .tabs-nav { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+    .tab-btn { flex: 1; min-width: 130px; padding: 12px 8px; border: none; background: rgba(30, 41, 59, 0.8); border-radius: 16px; font-size: 13px; font-weight: 900; color: #94A3B8; cursor: pointer; border: 2px solid rgba(255,255,255,0.08); }
+    .tab-btn.active { background: var(--lego-blue); color: white; border-color: #60A5FA; box-shadow: 0 4px 0px #1D4ED8; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .filter-panel { display: flex; align-items: center; gap: 12px; background: var(--card-bg); padding: 14px 20px; border-radius: var(--radius-md); margin-bottom: 22px; box-shadow: var(--shadow-lego); border-left: 6px solid var(--lego-blue); }
+    .filter-select { padding: 8px 12px; border-radius: 12px; border: 2px solid #CBD5E1; font-weight: 800; font-size: 14px; }
+
+    .hw-day-block { background: var(--card-bg); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 3px solid #E2E8F0; }
+    .hw-day-block.day-completed { border-color: #F59E0B; background: #FFFBEB; }
+    .day-title-header { font-size: 22px; font-weight: 1000; color: var(--lego-blue); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+
+    .progress-box { background: #F1F5F9; border-radius: 14px; padding: 12px 16px; margin-bottom: 20px; }
+    .progress-text { font-size: 13px; font-weight: 900; display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .progress-bar-bg { height: 10px; background: #CBD5E1; border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--lego-green); width: 0%; transition: width 0.4s ease; }
+
+    .subject-card { background: #FFFFFF; padding: 16px; border-radius: var(--radius-md); margin-bottom: 14px; border-left: 6px solid var(--lego-blue); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .subject-title { font-size: 17px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; color: var(--lego-blue); }
+
+    .task-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #F8FAFC; border: 2px solid #E2E8F0; margin-bottom: 8px; cursor: pointer; }
+    .task-checkbox { width: 22px; height: 22px; accent-color: var(--lego-green); cursor: pointer; margin-top: 2px; }
+    .task-text { font-size: 15px; font-weight: 800; color: var(--text-main); line-height: 1.4; }
+    .task-item.completed { background: #ECFDF5; border-color: #6EE7B7; }
+    .task-item.completed .task-text { text-decoration: line-through; color: #065F46; opacity: 0.7; }
+
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .day-card { background: var(--card-bg); border-radius: var(--radius-lg); padding: 18px; border: 3px solid #E2E8F0; }
+    .lesson-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .lesson-item { padding: 8px 10px; background: #F8FAFC; border-radius: 10px; font-weight: 800; font-size: 14px; border: 1px solid #E2E8F0; }
+
+    .vacations-grid, .resources-grid, .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+    .vacation-card, .announcement-card, .resource-card, .event-card { background: var(--card-bg); border-radius: var(--radius-lg); padding: 20px; border: 3px solid #E2E8F0; margin-bottom: 14px; }
+    .section-title { font-size: 20px; font-weight: 1000; color: #FFFFFF; margin: 20px 0 14px 0; }
+    .empty-state { text-align: center; padding: 40px; color: #94A3B8; font-weight: 800; background: var(--card-bg); border-radius: var(--radius-lg); }
   </style>
 </head>
 <body>
 
-  <!-- Летающие лего-кубики на фоне -->
-  <div class="lego-bg-shapes">
-    <div class="lego-brick brick-1"></div>
-    <div class="lego-brick brick-2"></div>
-    <div class="lego-brick brick-3"></div>
-    <div class="lego-brick brick-4"></div>
-    <div class="lego-brick brick-5"></div>
-  </div>
-
   <header class="hero-header">
     <div class="hero-badge-space" id="headerBadge">🚀 Бортовой компьютер</div>
     <div class="hero-title" id="headerTitle">Мой дневник 1Б</div>
-    <div class="hero-subtitle">
-      <span id="headerSubtitle">🌌 Академия Знаний &bull; Миссия активна</span>
-    </div>
+    <div class="hero-subtitle" id="headerSubtitle">🌌 Академия Знаний • Миссия активна</div>
   </header>
 
   <div class="sync-bar">
     <div class="last-update" id="lastUpdate">Связь с ЦУП...</div>
-    
     <div class="actions-group">
-      <!-- Переключатель языков -->
       <div class="lang-switch">
         <button class="lang-btn active" id="btnRu" onclick="setLanguage('ru')">RU 🇷🇺</button>
         <button class="lang-btn" id="btnBg" onclick="setLanguage('bg')">BG 🇧🇬</button>
       </div>
-      
-      <button class="btn-refresh" id="btnRefresh" onclick="forceRefreshData()">🔄 Обновить данные</button>
+      <button class="btn-refresh" onclick="loadData()">🔄 Обновить</button>
     </div>
   </div>
 
-  <!-- Вкладки -->
   <div class="tabs-nav">
-    <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
-    <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
-    <button class="tab-btn" id="tabVacationsBtn" onclick="switchTab('vacationsTab', this)">🎉 Каникулы</button>
-    <button class="tab-btn" id="tabAnnounceBtn" onclick="switchTab('announceTab', this)">📢 Объявления</button>
-    <button class="tab-btn" id="tabEventsBtn" onclick="switchTab('eventsTab', this)">🎂 События</button>
+    <button class="tab-btn active" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
+    <button class="tab-btn" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
+    <button class="tab-btn" onclick="switchTab('vacationsTab', this)">🎉 Каникулы</button>
+    <button class="tab-btn" onclick="switchTab('announceTab', this)">📢 Объявления</button>
+    <button class="tab-btn" onclick="switchTab('eventsTab', this)">🎂 События</button>
   </div>
 
   <!-- Вкладка 1: Домашка -->
   <div id="homeworkTab" class="tab-content active">
     <div class="filter-panel">
-      <span class="filter-label" id="filterLabel">Показать:</span>
+      <span style="font-weight:900;" id="filterLabel">Показать:</span>
       <select class="filter-select" id="statusFilter" onchange="renderHomework()">
-        <option value="active" id="optActive">⏳ Невыполненные (Актуальные)</option>
-        <option value="completed" id="optCompleted">🏆 Выполненные задания</option>
+        <option value="active" id="optActive">⏳ Невыполненные</option>
+        <option value="completed" id="optCompleted">🏆 Выполненные</option>
         <option value="all" id="optAll">📜 Все дни</option>
       </select>
     </div>
-
     <div id="homeworkContainer">Загрузка заданий...</div>
   </div>
 
   <!-- Вкладка 2: Расписание -->
   <div id="scheduleTab" class="tab-content">
-    <div id="scheduleContainer">Загрузка расписания уроков...</div>
-
-    <div class="pack-checklist-card">
-      <div class="pack-title">
-        <span id="packTitle">🎒 Вечерний Чек-лист: Собираем портфель в школу</span>
-      </div>
-      <div class="pack-grid" id="packChecklistGrid"></div>
-    </div>
+    <div id="scheduleContainer">Загрузка расписания...</div>
   </div>
 
   <!-- Вкладка 3: Каникулы -->
   <div id="vacationsTab" class="tab-content">
-    <div class="vacations-grid" id="vacationsContainer"></div>
+    <div class="vacations-grid">
+      <div class="vacation-card">
+        <div style="font-size:30px;">🍂</div>
+        <h3 style="margin:8px 0;">Осенние каникулы</h3>
+        <p style="color:#3B82F6; font-weight:800;">31.10.2026 – 02.11.2026</p>
+      </div>
+      <div class="vacation-card">
+        <div style="font-size:30px;">🎄</div>
+        <h3 style="margin:8px 0;">Рождественские каникулы</h3>
+        <p style="color:#3B82F6; font-weight:800;">24.12.2026 – 03.01.2027</p>
+      </div>
+      <div class="vacation-card">
+        <div style="font-size:30px;">🌱</div>
+        <h3 style="margin:8px 0;">Весенние каникулы</h3>
+        <p style="color:#3B82F6; font-weight:800;">03.04.2027 – 11.04.2027</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Вкладка 4: Объявления и Ресурсы -->
+  <!-- Вкладка 4: Объявления -->
   <div id="announceTab" class="tab-content">
-    <div class="section-title" id="secAnnounceTitle">📢 Объявления от учителя</div>
+    <div class="section-title">📢 Объявления</div>
     <div id="announcementsContainer"></div>
-
-    <div class="section-title" id="secResourcesTitle" style="margin-top: 30px;">🔗 Полезные ресурсы и ссылки</div>
+    <div class="section-title">🔗 Полезные ресурсы</div>
     <div class="resources-grid" id="resourcesContainer"></div>
   </div>
 
-  <!-- Вкладка 5: События и Именинники -->
+  <!-- Вкладка 5: События -->
   <div id="eventsTab" class="tab-content">
-    <div class="section-title" id="secEventsTitle">🎂 Календарь событий и дни рождения</div>
+    <div class="section-title">🎂 События и Дни рождения</div>
     <div class="events-grid" id="eventsContainer"></div>
   </div>
 
@@ -890,5 +172,43 @@
     let currentLang = localStorage.getItem('app_lang') || 'ru';
     let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [] };
 
-    // График каникул 2026/2027 учебного года
-    const VACATIONS_DATA =
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('app_lang', lang);
+      document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+      document.getElementById('btnBg').classList.toggle('active', lang === 'bg');
+      renderAll();
+    }
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch('data.json?v=' + new Date().getTime());
+        if (!res.ok) throw new Error('Файл не найден');
+        appData = await res.json();
+        document.getElementById('lastUpdate').innerText = 'ЦУП обновлён: ' + (appData.updatedAt || '');
+        renderAll();
+      } catch (e) {
+        console.error(e);
+        document.getElementById('lastUpdate').innerText = 'Ошибка загрузки data.json';
+      }
+    }
+
+    function renderAll() {
+      renderHomework();
+      renderSchedule();
+      renderAnnouncements();
+      renderResources();
+      renderEvents();
+    }
+
+    // Автоматическое определение предмета и иконки по тексту
+    function detectSubjectInfo(text, rawSubject) {
+      const fullText = ((rawSubject || '') + ' ' + (text || '')).toLowerCase();
+      if (fullText.includes('бел') || fullText.
