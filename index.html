@@ -240,20 +240,20 @@
     /* ВКЛАДКИ */
     .tabs-nav {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 22px;
       flex-wrap: wrap;
     }
 
     .tab-btn {
       flex: 1;
-      min-width: 150px;
-      padding: 14px 10px;
+      min-width: 130px;
+      padding: 12px 8px;
       border: none;
       background: rgba(30, 41, 59, 0.8);
       backdrop-filter: blur(10px);
-      border-radius: 18px;
-      font-size: 15px;
+      border-radius: 16px;
+      font-size: 13px;
       font-weight: 900;
       color: #94A3B8;
       cursor: pointer;
@@ -261,7 +261,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       border: 2px solid rgba(255,255,255,0.08);
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
@@ -399,7 +399,6 @@
       border-radius: 10px;
     }
 
-    /* КАРТОЧКА ПРЕДМЕТА */
     .subject-subgroup {
       margin-bottom: 18px;
       background: #FFFFFF;
@@ -654,6 +653,87 @@
       100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
     }
 
+    /* СТИЛИ ДЛЯ НОВЫХ РАЗДЕЛОВ (ОБЪЯВЛЕНИЯ, РЕСУРСЫ, СОБЫТИЯ) */
+    .section-title {
+      font-size: 20px;
+      font-weight: 1000;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .announcement-card, .resource-card, .event-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-lego);
+      border: 3px solid #E2E8F0;
+    }
+
+    .announcement-card.important {
+      border-color: var(--lego-red);
+      background: linear-gradient(135deg, #FEF2F2 0%, #FFF 100%);
+    }
+
+    .announcement-date, .event-date {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .announcement-header {
+      font-size: 18px;
+      font-weight: 1000;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .announcement-text {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .resources-grid, .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .resource-category {
+      font-size: 11px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      color: var(--lego-blue);
+      margin-bottom: 4px;
+    }
+
+    .resource-link {
+      font-size: 16px;
+      font-weight: 1000;
+      color: var(--lego-blue);
+      text-decoration: none;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    .resource-link:hover {
+      text-decoration: underline;
+    }
+
     /* ЧЕК-ЛИСТ СБОРА ПОРТФЕЛЯ */
     .pack-checklist-card {
       background: var(--card-bg);
@@ -750,11 +830,13 @@
     </div>
   </div>
 
-  <!-- Вкладки -->
+  <!-- Вкладки (теперь с новыми разделами) -->
   <div class="tabs-nav">
-    <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка по дням</button>
-    <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание и Портфель</button>
+    <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
+    <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
     <button class="tab-btn" id="tabVacationsBtn" onclick="switchTab('vacationsTab', this)">🎉 Каникулы</button>
+    <button class="tab-btn" id="tabAnnounceBtn" onclick="switchTab('announceTab', this)">📢 Объявления</button>
+    <button class="tab-btn" id="tabEventsBtn" onclick="switchTab('eventsTab', this)">🎂 События</button>
   </div>
 
   <!-- Вкладка 1: Домашка -->
@@ -788,9 +870,24 @@
     <div class="vacations-grid" id="vacationsContainer"></div>
   </div>
 
+  <!-- Вкладка 4: Объявления и Ресурсы -->
+  <div id="announceTab" class="tab-content">
+    <div class="section-title" id="secAnnounceTitle">📢 Объявления от учителя</div>
+    <div id="announcementsContainer"></div>
+
+    <div class="section-title" id="secResourcesTitle" style="margin-top: 30px;">🔗 Полезные ресурсы и ссылки</div>
+    <div class="resources-grid" id="resourcesContainer"></div>
+  </div>
+
+  <!-- Вкладка 5: События и Дни рождения -->
+  <div id="eventsTab" class="tab-content">
+    <div class="section-title" id="secEventsTitle">🎂 Календарь событий и дни рождения</div>
+    <div class="events-grid" id="eventsContainer"></div>
+  </div>
+
   <script>
     let currentLang = localStorage.getItem('app_lang') || 'ru';
-    let appData = { schedule: [], homework: [] };
+    let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [] };
 
     // График каникул 2026/2027 учебного года
     const VACATIONS_DATA = [
@@ -844,9 +941,11 @@
         subtitle: '🌌 Академия Знаний • Миссия активна',
         lastUpdatePrefix: 'ЦУП обновлён: ',
         btnRefresh: '🔄 Обновить данные',
-        tabHw: '📝 Домашка по дням',
-        tabSchedule: '🎒 Расписание и Портфель',
+        tabHw: '📝 Домашка',
+        tabSchedule: '🎒 Расписание',
         tabVacations: '🎉 Каникулы',
+        tabAnnounce: '📢 Объявления',
+        tabEvents: '🎂 События',
         filterLabel: 'Показать:',
         optActive: '⏳ Невыполненные (Актуальные)',
         optCompleted: '🏆 Выполненные задания',
@@ -865,6 +964,12 @@
         vacationNow: '🎉 Каникулы прямо сейчас! Ура!',
         vacationPassed: '✅ Успешно пройдены',
         nearestBadge: '🌟 БЛИЖАЙШИЕ КАНИКУЛЫ',
+        secAnnounceTitle: '📢 Объявления от учителя',
+        secResourcesTitle: '🔗 Полезные ресурсы и ссылки',
+        secEventsTitle: '🎂 Календарь событий и дни рождения',
+        emptyAnnounce: '📢 Пока нет новых объявлений.',
+        emptyResources: '🔗 Ссылки и ресурсы скоро появятся.',
+        emptyEvents: '🎉 Нет запланированных событий.',
         packItems: [
           { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
           { id: 'p_water', text: '💧 Бутылочка с водой' },
@@ -880,9 +985,11 @@
         subtitle: '🌌 Академия на Знанията • Активна мисия',
         lastUpdatePrefix: 'ЦУП е обновен: ',
         btnRefresh: '🔄 Обнови данни',
-        tabHw: '📝 Домашно по дни',
-        tabSchedule: '🎒 Програма и Раница',
+        tabHw: '📝 Домашно',
+        tabSchedule: '🎒 Програма',
         tabVacations: '🎉 Ваканции',
+        tabAnnounce: '📢 Съобщения',
+        tabEvents: '🎂 Събития',
         filterLabel: 'Покажи:',
         optActive: '⏳ Неизпълнени (Актуални)',
         optCompleted: '🏆 Завършени задачи',
@@ -901,6 +1008,12 @@
         vacationNow: '🎉 Ваканцията е в разгара си! Ура!',
         vacationPassed: '✅ Преминала ваканция',
         nearestBadge: '🌟 СЛЕДВАЩА ВАКАНЦИЯ',
+        secAnnounceTitle: '📢 Съобщения от учителя',
+        secResourcesTitle: '🔗 Линкове и ресурси',
+        secEventsTitle: '🎂 Календар на събитията и рождени дни',
+        emptyAnnounce: '📢 Все още няма нови съобщения.',
+        emptyResources: '🔗 Линковете и ресурсите скоро ще бъдат добавени.',
+        emptyEvents: '🎉 Няма предстоящи събития.',
         packItems: [
           { id: 'p_lunch', text: '🍱 Кутия за храна (ланчбокс)' },
           { id: 'p_water', text: '💧 бутилка с вода' },
@@ -927,32 +1040,12 @@
       6: ['събота', 'суббота', 'saturday', 'сб']
     };
 
-    const SUBJECT_CONFIG = {
-      'БЕЛ': { name: 'Български език и литература', icon: '📖', color: '#3B82F6' },
-      'БЪЛГАРСКИ': { name: 'Български език и литература', icon: '📖', color: '#3B82F6' },
-      'МАТЕМАТИКА': { name: 'Математика', icon: '🔢', color: '#10B981' },
-      'МАТ': { name: 'Математика', icon: '🔢', color: '#10B981' },
-      'РОДИНОЗНАНИЕ': { name: 'Родинознание', icon: '🌍', color: '#F59E0B' },
-      'РОД': { name: 'Родинознание', icon: '🌍', color: '#F59E0B' },
-      'ФВС': { name: 'Физкултура и спорт', icon: '⚽', color: '#EF4444' },
-      'ФИЗИЧЕСКО': { name: 'Физкултура и спорт', icon: '⚽', color: '#EF4444' },
-      'МУЗИКА': { name: 'Музика', icon: '🎵', color: '#8B5CF6' },
-      'МУЗ': { name: 'Музика', icon: '🎵', color: '#8B5CF6' },
-      'ИЗО': { name: 'Изобразително изкуство', icon: '🎨', color: '#EC4899' },
-      'ИЗОБРАЗИТЕЛНО': { name: 'Изобразително изкуство', icon: '🎨', color: '#EC4899' },
-      'ТЕХНОЛОГИИ': { name: 'Технологии и предприемачество', icon: '🛠️', color: '#14B8A6' },
-      'ТЕХНОЛОГИЯ': { name: 'Технологии и предприемачество', icon: '🛠️', color: '#14B8A6' }
-    };
-
     // Умный определитель предмета по тексту задания
     function parseTextIntoSubjects(text) {
       if (!text) return [{ name: 'Задание', icon: '📌', color: '#3B82F6', text: '' }];
       
-      // Пытаемся разбить текст по номерам предметов (например, "1. БЕЛ...", "2. Математика...")
       let parts = text.split(/(?=\d+\.\s*(?:БЕЛ|Бел|Математика|Родинознание|Музика|Изобразително|Технология|Физическо))/g);
-      
       if (parts.length <= 1) {
-        // Если номеров нет, попробуем разделить по точкам с новой строки или просто вернем целиком
         parts = [text];
       }
 
@@ -1010,6 +1103,9 @@
       renderHomework();
       renderSchedule();
       renderVacations();
+      renderAnnouncements();
+      renderResources();
+      renderEvents();
       renderPackChecklist();
     }
 
@@ -1022,11 +1118,16 @@
       document.getElementById('tabHwBtn').innerText = t.tabHw;
       document.getElementById('tabScheduleBtn').innerText = t.tabSchedule;
       document.getElementById('tabVacationsBtn').innerText = t.tabVacations;
+      document.getElementById('tabAnnounceBtn').innerText = t.tabAnnounce;
+      document.getElementById('tabEventsBtn').innerText = t.tabEvents;
       document.getElementById('filterLabel').innerText = t.filterLabel;
       document.getElementById('optActive').innerText = t.optActive;
       document.getElementById('optCompleted').innerText = t.optCompleted;
       document.getElementById('optAll').innerText = t.optAll;
       document.getElementById('packTitle').innerText = t.packTitle;
+      document.getElementById('secAnnounceTitle').innerText = t.secAnnounceTitle;
+      document.getElementById('secResourcesTitle').innerText = t.secResourcesTitle;
+      document.getElementById('secEventsTitle').innerText = t.secEventsTitle;
     }
 
     function switchTab(tabId, btn) {
@@ -1055,13 +1156,14 @@
         renderSchedule();
         renderHomework();
         renderVacations();
+        renderAnnouncements();
+        renderResources();
+        renderEvents();
         renderPackChecklist();
       } catch (error) {
         console.error('Ошибка:', error);
         document.getElementById('homeworkContainer').innerHTML = 
           '<div class="empty-state">⚠️ Данные из таблицы ещё не поступали. Нажмите кнопку «Обновить данные».</div>';
-        document.getElementById('scheduleContainer').innerHTML = 
-          '<div class="empty-state">⚠️ Ожидание сигнала от расписания...</div>';
       }
     }
 
@@ -1139,6 +1241,58 @@
         `;
       });
       container.innerHTML = html;
+    }
+
+    // РЕНДЕР ОБЪЯВЛЕНИЙ
+    function renderAnnouncements() {
+      const container = document.getElementById('announcementsContainer');
+      const t = TRANSLATIONS[currentLang];
+      if (!appData.announcements || appData.announcements.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyAnnounce}</div>`;
+        return;
+      }
+      container.innerHTML = appData.announcements.map(a => `
+        <div class="announcement-card ${String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true ? 'important' : ''}">
+          <div class="announcement-date">📅 ${a.date || ''}</div>
+          <div class="announcement-header">${a.title || ''}</div>
+          <div class="announcement-text">${a.text || ''}</div>
+        </div>
+      `).join('');
+    }
+
+    // РЕНДЕР РЕСУРСОВ
+    function renderResources() {
+      const container = document.getElementById('resourcesContainer');
+      const t = TRANSLATIONS[currentLang];
+      if (!appData.resources || appData.resources.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyResources}</div>`;
+        return;
+      }
+      container.innerHTML = appData.resources.map(r => `
+        <div class="resource-card">
+          <div class="resource-category">${r.category || ''}</div>
+          <a href="${r.url || '#'}" target="_blank" class="resource-link">${r.title || 'Ссылка'} ↗</a>
+          <div class="announcement-text">${r.description || ''}</div>
+        </div>
+      `).join('');
+    }
+
+    // РЕНДЕР СОБЫТИЙ
+    function renderEvents() {
+      const container = document.getElementById('eventsContainer');
+      const t = TRANSLATIONS[currentLang];
+      if (!appData.events || appData.events.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyEvents}</div>`;
+        return;
+      }
+      container.innerHTML = appData.events.map(e => `
+        <div class="event-card">
+          <div style="font-size: 32px; margin-bottom: 8px;">${e.icon || '📌'}</div>
+          <div class="event-date">📅 ${e.date || ''}</div>
+          <div class="announcement-header">${e.name || ''}</div>
+          <div class="announcement-text">${e.description || ''}</div>
+        </div>
+      `).join('');
     }
 
     // ОТРИСОВКА ДОМАШКИ С РАЗДЕЛЕНИЕМ ПО ПРЕДМЕТАМ
@@ -1306,7 +1460,6 @@
       savedState[id] = !wasDoneBefore;
       localStorage.setItem('hw_completed', JSON.stringify(savedState));
 
-      // Проверка на салют при завершении всех заданий дня
       if (!wasDoneBefore) {
         const dayBlock = appData.homework[dayIndex];
         if (dayBlock && dayBlock.items) {
