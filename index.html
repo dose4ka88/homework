@@ -1492,6 +1492,56 @@
       localStorage.setItem('pack_completed', JSON.stringify(packState));
       renderPackChecklist();
     }
+    // РЕНДЕР РЕСУРСОВ С ПОДДЕРЖКОЙ ПРЕВЬЮ ДЛЯ YOUTUBE
+    function renderResources() {
+      const container = document.getElementById('resourcesContainer');
+      const t = TRANSLATIONS[currentLang];
+      if (!appData.resources || !Array.isArray(appData.resources) || appData.resources.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyResources}</div>`;
+        return;
+      }
+
+      container.innerHTML = appData.resources.map(r => {
+        const url = r.url || '#';
+        const category = (r.category || '').toUpperCase();
+        
+        // Проверяем, является ли ссылка YouTube-видео
+        let youtubeId = null;
+        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+        if (ytMatch) {
+          youtubeId = ytMatch[1];
+        }
+
+        // Если это видео с YouTube — выводим карточку с превью
+        if (youtubeId || category.includes('ВИДЕО') || category.includes('YOUTUBE')) {
+          const thumbUrl = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : '';
+          return `
+            <div class="resource-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+              ${thumbUrl ? `
+                <a href="${url}" target="_blank" style="position: relative; display: block; background: #000;">
+                  <img src="${thumbUrl}" alt="${r.title || 'Video'}" style="width: 100%; height: 160px; object-fit: cover; display: block; opacity: 0.9; transition: 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
+                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">▶</div>
+                </a>
+              ` : ''}
+              <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
+                <div class="resource-category">${r.category || 'Видео'}</div>
+                <a href="${url}" target="_blank" class="resource-link" style="margin-top: 4px;">${r.title || 'Видеоролик'} ↗</a>
+                <div class="announcement-text" style="margin-top: 4px;">${r.description || ''}</div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Обычная текстовая карточка для сайтов и документов
+        return `
+          <div class="resource-card">
+            <div class="resource-category">${r.category || ''}</div>
+            <a href="${url}" target="_blank" class="resource-link">${r.title || 'Ссылка'} ↗</a>
+            <div class="announcement-text" style="margin-top: 4px;">${r.description || ''}</div>
+          </div>
+        `;
+      }).join('');
+    }
 
     // Инициализация при загрузке
     setLanguage(currentLang);
