@@ -1,5 +1,5 @@
 {
-  "updatedAt": "22.10.2026 08:24",
+  "updatedAt": "22.10.2026 08:25",
   "schedule": [
     {
       "day": "Понеделник",
@@ -97,6 +97,12 @@
       "title": "Звук и буква О",
       "url": "https://www.youtube.com/watch?v=VTS5iymV_sY",
       "description": "Урок е на тема Звук и буква О"
+    },
+    {
+      "category": "Видео",
+      "title": "Звук и буква О",
+      "url": "",
+      "description": ""
     }
   ],
   "events": []
