@@ -1674,16 +1674,14 @@
       }
 
       const now = new Date();
-      const currentMonth = now.getMonth() + 1; // 1 - 12
-      const currentDay = now.getDate();
+      now.setHours(0,0,0,0);
 
-      // 1. Находим ближайший предстоящий день рождения (или событие) по датам
-      let closestEvent = null;
+      // 1. Вычисляем количество дней до каждого события и находим минимальное значение (ближайшую дату)
       let minDaysDiff = Infinity;
-
-      appData.events.forEach(e => {
-        // Ожидаем формат даты "ДД.ММ" или "ДД.ММ.ГГГГ"
+      const processedEvents = appData.events.map(e => {
         const parts = e.date.split('.');
+        let daysDiff = Infinity;
+        
         if (parts.length >= 2) {
           const eDay = parseInt(parts[0], 10);
           const eMonth = parseInt(parts[1], 10);
@@ -1692,25 +1690,25 @@
           eventDate.setHours(0,0,0,0);
           
           let diff = eventDate - now;
-          // Если дата в этом году уже прошла, смотрим на следующий год
           if (diff < 0) {
             eventDate.setFullYear(now.getFullYear() + 1);
             diff = eventDate - now;
           }
           
-          const daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-          if (daysDiff < minDaysDiff) {
-            minDaysDiff = daysDiff;
-            closestEvent = e;
-          }
+          daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        }
+
+        return { ...e, daysDiff };
+      });
+
+      // Находим минимальное число дней до ближайшего события
+      processedEvents.forEach(e => {
+        if (e.daysDiff < minDaysDiff) {
+          minDaysDiff = e.daysDiff;
         }
       });
 
-      // 2. Распределяем события по кварталам школьного года / года
-      // Квартал 1: Сентябрь - Ноябрь (9, 10, 11)
-      // Квартал 2: Декабрь - Февраль (12, 1, 2)
-      // Квартал 3: Март - Май (3, 4, 5)
-      // Квартал 4: Июнь - Август (6, 7, 8)
+      // 2. Распределяем события по кварталам школьного года
       const quarters = {
         1: { title: { ru: '🍁', bg: '🍁' }, items: [] },
         2: { title: { ru: '❄️', bg: '❄️' }, items: [] },
@@ -1718,7 +1716,7 @@
         4: { title: '☀️', items: [] }
       };
 
-      appData.events.forEach(e => {
+      processedEvents.forEach(e => {
         const parts = e.date.split('.');
         if (parts.length >= 2) {
           const month = parseInt(parts[1], 10);
@@ -1747,7 +1745,9 @@
           html += `<div style="font-size: 13px; color: var(--text-muted); font-weight: 800; padding: 10px 0;">Нет записей в этом квартале</div>`;
         } else {
           qData.items.forEach(e => {
-            const isNearest = closestEvent && closestEvent.date === e.date && closestEvent.name === e.name;
+            // Если у события совпадает минимальное количество дней до него, подсвечиваем его
+            const isNearest = (e.daysDiff === minDaysDiff);
+            
             html += `
               <div class="event-row ${isNearest ? 'nearest-birthday' : ''}">
                 <div class="event-row-icon">${e.icon || '🎂'}</div>
@@ -1755,7 +1755,7 @@
                   <div class="event-row-date">📅 ${e.date}</div>
                   <div class="event-row-name">${e.name}</div>
                   ${e.description ? `<div style="font-size: 11px; color: var(--text-muted);">${e.description}</div>` : ''}
-                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забравяй да честитиш!</span>` : ''}
+                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забравяй да честиш!</span>` : ''}
                 </div>
               </div>
             `;
