@@ -1663,7 +1663,111 @@
         }
       });
     }
+// ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ СОБЫТИЙ И ИМЕНИННИКОВ ПО КВАРТАЛАМ
+    function renderEvents() {
+      const container = document.getElementById('eventsContainer');
+      const t = TRANSLATIONS[currentLang];
+      
+      if (!appData.events || appData.events.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyEvents}</div>`;
+        return;
+      }
 
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1; // 1 - 12
+      const currentDay = now.getDate();
+
+      // 1. Находим ближайший предстоящий день рождения (или событие) по датам
+      let closestEvent = null;
+      let minDaysDiff = Infinity;
+
+      appData.events.forEach(e => {
+        // Ожидаем формат даты "ДД.ММ" или "ДД.ММ.ГГГГ"
+        const parts = e.date.split('.');
+        if (parts.length >= 2) {
+          const eDay = parseInt(parts[0], 10);
+          const eMonth = parseInt(parts[1], 10);
+          
+          let eventDate = new Date(now.getFullYear(), eMonth - 1, eDay);
+          eventDate.setHours(0,0,0,0);
+          
+          let diff = eventDate - now;
+          // Если дата в этом году уже прошла, смотрим на следующий год
+          if (diff < 0) {
+            eventDate.setFullYear(now.getFullYear() + 1);
+            diff = eventDate - now;
+          }
+          
+          const daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+          if (daysDiff < minDaysDiff) {
+            minDaysDiff = daysDiff;
+            closestEvent = e;
+          }
+        }
+      });
+
+      // 2. Распределяем события по кварталам школьного года / года
+      // Квартал 1: Сентябрь - Ноябрь (9, 10, 11)
+      // Квартал 2: Декабрь - Февраль (12, 1, 2)
+      // Квартал 3: Март - Май (3, 4, 5)
+      // Квартал 4: Июнь - Август (6, 7, 8)
+      const quarters = {
+        1: { title: { ru: '🍁 1-й Квартал (Сентябрь – Ноябрь)', bg: '🍁 1-ви Квартал (Септември – Ноември)' }, items: [] },
+        2: { title: { ru: '❄️ 2-й Квартал (Декабрь – Февраль)', bg: '❄️ 2-ри Квартал (Декември – Февруари)' }, items: [] },
+        3: { title: { ru: '🌱 3-й Квартал (Март – Май)', bg: '🌱 3-ти Квартал (Март – Май)' }, items: [] },
+        4: { title: '☀️ 4-й Квартал (Июнь – Август)', items: [] }
+      };
+
+      appData.events.forEach(e => {
+        const parts = e.date.split('.');
+        if (parts.length >= 2) {
+          const month = parseInt(parts[1], 10);
+          let q = 4;
+          if (month >= 9 && month <= 11) q = 1;
+          else if (month === 12 || month === 1 || month === 2) q = 2;
+          else if (month >= 3 && month <= 5) q = 3;
+          
+          quarters[q].items.push(e);
+        }
+      });
+
+      // 3. Формируем HTML для сетки кварталов
+      let html = '<div class="quarters-grid">';
+      
+      [1, 2, 3, 4].forEach(qNum => {
+        const qData = quarters[qNum];
+        const qTitle = typeof qData.title === 'object' ? qData.title[currentLang] : qData.title;
+        
+        html += `
+          <div class="quarter-card">
+            <div class="quarter-title">${qTitle}</div>
+        `;
+
+        if (qData.items.length === 0) {
+          html += `<div style="font-size: 13px; color: var(--text-muted); font-weight: 800; padding: 10px 0;">Нет записей в этом квартале</div>`;
+        } else {
+          qData.items.forEach(e => {
+            const isNearest = closestEvent && closestEvent.date === e.date && closestEvent.name === e.name;
+            html += `
+              <div class="event-row ${isNearest ? 'nearest-birthday' : ''}">
+                <div class="event-row-icon">${e.icon || '🎂'}</div>
+                <div class="event-row-info">
+                  <div class="event-row-date">📅 ${e.date}</div>
+                  <div class="event-row-name">${e.name}</div>
+                  ${e.description ? `<div style="font-size: 11px; color: var(--text-muted);">${e.description}</div>` : ''}
+                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забудь поздравить!</span>` : ''}
+                </div>
+              </div>
+            `;
+          });
+        }
+
+        html += `</div>`;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
+    }
     // Инициализация при загрузке
     setLanguage(currentLang);
     loadData();
