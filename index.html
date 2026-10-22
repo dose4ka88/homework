@@ -1712,10 +1712,10 @@
       // Квартал 3: Март - Май (3, 4, 5)
       // Квартал 4: Июнь - Август (6, 7, 8)
       const quarters = {
-        1: { title: { ru: '🍁 1-й Квартал (Сентябрь – Ноябрь)', bg: '🍁 1-ви Квартал (Септември – Ноември)' }, items: [] },
-        2: { title: { ru: '❄️ 2-й Квартал (Декабрь – Февраль)', bg: '❄️ 2-ри Квартал (Декември – Февруари)' }, items: [] },
-        3: { title: { ru: '🌱 3-й Квартал (Март – Май)', bg: '🌱 3-ти Квартал (Март – Май)' }, items: [] },
-        4: { title: '☀️ 4-й Квартал (Июнь – Август)', items: [] }
+        1: { title: { ru: '🍁', bg: '🍁' }, items: [] },
+        2: { title: { ru: '❄️', bg: '❄️' }, items: [] },
+        3: { title: { ru: '🌱', bg: '🌱' }, items: [] },
+        4: { title: '☀️', items: [] }
       };
 
       appData.events.forEach(e => {
@@ -1755,7 +1755,7 @@
                   <div class="event-row-date">📅 ${e.date}</div>
                   <div class="event-row-name">${e.name}</div>
                   ${e.description ? `<div style="font-size: 11px; color: var(--text-muted);">${e.description}</div>` : ''}
-                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забудь поздравить!</span>` : ''}
+                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забравяй да честитиш!</span>` : ''}
                 </div>
               </div>
             `;
