@@ -229,6 +229,13 @@
       "name": "Рожден ден на Ивомира",
       "icon": "🦸‍♀️",
       "description": ""
+    },
+    {
+      "type": "event",
+      "date": "14.04.2019",
+      "name": "",
+      "icon": "📌",
+      "description": ""
     }
   ]
 }
