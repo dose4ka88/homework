@@ -1,5 +1,5 @@
 {
-  "updatedAt": "26.10.2026 13:16",
+  "updatedAt": "26.10.2026 13:26",
   "schedule": [
     {
       "day": "Понеделник",
@@ -99,6 +99,12 @@
       "title": "Родителска среща",
       "text": "Заповядайте в стая 102",
       "isImportant": true
+    },
+    {
+      "date": "Петък 30 октомври",
+      "title": "",
+      "text": "",
+      "isImportant": false
     }
   ],
   "resources": [
