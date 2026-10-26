@@ -1764,6 +1764,34 @@
       html += '</div>';
       container.innerHTML = html;
     }
+// РЕНДЕР ОБЪЯВЛЕНИЙ С АВТОМАТИЧЕСКИМ ПРЕОБРАЗОВАНИЕМ ССЫЛОК В КЛИКАБЕЛЬНЫЕ
+    function renderAnnouncements() {
+      const container = document.getElementById('announcementsContainer');
+      const t = TRANSLATIONS[currentLang];
+      if (!appData.announcements || appData.announcements.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyAnnounce}</div>`;
+        return;
+      }
+
+      container.innerHTML = appData.announcements.map(a => {
+        let text = a.text || '';
+        
+        // Автоматически находим текстовые ссылки и превращаем их в кликабельные теги <a>
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        text = text.replace(urlRegex, function(url) {
+          // Обрезаем слишком длинный адрес для красоты или оставляем целиком, но делаем ссылкой
+          return `<a href="${url}" target="_blank" style="color: var(--lego-blue); font-weight: 900; text-decoration: underline;">${url} ↗</a>`;
+        });
+
+        return `
+          <div class="announcement-card ${String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true ? 'important' : ''}">
+            <div class="announcement-date">📅 ${a.date || ''}</div>
+            <div class="announcement-header">${a.title || ''}</div>
+            <div class="announcement-text">${text}</div>
+          </div>
+        `;
+      }).join('');
+    }
     // Инициализация при загрузке
     setLanguage(currentLang);
     loadData();
