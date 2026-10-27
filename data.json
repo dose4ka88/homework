@@ -1,5 +1,5 @@
 {
-  "updatedAt": "27.10.2026 20:23",
+  "updatedAt": "27.10.2026 20:24",
   "schedule": [
     {
       "day": "Понеделник",
@@ -210,6 +210,12 @@
       "category": "Онлайн-тест",
       "title": "Природен календар",
       "url": "https://www.liveworksheets.com/worksheet/bg/rodinoznanie/2232423",
+      "description": ""
+    },
+    {
+      "category": "Видео",
+      "title": "Природата през сезоните",
+      "url": "https://www.youtube.com/watch?v=1nybibLaUpE",
       "description": ""
     }
   ],
