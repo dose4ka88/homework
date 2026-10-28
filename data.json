@@ -1,5 +1,5 @@
 {
-  "updatedAt": "28.10.2026 13:06",
+  "updatedAt": "28.10.2026 13:11",
   "schedule": [
     {
       "day": "Понеделник",
@@ -331,5 +331,6 @@
       "icon": "🦸‍♂️",
       "description": ""
     }
-  ]
+  ],
+  "worksheets": []
 }
