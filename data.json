@@ -1,5 +1,5 @@
 {
-  "updatedAt": "28.10.2026 14:54",
+  "updatedAt": "28.10.2026 14:55",
   "schedule": [
     {
       "day": "Понеделник",
@@ -394,6 +394,10 @@
     {
       "title": "Звук и буква О",
       "url": "https://wordwall.net/ro/resource/101233777/%D0%B7%D0%B2%D1%83%D0%BA-%D0%B8-%D0%B1%D1%83%D0%BA%D0%B2%D0%B0-%D0%BE%D0%BE"
+    },
+    {
+      "title": "Събиране и изваждане",
+      "url": "https://playmathematics.com/bg/addition-and-subtraction-6-to-10/"
     }
   ]
 }
