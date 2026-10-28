@@ -305,6 +305,13 @@
       "name": "Рожден ден на Христиън",
       "icon": "🦸‍♀️",
       "description": ""
+    },
+    {
+      "type": "День рождения",
+      "date": "30.09.2019",
+      "name": "",
+      "icon": "📌",
+      "description": ""
     }
   ],
   "worksheets": [
