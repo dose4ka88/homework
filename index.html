@@ -1318,24 +1318,39 @@
           <div class="empty-state" style="grid-column: 1 / -1;">
             ${t.emptyGames}<br>
             <span style="font-size: 13px; font-weight: 800; color: var(--text-muted); margin-top: 8px; display: block;">
-              Можете да добавите вградени игри (iframe или HTML кодове) чрез вашата Google таблица (лист "Игри").
+              Можете да добавите игри чрез вашата Google таблица (лист "Игри").
             </span>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = gamesList.map(g => `
-        <div class="game-embed-card">
-          <div class="game-embed-header">
-            <div class="game-embed-title">${g.title || 'Мини-игра'}</div>
-            <a href="${g.url || '#'}" target="_blank" style="font-size: 12px; font-weight: 900; color: var(--accent-blue); text-decoration: none;">На цял екран ↗</a>
+      container.innerHTML = gamesList.map(g => {
+        let cleanUrl = g.url || '#';
+        const hrefMatch = cleanUrl.match(/href="([^"]+)"/);
+        if (hrefMatch) cleanUrl = hrefMatch[1];
+        
+        // Также извлекаем src если случайно вставили весь iframe код
+        const srcMatch = cleanUrl.match(/src="([^"]+)"/);
+        if (srcMatch) cleanUrl = srcMatch[1];
+
+        return `
+          <div class="worksheet-card" style="border: 3px solid #7C3AED; background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);">
+            <div class="worksheet-preview-box" style="background: linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%); color: #fff; height: 130px;">
+              <div class="worksheet-file-icon">🎮</div>
+              <span style="position: absolute; bottom: 8px; right: 10px; background: rgba(0,0,0,0.3); font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 6px; color: #fff;">Мини-игра</span>
+            </div>
+            <div class="worksheet-content">
+              <span class="worksheet-subject-badge" style="background: #DDD6FE; color: #5B21B6;">Интерактив</span>
+              <div class="worksheet-title" style="color: #31106A;">${g.title || 'Образователна игра'}</div>
+              <div class="worksheet-desc">Натиснете бутона по-долу, за да стартирате играта на цял екран!</div>
+              <a href="${cleanUrl}" target="_blank" class="btn-download-ws" style="background: #7C3AED; margin-top: auto;">
+                🎮 Играй сега ↗
+              </a>
+            </div>
           </div>
-          <div class="game-embed-frame-wrap">
-            <iframe src="${g.url}" allowfullscreen></iframe>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderWorksheets() {
