@@ -1,5 +1,5 @@
 {
-  "updatedAt": "28.10.2026 18:40",
+  "updatedAt": "28.10.2026 18:41",
   "schedule": [
     {
       "day": "Понеделник",
@@ -214,6 +214,12 @@
       "category": "Видео",
       "title": "Събиране и изв",
       "url": "https://www.youtube.com/watch?v=pDlfTpENWsA",
+      "description": ""
+    },
+    {
+      "category": "",
+      "title": "Събиране на три числа",
+      "url": "",
       "description": ""
     }
   ],
