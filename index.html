@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дневник 1Б 🚀🌌</title>
+  <title>Классный хаб 1Б 📚✨</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
-  <!-- Библиотека canvas-confetti для праздничного салюта -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --bg-space: #0B0F19;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --lego-red: #EF4444;
-      --lego-blue: #3B82F6;
-      --lego-yellow: #F59E0B;
-      --lego-green: #10B981;
-      --text-main: #1E293B;
-      --text-muted: #64748B;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --accent-blue: #2563EB;
+      --accent-green: #059669;
+      --accent-yellow: #D97706;
+      --accent-purple: #7C3AED;
+      --text-main: #0F172A;
+      --text-muted: #475569;
       --radius-lg: 24px;
       --radius-md: 16px;
-      --shadow-lego: 0 8px 25px rgba(0, 0, 0, 0.2);
+      --shadow-hub: 0 10px 30px rgba(15, 23, 42, 0.15);
     }
 
     * {
@@ -29,18 +27,33 @@
       font-family: 'Nunito', sans-serif;
     }
 
+    /* СЕЗОННЫЕ ЦВЕТА ФОНА */
     body {
-      background-color: var(--bg-space);
       color: var(--text-main);
       padding: 20px 16px 50px 16px;
-      max-width: 1050px;
+      max-width: 1080px;
       margin: 0 auto;
       position: relative;
       overflow-x: hidden;
+      min-height: 100vh;
+      transition: background 0.5s ease;
     }
 
-    /* АНИМИРОВАННЫЕ ЛЕТАЮЩИЕ КУБИКИ ЛЕГО НА ФОНЕ */
-    .lego-bg-shapes {
+    body.season-autumn {
+      background: linear-gradient(135deg, #2D1B18 0%, #432818 50%, #1A0F0D 100%);
+    }
+    body.season-winter {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #090D16 100%);
+    }
+    body.season-spring {
+      background: linear-gradient(135deg, #1C2D27 0%, #112211 50%, #0A150F 100%);
+    }
+    body.season-summer {
+      background: linear-gradient(135deg, #2C1D11 0%, #3B2312 50%, #170E07 100%);
+    }
+
+    /* АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ НА ФОНЕ */
+    .seasonal-bg-elements {
       position: fixed;
       top: 0;
       left: 0;
@@ -51,105 +64,65 @@
       overflow: hidden;
     }
 
-    .lego-brick {
+    .bg-item {
       position: absolute;
-      opacity: 0.18;
-      border-radius: 6px;
-      animation: floatBrick 15s infinite linear;
+      font-size: 26px;
+      opacity: 0.35;
+      user-select: none;
+      animation: floatSeasonal 18s infinite linear;
     }
 
-    .lego-brick::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 4px;
-      right: 4px;
-      height: 6px;
-      background: rgba(255,255,255,0.4);
-      border-radius: 3px;
+    @keyframes floatSeasonal {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
     }
 
-    .brick-1 { width: 60px; height: 30px; background: var(--lego-yellow); top: 10%; left: 5%; animation-duration: 22s; }
-    .brick-2 { width: 40px; height: 40px; background: var(--lego-red); top: 70%; left: 85%; animation-duration: 18s; }
-    .brick-3 { width: 80px; height: 30px; background: var(--lego-blue); top: 40%; left: 90%; animation-duration: 25s; }
-    .brick-4 { width: 50px; height: 50px; background: var(--lego-green); top: 80%; left: 10%; animation-duration: 20s; }
-    .brick-5 { width: 45px; height: 30px; background: #EC4899; top: 25%; left: 80%; animation-duration: 16s; }
-
-    @keyframes floatBrick {
-      0% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-40px) rotate(180deg) scale(1.1); }
-      100% { transform: translateY(0) rotate(360deg) scale(1); }
-    }
-
-    /* УЛЬТРАКОСМИЧЕСКАЯ ШАПКА */
+    /* ШАПКА ХАБА */
     .hero-header {
-      background: radial-gradient(circle at 50% 50%, #312E81 0%, #1E1B4B 60%, #0F172A 100%);
-      border: 3px solid #6366F1;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 3px solid rgba(255, 255, 255, 0.15);
       color: white;
       border-radius: var(--radius-lg);
-      padding: 30px 20px;
+      padding: 28px 20px;
       text-align: center;
       margin-bottom: 20px;
-      box-shadow: 0 0 40px rgba(99, 102, 241, 0.4), inset 0 0 20px rgba(99, 102, 241, 0.2);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      backdrop-filter: blur(12px);
     }
 
-    .hero-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #38BDF8, transparent);
-      animation: laserScan 4s infinite linear;
-    }
-
-    @keyframes laserScan {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    .hero-badge-space {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       color: #38BDF8;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 900;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 20px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin-bottom: 10px;
     }
 
     .hero-title {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 1000;
-      margin-bottom: 8px;
-      background: linear-gradient(135deg, #FFFFFF 30%, #93C5FD 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      margin-bottom: 6px;
+      color: #FFFFFF;
       letter-spacing: -0.5px;
     }
 
     .hero-subtitle {
       font-size: 14px;
       font-weight: 800;
-      color: #E2E8F0;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
+      color: #CBD5E1;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.15);
     }
 
     /* ПАНЕЛЬ СИНХРОНИЗАЦИИ И ЯЗЫКОВ */
@@ -159,11 +132,9 @@
       justify-content: space-between;
       margin-bottom: 20px;
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
       padding: 12px 20px;
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lego);
-      border-bottom: 4px solid #CBD5E1;
+      box-shadow: var(--shadow-hub);
       gap: 10px;
       flex-wrap: wrap;
     }
@@ -200,20 +171,17 @@
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
     .lang-btn.active {
       background: #FFFFFF;
-      color: var(--lego-blue);
+      color: var(--accent-blue);
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .btn-refresh {
-      background: var(--lego-yellow);
-      color: #000;
+      background: var(--accent-yellow);
+      color: #FFFFFF;
       border: none;
       padding: 8px 16px;
       border-radius: 12px;
@@ -223,18 +191,12 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 0px #D97706;
       transition: all 0.15s ease;
     }
 
     .btn-refresh:hover {
-      filter: brightness(1.05);
+      filter: brightness(1.08);
       transform: translateY(-1px);
-    }
-
-    .btn-refresh:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0px #D97706;
     }
 
     /* ВКЛАДКИ */
@@ -247,10 +209,10 @@
 
     .tab-btn {
       flex: 1;
-      min-width: 130px;
+      min-width: 120px;
       padding: 12px 8px;
       border: none;
-      background: rgba(30, 41, 59, 0.8);
+      background: rgba(30, 41, 59, 0.85);
       backdrop-filter: blur(10px);
       border-radius: 16px;
       font-size: 13px;
@@ -263,19 +225,18 @@
       justify-content: center;
       gap: 6px;
       border: 2px solid rgba(255,255,255,0.08);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .tab-btn:hover {
       color: #FFF;
-      background: rgba(51, 65, 85, 0.9);
+      background: rgba(51, 65, 85, 0.95);
     }
 
     .tab-btn.active {
-      background: var(--lego-blue);
+      background: var(--accent-blue);
       color: white;
       border-color: #60A5FA;
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4), 0 4px 0px #1D4ED8;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
       transform: translateY(-2px);
     }
 
@@ -302,8 +263,8 @@
       padding: 14px 20px;
       border-radius: var(--radius-md);
       margin-bottom: 22px;
-      box-shadow: var(--shadow-lego);
-      border-left: 6px solid var(--lego-blue);
+      box-shadow: var(--shadow-hub);
+      border-left: 6px solid var(--accent-blue);
     }
 
     .filter-label {
@@ -330,21 +291,20 @@
       border-radius: var(--radius-lg);
       padding: 24px;
       margin-bottom: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow-hub);
       border: 3px solid rgba(226, 232, 240, 0.8);
       transition: all 0.3s ease;
     }
 
     .hw-day-block.day-completed {
-      border: 4px solid #F59E0B !important;
+      border: 3px solid #F59E0B !important;
       background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
-      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45) !important;
     }
 
     .day-title-header {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 1000;
-      color: var(--lego-blue);
+      color: var(--accent-blue);
       margin-bottom: 14px;
       display: flex;
       align-items: center;
@@ -357,16 +317,9 @@
       background: #F59E0B;
       color: #000;
       font-weight: 1000;
-      font-size: 13px;
-      padding: 5px 14px;
-      border-radius: 12px;
-      box-shadow: 0 4px 0px #D97706;
-      animation: bounce 1s infinite alternate;
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-4px); }
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 10px;
     }
 
     .progress-box {
@@ -393,57 +346,55 @@
 
     .progress-bar-fill {
       height: 100%;
-      background: var(--lego-green);
+      background: var(--accent-green);
       width: 0%;
       transition: width 0.4s ease;
       border-radius: 10px;
     }
 
     .subject-subgroup {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       background: #FFFFFF;
       padding: 16px;
       border-radius: var(--radius-md);
-      border-left: 6px solid var(--lego-blue);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border-left: 6px solid var(--accent-blue);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
       border-top: 1px solid #F1F5F9;
       border-right: 1px solid #F1F5F9;
       border-bottom: 1px solid #F1F5F9;
     }
 
     .subject-subgroup-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 900;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .task-item {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      padding: 14px 16px;
-      border-radius: 14px;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
       background: #F8FAFC;
       border: 2px solid #E2E8F0;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
 
     .task-item:hover {
-      border-color: var(--lego-blue);
-      transform: translateY(-1px);
+      border-color: var(--accent-blue);
       background: #FFFFFF;
     }
 
     .task-checkbox {
-      width: 26px;
-      height: 26px;
-      accent-color: var(--lego-green);
+      width: 24px;
+      height: 24px;
+      accent-color: var(--accent-green);
       cursor: pointer;
       margin-top: 2px;
       flex-shrink: 0;
@@ -467,7 +418,7 @@
       opacity: 0.75;
     }
 
-    /* СЕТКА РАСПИСАНИЯ */
+    /* РASCПИСАНИЕ */
     .schedule-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -479,35 +430,27 @@
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       padding: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      box-shadow: var(--shadow-hub);
       border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
-      transition: all 0.25s ease;
-    }
-
-    .day-card:hover {
-      transform: translateY(-2px);
     }
 
     .day-card.is-next-school-day {
-      border: 4px solid #10B981 !important;
+      border: 3px solid #10B981 !important;
       background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%) !important;
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.5), 0 8px 20px rgba(16, 185, 129, 0.2) !important;
-      transform: translateY(-4px);
     }
 
     .day-card.is-today {
       border: 3px solid #3B82F6 !important;
       background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%) !important;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.35) !important;
     }
 
     .day-header {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 900;
-      color: var(--lego-blue);
-      margin-bottom: 14px;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -518,12 +461,10 @@
     .next-day-badge {
       background: #10B981;
       color: #FFFFFF;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 1000;
-      padding: 5px 10px;
-      border-radius: 8px;
-      box-shadow: 0 3px 0px #059669;
-      animation: pulseGreen 2s infinite;
+      padding: 4px 8px;
+      border-radius: 6px;
     }
 
     .today-badge {
@@ -535,12 +476,6 @@
       border-radius: 6px;
     }
 
-    @keyframes pulseGreen {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
     .lesson-list {
       list-style: none;
       display: flex;
@@ -549,9 +484,9 @@
     }
 
     .lesson-item {
-      padding: 9px 12px;
+      padding: 8px 12px;
       background: #F8FAFC;
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 800;
       font-size: 14px;
       display: flex;
@@ -562,9 +497,9 @@
 
     .lesson-num {
       background: #DBEAFE;
-      color: var(--lego-blue);
-      width: 25px;
-      height: 25px;
+      color: var(--accent-blue);
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -574,10 +509,10 @@
       flex-shrink: 0;
     }
 
-    /* РАЗДЕЛ КАНИКУЛ */
+    /* КАНИКУЛЫ */
     .vacations-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 18px;
       margin-bottom: 24px;
     }
@@ -586,53 +521,47 @@
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       padding: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      box-shadow: var(--shadow-hub);
       border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
     }
 
     .vacation-card.is-next-vacation {
-      border: 4px solid #F59E0B !important;
+      border: 3px solid #F59E0B !important;
       background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
-      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45) !important;
-      transform: translateY(-4px);
     }
 
     .vacation-icon-box {
-      font-size: 38px;
-      margin-bottom: 10px;
+      font-size: 36px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .vacation-name {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 1000;
       color: var(--text-main);
       margin-bottom: 6px;
     }
 
     .vacation-dates {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
-      color: var(--lego-blue);
+      color: var(--accent-blue);
       background: #EFF6FF;
-      padding: 6px 12px;
-      border-radius: 10px;
+      padding: 5px 10px;
+      border-radius: 8px;
       display: inline-block;
-      margin-bottom: 12px;
-      border: 1px solid #DBEAFE;
+      margin-bottom: 10px;
     }
 
     .vacation-countdown {
       margin-top: auto;
       padding: 8px 12px;
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 900;
       font-size: 13px;
       text-align: center;
@@ -643,17 +572,9 @@
     .vacation-card.is-next-vacation .vacation-countdown {
       background: #F59E0B;
       color: #000;
-      box-shadow: 0 3px 0px #D97706;
-      animation: pulseGold 2s infinite;
     }
 
-    @keyframes pulseGold {
-      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-    }
-
-    /* СТИЛИ ДЛЯ НОВЫХ РАЗДЕЛОВ (ОБЪЯВЛЕНИЯ, РЕСУРСЫ, СОБЫТИЯ) */
+    /* СТИЛИ ДЛЯ ОБЪЯВЛЕНИЙ, РЕСУРСОВ, СОБЫТИЙ */
     .section-title {
       font-size: 20px;
       font-weight: 1000;
@@ -662,24 +583,24 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
-    .announcement-card, .resource-card, .event-card {
+    .announcement-card, .resource-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       padding: 20px;
       margin-bottom: 16px;
-      box-shadow: var(--shadow-lego);
+      box-shadow: var(--shadow-hub);
       border: 3px solid #E2E8F0;
     }
 
     .announcement-card.important {
-      border-color: var(--lego-red);
+      border-color: #EF4444;
       background: linear-gradient(135deg, #FEF2F2 0%, #FFF 100%);
     }
 
-    .announcement-date, .event-date {
+    .announcement-date {
       font-size: 12px;
       font-weight: 900;
       color: var(--text-muted);
@@ -700,31 +621,25 @@
       line-height: 1.5;
     }
 
-    .resources-grid, .events-grid {
+    .resources-grid, .worksheets-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 16px;
       margin-bottom: 24px;
     }
 
-    .resource-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
     .resource-category {
       font-size: 11px;
       font-weight: 1000;
       text-transform: uppercase;
-      color: var(--lego-blue);
+      color: var(--accent-blue);
       margin-bottom: 4px;
     }
 
     .resource-link {
       font-size: 16px;
       font-weight: 1000;
-      color: var(--lego-blue);
+      color: var(--accent-blue);
       text-decoration: none;
       margin-bottom: 6px;
       display: inline-block;
@@ -733,76 +648,117 @@
     .resource-link:hover {
       text-decoration: underline;
     }
-    /* Стили для кварталов и событий */
+
+    /* РАЗДЕЛ РАБОЧИЕ ЛИСТЫ */
+    .worksheet-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-hub);
+      border: 3px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .worksheet-subject-badge {
+      display: inline-block;
+      background: #DBEAFE;
+      color: var(--accent-blue);
+      font-size: 11px;
+      font-weight: 1000;
+      padding: 4px 10px;
+      border-radius: 8px;
+      align-self: flex-start;
+      text-transform: uppercase;
+    }
+
+    .worksheet-title {
+      font-size: 17px;
+      font-weight: 1000;
+      color: var(--text-main);
+    }
+
+    .worksheet-desc {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .btn-download-ws {
+      margin-top: auto;
+      background: var(--accent-blue);
+      color: #FFF;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-download-ws:hover {
+      background: #1D4ED8;
+    }
+
+    /* КВАРТАЛЫ И СОБЫТИЯ */
     .quarters-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
       margin-bottom: 24px;
     }
+
     .quarter-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       padding: 20px;
-      box-shadow: var(--shadow-lego);
+      box-shadow: var(--shadow-hub);
       border: 3px solid #E2E8F0;
-      display: flex;
-      flex-direction: column;
     }
+
     .quarter-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 1000;
-      color: var(--lego-blue);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
       border-bottom: 2px solid #F1F5F9;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
     }
+
     .event-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
+      gap: 10px;
+      padding: 10px;
       background: #F8FAFC;
       border-radius: 12px;
       border: 2px solid #E2E8F0;
       margin-bottom: 8px;
-      transition: all 0.2s ease;
     }
+
     .event-row.nearest-birthday {
       background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
       border: 3px solid #F59E0B;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-      transform: scale(1.02);
     }
-    .event-row-icon {
-      font-size: 24px;
-      flex-shrink: 0;
-    }
-    .event-row-info {
-      flex: 1;
-    }
-    .event-row-date {
-      font-size: 12px;
-      font-weight: 900;
-      color: var(--text-muted);
-    }
-    .event-row-name {
-      font-size: 14px;
-      font-weight: 1000;
-      color: var(--text-main);
-    }
+
+    .event-row-icon { font-size: 22px; flex-shrink: 0; }
+    .event-row-info { flex: 1; }
+    .event-row-date { font-size: 12px; font-weight: 900; color: var(--text-muted); }
+    .event-row-name { font-size: 14px; font-weight: 1000; color: var(--text-main); }
+
     .congratulate-badge {
       background: #F59E0B;
       color: #000;
       font-size: 10px;
       font-weight: 1000;
-      padding: 3px 8px;
+      padding: 2px 6px;
       border-radius: 6px;
-      text-transform: uppercase;
-      box-shadow: 0 2px 0px #D97706;
       display: inline-block;
       margin-top: 4px;
     }
@@ -812,12 +768,12 @@
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      border: 3px solid var(--lego-yellow);
+      box-shadow: var(--shadow-hub);
+      border: 3px solid var(--accent-yellow);
     }
 
     .pack-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 1000;
       color: var(--text-main);
       margin-bottom: 16px;
@@ -828,27 +784,21 @@
 
     .pack-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 12px;
     }
 
     .pack-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
+      gap: 10px;
+      padding: 12px 14px;
       background: #F8FAFC;
-      border-radius: 14px;
+      border-radius: 12px;
       border: 2px solid #E2E8F0;
       font-weight: 800;
       font-size: 14px;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .pack-item:hover {
-      border-color: var(--lego-yellow);
-      background: #FFFFFF;
     }
 
     .pack-item.checked {
@@ -860,40 +810,33 @@
 
     .empty-state {
       text-align: center;
-      padding: 60px 20px;
+      padding: 50px 20px;
       color: #94A3B8;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lego);
+      box-shadow: var(--shadow-hub);
     }
   </style>
 </head>
 <body>
 
-  <!-- Летающие лего-кубики на фоне -->
-  <div class="lego-bg-shapes">
-    <div class="lego-brick brick-1"></div>
-    <div class="lego-brick brick-2"></div>
-    <div class="lego-brick brick-3"></div>
-    <div class="lego-brick brick-4"></div>
-    <div class="lego-brick brick-5"></div>
-  </div>
+  <!-- Фон с предметами знаний и сезонными элементами -->
+  <div class="seasonal-bg-elements" id="seasonalBgContainer"></div>
 
   <header class="hero-header">
-    <div class="hero-badge-space" id="headerBadge">🚀 Бортовой компьютер</div>
-    <div class="hero-title" id="headerTitle">Мой дневник 1Б</div>
+    <div class="hero-badge" id="headerBadge">🎓 Классный хаб 1Б</div>
+    <div class="hero-title" id="headerTitle">Пространство знаний</div>
     <div class="hero-subtitle">
-      <span id="headerSubtitle">🌌 Академия Знаний &bull; Миссия активна</span>
+      <span id="headerSubtitle">📖 Расписание, задания и ресурсы класса</span>
     </div>
   </header>
 
   <div class="sync-bar">
-    <div class="last-update" id="lastUpdate">Связь с ЦУП...</div>
+    <div class="last-update" id="lastUpdate">Связь с базой знаний...</div>
     
     <div class="actions-group">
-      <!-- Переключатель языков -->
       <div class="lang-switch">
         <button class="lang-btn active" id="btnRu" onclick="setLanguage('ru')">RU 🇷🇺</button>
         <button class="lang-btn" id="btnBg" onclick="setLanguage('bg')">BG 🇧🇬</button>
@@ -903,10 +846,11 @@
     </div>
   </div>
 
-  <!-- Вкладки (теперь с новыми разделами) -->
+  <!-- Вкладки -->
   <div class="tabs-nav">
     <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
     <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
+    <button class="tab-btn" id="tabWorksheetsBtn" onclick="switchTab('worksheetsTab', this)">📄 Рабочие листы</button>
     <button class="tab-btn" id="tabVacationsBtn" onclick="switchTab('vacationsTab', this)">🎉 Каникулы</button>
     <button class="tab-btn" id="tabAnnounceBtn" onclick="switchTab('announceTab', this)">📢 Объявления</button>
     <button class="tab-btn" id="tabEventsBtn" onclick="switchTab('eventsTab', this)">🎂 События</button>
@@ -938,12 +882,18 @@
     </div>
   </div>
 
-  <!-- Вкладка 3: Каникулы -->
+  <!-- Вкладка 3: Рабочие листы -->
+  <div id="worksheetsTab" class="tab-content">
+    <div class="section-title" id="secWorksheetsTitle">📄 Рабочие листы и распечатки с Google Диска</div>
+    <div class="worksheets-grid" id="worksheetsContainer">Загрузка рабочих листов...</div>
+  </div>
+
+  <!-- Вкладка 4: Каникулы -->
   <div id="vacationsTab" class="tab-content">
     <div class="vacations-grid" id="vacationsContainer"></div>
   </div>
 
-  <!-- Вкладка 4: Объявления и Ресурсы -->
+  <!-- Вкладка 5: Объявления и Ресурсы -->
   <div id="announceTab" class="tab-content">
     <div class="section-title" id="secAnnounceTitle">📢 Объявления от учителя</div>
     <div id="announcementsContainer"></div>
@@ -952,70 +902,34 @@
     <div class="resources-grid" id="resourcesContainer"></div>
   </div>
 
-  <!-- Вкладка 5: События и Дни рождения -->
+  <!-- Вкладка 6: События и Дни рождения -->
   <div id="eventsTab" class="tab-content">
     <div class="section-title" id="secEventsTitle">🎂 Календарь событий и дни рождения</div>
-    <div class="events-grid" id="eventsContainer"></div>
+    <div id="eventsContainer"></div>
   </div>
 
   <script>
     let currentLang = localStorage.getItem('app_lang') || 'ru';
-    let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [] };
+    let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [], worksheets: [] };
 
-    // График каникул 2026/2027 учебного года
     const VACATIONS_DATA = [
-      {
-        id: 'autumn',
-        icon: '🍂',
-        title: { ru: 'Осенние каникулы', bg: 'Есенна ваканция' },
-        startDate: '2026-10-31',
-        endDate: '2026-11-02',
-        dateText: { ru: '31.10.2026 – 02.11.2026', bg: '31.10.2026 г. – 02.11.2026 г.' }
-      },
-      {
-        id: 'christmas',
-        icon: '🎄',
-        title: { ru: 'Рождественские каникулы', bg: 'Коледна ваканция' },
-        startDate: '2026-12-24',
-        endDate: '2027-01-03',
-        dateText: { ru: '24.12.2026 – 03.01.2027', bg: '24.12.2026 г. – 03.01.2027 г.' }
-      },
-      {
-        id: 'midterm',
-        icon: '❄️',
-        title: { ru: 'Межсеместровый перерыв', bg: 'Междусрочна ваканция' },
-        startDate: '2027-01-30',
-        endDate: '2027-02-02',
-        dateText: { ru: '30.01.2027 – 02.02.2027', bg: '30.01.2027 г. – 02.02.2027 г.' }
-      },
-      {
-        id: 'spring',
-        icon: '🌱',
-        title: { ru: 'Весенние каникулы', bg: 'Пролетна ваканция' },
-        startDate: '2027-04-03',
-        endDate: '2027-04-11',
-        dateText: { ru: '03.04.2027 – 11.04.2027', bg: '03.04.2027 г. – 11.04.2027 г.' }
-      },
-      {
-        id: 'summer_start',
-        icon: '☀️',
-        title: { ru: 'Конец учебного года (1 класс)', bg: 'Край на учебната година (1. клас)' },
-        startDate: '2027-06-02',
-        endDate: '2027-08-31',
-        dateText: { ru: 'С 02.06.2027 (Летние каникулы!)', bg: 'От 02.06.2027 г. (Лятна ваканция!)' }
-      }
+      { id: 'autumn', icon: '🍂', title: { ru: 'Осенние каникулы', bg: 'Есенна ваканция' }, startDate: '2026-10-31', endDate: '2026-11-02', dateText: { ru: '31.10.2026 – 02.11.2026', bg: '31.10.2026 г. – 02.11.2026 г.' } },
+      { id: 'christmas', icon: '🎄', title: { ru: 'Рождественские каникулы', bg: 'Коледна ваканция' }, startDate: '2026-12-24', endDate: '2027-01-03', dateText: { ru: '24.12.2026 – 03.01.2027', bg: '24.12.2026 г. – 03.01.2027 г.' } },
+      { id: 'midterm', icon: '❄️', title: { ru: 'Межсеместровый перерыв', bg: 'Междусрочна ваканция' }, startDate: '2027-01-30', endDate: '2027-02-02', dateText: { ru: '30.01.2027 – 02.02.2027', bg: '30.01.2027 г. – 02.02.2027 г.' } },
+      { id: 'spring', icon: '🌱', title: { ru: 'Весенние каникулы', bg: 'Пролетна ваканция' }, startDate: '2027-04-03', endDate: '2027-04-11', dateText: { ru: '03.04.2027 – 11.04.2027', bg: '03.04.2027 г. – 11.04.2027 г.' } },
+      { id: 'summer_start', icon: '☀️', title: { ru: 'Конец учебного года (1 класс)', bg: 'Край на учебната година (1. клас)' }, startDate: '2027-06-02', endDate: '2027-08-31', dateText: { ru: 'С 02.06.2027 (Летние каникулы!)', bg: 'От 02.06.2027 г. (Лятна ваканция!)' } }
     ];
 
-    // СЛОВАРЬ ПЕРЕВОДОВ ИНТЕРФЕЙСА
     const TRANSLATIONS = {
       ru: {
-        badge: '🚀 Бортовой компьютер',
-        title: 'Мой дневник 1Б',
-        subtitle: '🌌 Академия Знаний • Миссия активна',
-        lastUpdatePrefix: 'ЦУП обновлён: ',
+        badge: '🎓 Классный хаб 1Б',
+        title: 'Пространство знаний',
+        subtitle: '📖 Расписание, задания и ресурсы класса',
+        lastUpdatePrefix: 'База обновлена: ',
         btnRefresh: '🔄 Обновить данные',
         tabHw: '📝 Домашка',
         tabSchedule: '🎒 Расписание',
+        tabWorksheets: '📄 Рабочие листы',
         tabVacations: '🎉 Каникулы',
         tabAnnounce: '📢 Объявления',
         tabEvents: '🎂 События',
@@ -1023,26 +937,29 @@
         optActive: '⏳ Невыполненные (Актуальные)',
         optCompleted: '🏆 Выполненные задания',
         optAll: '📜 Все дни',
-        missionDone: '🏆 МИССИЯ ВЫПОЛНЕНА! 🎉',
+        missionDone: '🏆 ВСЁ ВЫПОЛНЕНО! 🎉',
         dayProgress: 'Прогресс дня:',
         doneOf: 'выполнено',
         packTitle: '🎒 Вечерний Чек-лист: Собираем портфель в школу',
         nextDayBadge: '🎒 Собираем завтра',
         todayBadge: 'Сегодня',
-        emptyActive: '🎉 Настоящий триумф! Нет невыполненных заданий!<br>Все дни закрыты на 100%! 🚀',
-        emptyCompleted: '⏳ Пока нет полностью выполненных дней.<br>Выполняй галочки, и они появятся здесь!',
+        emptyActive: '🎉 Замечательно! Все актуальные задания выполнены! 🚀',
+        emptyCompleted: '⏳ Пока нет полностью выполненных дней.',
         emptyAll: 'Список заданий пуст.',
         daysLeftPrefix: '⏳ До каникул осталось: ',
         daysLeftSuffix: ' дн.',
-        vacationNow: '🎉 Каникулы прямо сейчас! Ура!',
+        vacationNow: '🎉 Каникулы прямо сейчас!',
         vacationPassed: '✅ Успешно пройдены',
         nearestBadge: '🌟 БЛИЖАЙШИЕ КАНИКУЛЫ',
         secAnnounceTitle: '📢 Объявления от учителя',
         secResourcesTitle: '🔗 Полезные ресурсы и ссылки',
+        secWorksheetsTitle: '📄 Рабочие листы для скачивания (Google Диск)',
         secEventsTitle: '🎂 Календарь событий и дни рождения',
         emptyAnnounce: '📢 Пока нет новых объявлений.',
         emptyResources: '🔗 Ссылки и ресурсы скоро появятся.',
+        emptyWorksheets: '📄 Рабочие листы пока не добавлены.',
         emptyEvents: '🎉 Нет запланированных событий.',
+        btnOpenDrive: '📄 Открыть / Скачать',
         packItems: [
           { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
           { id: 'p_water', text: '💧 Бутылочка с водой' },
@@ -1053,13 +970,14 @@
         ]
       },
       bg: {
-        badge: '🚀 Бортов компютър',
-        title: 'Моят дневник 1Б',
-        subtitle: '🌌 Академия на Знанията • Активна мисия',
-        lastUpdatePrefix: 'ЦУП е обновен: ',
+        badge: '🎓 Класен хъб 1Б',
+        title: 'Пространство на знанията',
+        subtitle: '📖 Училищна програма, задачи и ресурси',
+        lastUpdatePrefix: 'Последно обновяване: ',
         btnRefresh: '🔄 Обнови данни',
         tabHw: '📝 Домашно',
         tabSchedule: '🎒 Програма',
+        tabWorksheets: '📄 Работни листи',
         tabVacations: '🎉 Ваканции',
         tabAnnounce: '📢 Съобщения',
         tabEvents: '🎂 Събития',
@@ -1067,26 +985,29 @@
         optActive: '⏳ Неизпълнени (Актуални)',
         optCompleted: '🏆 Завършени задачи',
         optAll: '📜 Всички дни',
-        missionDone: '🏆 МИСИЯТА Е ИЗПЪЛНЕНА! 🎉',
+        missionDone: '🏆 ВСИЧКО Е ИЗПЪЛНЕНО! 🎉',
         dayProgress: 'Прогрес за деня:',
         doneOf: 'изпълнени',
         packTitle: '🎒 Вечерен Чек-лист: Приготвяне на раницата за училище',
         nextDayBadge: '🎒 Подготви за утре',
         todayBadge: 'Днес',
-        emptyActive: '🎉 Истински триумф! Няма неизпълнени задачи!<br>Всички дни са завършени на 100%! 🚀',
-        emptyCompleted: '⏳ Все още няма напълно завършени дни.<br>Маркирай задачите и те ще се появят тук!',
+        emptyActive: '🎉 Страхотно! Всички актуални задачи са изпълнени! 🚀',
+        emptyCompleted: '⏳ Все още няма напълно завършени дни.',
         emptyAll: 'Списъкът със задачи е празен.',
         daysLeftPrefix: '⏳ Остават до ваканцията: ',
         daysLeftSuffix: ' дни',
-        vacationNow: '🎉 Ваканцията е в разгара си! Ура!',
+        vacationNow: '🎉 Ваканцията е в разгара си!',
         vacationPassed: '✅ Преминала ваканция',
         nearestBadge: '🌟 СЛЕДВАЩА ВАКАНЦИЯ',
         secAnnounceTitle: '📢 Съобщения от учителя',
         secResourcesTitle: '🔗 Линкове и ресурси',
+        secWorksheetsTitle: '📄 Работни листи за изтегляне (Google Диск)',
         secEventsTitle: '🎂 Календар на събитията и рождени дни',
         emptyAnnounce: '📢 Все още няма нови съобщения.',
         emptyResources: '🔗 Линковете и ресурсите скоро ще бъдат добавени.',
+        emptyWorksheets: '📄 Все още няма добавени работни листи.',
         emptyEvents: '🎉 Няма предстоящи събития.',
+        btnOpenDrive: '📄 Отвори / Изтегли',
         packItems: [
           { id: 'p_lunch', text: '🍱 Кутия за храна (ланчбокс)' },
           { id: 'p_water', text: '💧 бутилка с вода' },
@@ -1113,14 +1034,45 @@
       6: ['събота', 'суббота', 'saturday', 'сб']
     };
 
-    // Умный определитель предмета по тексту задания
+    // НАСТРОЙКА СЕЗОННОГО ФОНА И ЭЛЕМЕНТОВ НАУКИ/ОБУЧЕНИЯ
+    function initSeasonalTheme() {
+      const month = new Date().getMonth() + 1;
+      const body = document.body;
+      const container = document.getElementById('seasonalBgContainer');
+      
+      let seasonClass = 'season-autumn';
+      let items = ['🍂', '🍁', '📚', '🔬', '🎨', '🧪', '📐', '✏️'];
+
+      if (month === 12 || month === 1 || month === 2) {
+        seasonClass = 'season-winter';
+        items = ['❄️', '☃️', '📚', '🔬', '🎨', '🧪', '📐', '✏️'];
+      } else if (month >= 3 && month <= 5) {
+        seasonClass = 'season-spring';
+        items = ['🌸', '🌱', '🕊️', '📚', '🔬', '🎨', '🧪', '📐'];
+      } else if (month >= 6 && month <= 8) {
+        seasonClass = 'season-summer';
+        items = ['☀️', '🍓', '📚', '🔬', '🎨', '🧪', '📐', '✏️'];
+      }
+
+      body.className = seasonClass;
+
+      let html = '';
+      for (let i = 0; i < 18; i++) {
+        const icon = items[Math.floor(Math.random() * items.length)];
+        const left = Math.random() * 95;
+        const delay = Math.random() * 15;
+        const duration = 15 + Math.random() * 12;
+
+        html += `<div class="bg-item" style="left: ${left}%; animation-delay: -${delay}s; animation-duration: ${duration}s;">${icon}</div>`;
+      }
+      container.innerHTML = html;
+    }
+
     function parseTextIntoSubjects(text) {
-      if (!text) return [{ name: 'Задание', icon: '📌', color: '#3B82F6', text: '' }];
+      if (!text) return [{ name: 'Задание', icon: '📌', color: '#2563EB', text: '' }];
       
       let parts = text.split(/(?=\d+\.\s*(?:БЕЛ|Бел|Математика|Родинознание|Музика|Изобразително|Технология|Физическо))/g);
-      if (parts.length <= 1) {
-        parts = [text];
-      }
+      if (parts.length <= 1) parts = [text];
 
       const results = [];
       parts.forEach(part => {
@@ -1129,33 +1081,21 @@
         
         let subName = 'Школьные задания';
         let icon = '📌';
-        let color = '#3B82F6';
+        let color = '#2563EB';
         
         const upper = p.toUpperCase();
         if (upper.includes('БЕЛ') || upper.includes('БУКВАР') || upper.includes('ЧЕТЕНЕ') || upper.includes('ГРАМАТИКА')) {
-          subName = 'Български език и литература';
-          icon = '📖';
-          color = '#3B82F6';
+          subName = 'Български език и литература'; icon = '📖'; color = '#2563EB';
         } else if (upper.includes('МАТЕМАТИКА') || upper.includes('СБОРНИК') || upper.includes('ЦИФРА') || upper.includes('СЪБИРАНЕ')) {
-          subName = 'Математика';
-          icon = '🔢';
-          color = '#10B981';
+          subName = 'Математика'; icon = '🔢'; color = '#059669';
         } else if (upper.includes('РОДИНОЗНАНИЕ') || upper.includes('ПРАВАТА')) {
-          subName = 'Родинознание';
-          icon = '🌍';
-          color = '#F59E0B';
+          subName = 'Родинознание'; icon = '🌍'; color = '#D97706';
         } else if (upper.includes('МУЗИКА')) {
-          subName = 'Музика';
-          icon = '🎵';
-          color = '#8B5CF6';
+          subName = 'Музика'; icon = '🎵'; color = '#7C3AED';
         } else if (upper.includes('ИЗОБРАЗИТЕЛНО')) {
-          subName = 'Изобразително изкуство';
-          icon = '🎨';
-          color = '#EC4899';
+          subName = 'Изобразително изкуство'; icon = '🎨'; color = '#DB2777';
         } else if (upper.includes('ТЕХНОЛОГИИ') || upper.includes('ТЕХНОЛОГИЯ')) {
-          subName = 'Технологии и предприемачество';
-          icon = '🛠️';
-          color = '#14B8A6';
+          subName = 'Технологии и предприемачество'; icon = '🛠️'; color = '#0D9488';
         }
 
         results.push({ name: subName, icon: icon, color: color, text: p });
@@ -1164,7 +1104,6 @@
       return results;
     }
 
-    // Функция переключения языка
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('app_lang', lang);
@@ -1175,6 +1114,7 @@
       updateInterfaceTexts();
       renderHomework();
       renderSchedule();
+      renderWorksheets();
       renderVacations();
       renderAnnouncements();
       renderResources();
@@ -1190,6 +1130,7 @@
       document.getElementById('btnRefresh').innerText = t.btnRefresh;
       document.getElementById('tabHwBtn').innerText = t.tabHw;
       document.getElementById('tabScheduleBtn').innerText = t.tabSchedule;
+      document.getElementById('tabWorksheetsBtn').innerText = t.tabWorksheets;
       document.getElementById('tabVacationsBtn').innerText = t.tabVacations;
       document.getElementById('tabAnnounceBtn').innerText = t.tabAnnounce;
       document.getElementById('tabEventsBtn').innerText = t.tabEvents;
@@ -1200,6 +1141,7 @@
       document.getElementById('packTitle').innerText = t.packTitle;
       document.getElementById('secAnnounceTitle').innerText = t.secAnnounceTitle;
       document.getElementById('secResourcesTitle').innerText = t.secResourcesTitle;
+      document.getElementById('secWorksheetsTitle').innerText = t.secWorksheetsTitle;
       document.getElementById('secEventsTitle').innerText = t.secEventsTitle;
     }
 
@@ -1228,6 +1170,7 @@
         
         renderSchedule();
         renderHomework();
+        renderWorksheets();
         renderVacations();
         renderAnnouncements();
         renderResources();
@@ -1268,7 +1211,29 @@
       }
     }
 
-    // ОТРИСОВКА КАРТОЧЕК КАНИКУЛ
+    // РЕНДЕР РАБОЧИХ ЛИСТОВ (GOOGLE DISK)
+    function renderWorksheets() {
+      const container = document.getElementById('worksheetsContainer');
+      const t = TRANSLATIONS[currentLang];
+
+      if (!appData.worksheets || !Array.isArray(appData.worksheets) || appData.worksheets.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t.emptyWorksheets}</div>`;
+        return;
+      }
+
+      container.innerHTML = appData.worksheets.map(w => `
+        <div class="worksheet-card">
+          <span class="worksheet-subject-badge">${w.subject || 'Материал'}</span>
+          <div class="worksheet-title">${w.title || 'Рабочий лист'}</div>
+          <div class="worksheet-desc">${w.description || ''}</div>
+          <a href="${w.url || '#'}" target="_blank" class="btn-download-ws">
+            ${t.btnOpenDrive} ↗
+          </a>
+        </div>
+      `).join('');
+    }
+
+    // РЕНДЕР КАНИКУЛ
     function renderVacations() {
       const container = document.getElementById('vacationsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1316,7 +1281,7 @@
       container.innerHTML = html;
     }
 
-    // РЕНДЕР ОБЪЯВЛЕНИЙ
+    // РЕНДЕР ОБЪЯВЛЕНИЙ С КЛИКАБЕЛЬНЫМИ ССЫЛКАМИ
     function renderAnnouncements() {
       const container = document.getElementById('announcementsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1324,23 +1289,33 @@
         container.innerHTML = `<div class="empty-state">${t.emptyAnnounce}</div>`;
         return;
       }
-      container.innerHTML = appData.announcements.map(a => `
-        <div class="announcement-card ${String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true ? 'important' : ''}">
-          <div class="announcement-date">📅 ${a.date || ''}</div>
-          <div class="announcement-header">${a.title || ''}</div>
-          <div class="announcement-text">${a.text || ''}</div>
-        </div>
-      `).join('');
+
+      container.innerHTML = appData.announcements.map(a => {
+        let text = a.text || '';
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        text = text.replace(urlRegex, function(url) {
+          return `<a href="${url}" target="_blank" style="color: var(--accent-blue); font-weight: 900; text-decoration: underline;">${url} ↗</a>`;
+        });
+
+        return `
+          <div class="announcement-card ${String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true ? 'important' : ''}">
+            <div class="announcement-date">📅 ${a.date || ''}</div>
+            <div class="announcement-header">${a.title || ''}</div>
+            <div class="announcement-text">${text}</div>
+          </div>
+        `;
+      }).join('');
     }
 
     // РЕНДЕР РЕСУРСОВ
     function renderResources() {
       const container = document.getElementById('resourcesContainer');
       const t = TRANSLATIONS[currentLang];
-      if (!appData.resources || appData.resources.length === 0) {
+      if (!appData.resources || !Array.isArray(appData.resources) || appData.resources.length === 0) {
         container.innerHTML = `<div class="empty-state">${t.emptyResources}</div>`;
         return;
       }
+
       container.innerHTML = appData.resources.map(r => `
         <div class="resource-card">
           <div class="resource-category">${r.category || ''}</div>
@@ -1350,25 +1325,109 @@
       `).join('');
     }
 
-    // РЕНДЕР СОБЫТИЙ
+    // РЕНДЕР СОБЫТИЙ ПО КВАРТАЛАМ
     function renderEvents() {
       const container = document.getElementById('eventsContainer');
       const t = TRANSLATIONS[currentLang];
+      
       if (!appData.events || appData.events.length === 0) {
         container.innerHTML = `<div class="empty-state">${t.emptyEvents}</div>`;
         return;
       }
-      container.innerHTML = appData.events.map(e => `
-        <div class="event-card">
-          <div style="font-size: 32px; margin-bottom: 8px;">${e.icon || '📌'}</div>
-          <div class="event-date">📅 ${e.date || ''}</div>
-          <div class="announcement-header">${e.name || ''}</div>
-          <div class="announcement-text">${e.description || ''}</div>
-        </div>
-      `).join('');
+
+      const now = new Date();
+      now.setHours(0,0,0,0);
+
+      let minDaysDiff = Infinity;
+      const processedEvents = appData.events.map(e => {
+        const parts = e.date.split('.');
+        let daysDiff = Infinity;
+        
+        if (parts.length >= 2) {
+          const eDay = parseInt(parts[0], 10);
+          const eMonth = parseInt(parts[1], 10);
+          
+          let eventDate = new Date(now.getFullYear(), eMonth - 1, eDay);
+          eventDate.setHours(0,0,0,0);
+          
+          let diff = eventDate - now;
+          if (diff < 0) {
+            eventDate.setFullYear(now.getFullYear() + 1);
+            diff = eventDate - now;
+          }
+          
+          daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        }
+
+        return { ...e, daysDiff };
+      });
+
+      processedEvents.forEach(e => {
+        if (e.daysDiff < minDaysDiff) {
+          minDaysDiff = e.daysDiff;
+        }
+      });
+
+      const quarters = {
+        1: { title: { ru: '🍁 Сентябрь – Ноябрь', bg: '🍁 Септември – Ноември' }, items: [] },
+        2: { title: { ru: '❄️ Декабрь – Февраль', bg: '❄️ Декември – Февруари' }, items: [] },
+        3: { title: { ru: '🌱 Март – Май', bg: '🌱 Март – Май' }, items: [] },
+        4: { title: { ru: '☀️ Июнь – Август', bg: '☀️ Юли – Август' }, items: [] }
+      };
+
+      processedEvents.forEach(e => {
+        const parts = e.date.split('.');
+        if (parts.length >= 2) {
+          const month = parseInt(parts[1], 10);
+          let q = 4;
+          if (month >= 9 && month <= 11) q = 1;
+          else if (month === 12 || month === 1 || month === 2) q = 2;
+          else if (month >= 3 && month <= 5) q = 3;
+          
+          quarters[q].items.push(e);
+        }
+      });
+
+      let html = '<div class="quarters-grid">';
+      
+      [1, 2, 3, 4].forEach(qNum => {
+        const qData = quarters[qNum];
+        const qTitle = typeof qData.title === 'object' ? qData.title[currentLang] : qData.title;
+        
+        html += `
+          <div class="quarter-card">
+            <div class="quarter-title">${qTitle}</div>
+        `;
+
+        if (qData.items.length === 0) {
+          html += `<div style="font-size: 13px; color: var(--text-muted); font-weight: 800; padding: 10px 0;">Нет записей в этом квартале</div>`;
+        } else {
+          qData.items.forEach(e => {
+            const isNearest = (e.daysDiff === minDaysDiff);
+            const prettyDate = formatPrettyDate(e.date); 
+            
+            html += `
+              <div class="event-row ${isNearest ? 'nearest-birthday' : ''}">
+                <div class="event-row-icon">${e.icon || '🎂'}</div>
+                <div class="event-row-info">
+                  <div class="event-row-date">📅 ${prettyDate}</div>
+                  <div class="event-row-name">${e.name}</div>
+                  ${e.description ? `<div style="font-size: 11px; color: var(--text-muted);">${e.description}</div>` : ''}
+                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забудь поздравить!</span>` : ''}
+                </div>
+              </div>
+            `;
+          });
+        }
+
+        html += `</div>`;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
     }
 
-    // ОТРИСОВКА ДОМАШКИ С РАЗДЕЛЕНИЕМ ПО ПРЕДМЕТАМ
+    // РЕНДЕР ДОМАШКИ
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1565,233 +1624,9 @@
       localStorage.setItem('pack_completed', JSON.stringify(packState));
       renderPackChecklist();
     }
-    // РЕНДЕР РЕСУРСОВ С УНИВЕРСАЛЬНЫМИ ПРЕВЬЮ ДЛЯ ЛЮБЫХ САЙТОВ И YOUTUBE
-    function renderResources() {
-      const container = document.getElementById('resourcesContainer');
-      const t = TRANSLATIONS[currentLang];
-      if (!appData.resources || !Array.isArray(appData.resources) || appData.resources.length === 0) {
-        container.innerHTML = `<div class="empty-state">${t.emptyResources}</div>`;
-        return;
-      }
 
-      container.innerHTML = appData.resources.map(r => {
-        const url = r.url || '#';
-        const category = (r.category || '').toUpperCase();
-        
-        // 1. Проверяем YouTube (работает мгновенно без внешних запросов)
-        let youtubeId = null;
-        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-        if (ytMatch) {
-          youtubeId = ytMatch[1];
-        }
-
-        if (youtubeId || category.includes('ВИДЕО') || category.includes('YOUTUBE')) {
-          const thumbUrl = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : '';
-          return `
-            <div class="resource-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
-              ${thumbUrl ? `
-                <a href="${url}" target="_blank" style="position: relative; display: block; background: #000;">
-                  <img src="${thumbUrl}" alt="Video" style="width: 100%; height: 160px; object-fit: cover; display: block; opacity: 0.9;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">▶</div>
-                </a>
-              ` : ''}
-              <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
-                <div class="resource-category">${r.category || 'Видео'}</div>
-                <a href="${url}" target="_blank" class="resource-link" style="margin-top: 4px;">${r.title || 'Видеоролик'} ↗</a>
-                <div class="announcement-text" style="margin-top: 4px;">${r.description || ''}</div>
-              </div>
-            </div>
-          `;
-        }
-
-        // 2. Для любых других сайтов используем бесплатный сервис превью (Microlink)
-        // Он автоматически берет скриншот или Open Graph картинку сайта
-        const microlinkApi = `https://api.microlink.io?url=${encodeURIComponent(url)}`;
-        
-        return `
-          <div class="resource-card link-preview-card" data-url="${url}" data-fallback-title="${r.title || 'Ссылка'}" data-fallback-desc="${r.description || ''}" data-fallback-cat="${r.category || 'Ссылка'}" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
-            <a href="${url}" target="_blank" class="preview-img-wrap" style="display: block; background: #F1F5F9; height: 140px; overflow: hidden; position: relative;">
-              <img class="preview-img" src="" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-            </a>
-            <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
-              <div class="resource-category preview-cat">${r.category || 'Ссылка'}</div>
-              <a href="${url}" target="_blank" class="resource-link preview-title" style="margin-top: 4px;">${r.title || 'Загрузка превью...'} ↗</a>
-              <div class="announcement-text preview-desc" style="margin-top: 4px; font-size: 13px;">${r.description || ''}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Автоматически подгружаем данные для всех сторонних сайтов на странице
-      setTimeout(() => fetchAllPreviews(), 100);
-    }
-
-    // Функция автоматического запроса превью с сайтов
-    async function fetchAllPreviews() {
-      const cards = document.querySelectorAll('.link-preview-card');
-      cards.forEach(async (card) => {
-        const url = card.getAttribute('data-url');
-        const titleEl = card.querySelector('.preview-title');
-        const descEl = card.querySelector('.preview-desc');
-        const imgEl = card.querySelector('.preview-img');
-        const catEl = card.querySelector('.preview-cat');
-        
-        const fallbackTitle = card.getAttribute('data-fallback-title');
-        const fallbackDesc = card.getAttribute('data-fallback-desc');
-        const fallbackCat = card.getAttribute('data-fallback-cat');
-
-        try {
-          const res = await fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`);
-          const json = await res.json();
-          
-          if (json.status === 'success' && json.data) {
-            // Если в таблице не было названия или описания, подставляем с сайта
-            if (fallbackTitle === 'Ссылка' || !fallbackTitle) {
-              titleEl.innerHTML = (json.data.title || url) + ' ↗';
-            }
-            if (!fallbackDesc) {
-              descEl.innerHTML = json.data.description || '';
-            }
-            if (json.data.image && json.data.image.url) {
-              imgEl.src = json.data.image.url;
-              imgEl.style.display = 'block';
-            }
-          }
-        } catch (e) {
-          // Если сервис недоступен, оставляем то, что написал пользователь в таблице
-          console.log('Не удалось загрузить превью для:', url);
-        }
-      });
-    }
-// ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ СОБЫТИЙ И ИМЕНИННИКОВ ПО КВАРТАЛАМ
-    function renderEvents() {
-      const container = document.getElementById('eventsContainer');
-      const t = TRANSLATIONS[currentLang];
-      
-      if (!appData.events || appData.events.length === 0) {
-        container.innerHTML = `<div class="empty-state">${t.emptyEvents}</div>`;
-        return;
-      }
-
-      const now = new Date();
-      now.setHours(0,0,0,0);
-
-      let minDaysDiff = Infinity;
-      const processedEvents = appData.events.map(e => {
-        const parts = e.date.split('.');
-        let daysDiff = Infinity;
-        
-        if (parts.length >= 2) {
-          const eDay = parseInt(parts[0], 10);
-          const eMonth = parseInt(parts[1], 10);
-          
-          let eventDate = new Date(now.getFullYear(), eMonth - 1, eDay);
-          eventDate.setHours(0,0,0,0);
-          
-          let diff = eventDate - now;
-          if (diff < 0) {
-            eventDate.setFullYear(now.getFullYear() + 1);
-            diff = eventDate - now;
-          }
-          
-          daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        }
-
-        return { ...e, daysDiff };
-      });
-
-      processedEvents.forEach(e => {
-        if (e.daysDiff < minDaysDiff) {
-          minDaysDiff = e.daysDiff;
-        }
-      });
-
-      const quarters = {
-        1: { title: { ru: '🍁Сентябрь – Ноябрь', bg: '🍁 Септември – Ноември' }, items: [] },
-        2: { title: { ru: '❄️ Декабрь – Февраль', bg: '❄️ Декември – Февруари' }, items: [] },
-        3: { title: { ru: '🌱 Март – Май', bg: '🌱 Март – Май' }, items: [] },
-        4: { title: '☀️Июнь – Август', bg: '☀️Юли – Август', items: [] }
-      };
-
-      processedEvents.forEach(e => {
-        const parts = e.date.split('.');
-        if (parts.length >= 2) {
-          const month = parseInt(parts[1], 10);
-          let q = 4;
-          if (month >= 9 && month <= 11) q = 1;
-          else if (month === 12 || month === 1 || month === 2) q = 2;
-          else if (month >= 3 && month <= 5) q = 3;
-          
-          quarters[q].items.push(e);
-        }
-      });
-
-      let html = '<div class="quarters-grid">';
-      
-      [1, 2, 3, 4].forEach(qNum => {
-        const qData = quarters[qNum];
-        const qTitle = typeof qData.title === 'object' ? qData.title[currentLang] : qData.title;
-        
-        html += `
-          <div class="quarter-card">
-            <div class="quarter-title">${qTitle}</div>
-        `;
-
-        if (qData.items.length === 0) {
-          html += `<div style="font-size: 13px; color: var(--text-muted); font-weight: 800; padding: 10px 0;">Нет записей в этом квартале</div>`;
-        } else {
-          qData.items.forEach(e => {
-            const isNearest = (e.daysDiff === minDaysDiff);
-            const prettyDate = formatPrettyDate(e.date); // Превращаем "30.10.2019" в "30 октября" / "30 октомври"
-            
-            html += `
-              <div class="event-row ${isNearest ? 'nearest-birthday' : ''}">
-                <div class="event-row-icon">${e.icon || '🎂'}</div>
-                <div class="event-row-info">
-                  <div class="event-row-date">📅 ${prettyDate}</div>
-                  <div class="event-row-name">${e.name}</div>
-                  ${e.description ? `<div style="font-size: 11px; color: var(--text-muted);">${e.description}</div>` : ''}
-                  ${isNearest ? `<span class="congratulate-badge">⭐ Не забравяй да честиш!</span>` : ''}
-                </div>
-              </div>
-            `;
-          });
-        }
-
-        html += `</div>`;
-      });
-
-      html += '</div>';
-      container.innerHTML = html;
-    }
-// РЕНДЕР ОБЪЯВЛЕНИЙ С АВТОМАТИЧЕСКИМ ПРЕОБРАЗОВАНИЕМ ССЫЛОК В КЛИКАБЕЛЬНЫЕ
-    function renderAnnouncements() {
-      const container = document.getElementById('announcementsContainer');
-      const t = TRANSLATIONS[currentLang];
-      if (!appData.announcements || appData.announcements.length === 0) {
-        container.innerHTML = `<div class="empty-state">${t.emptyAnnounce}</div>`;
-        return;
-      }
-
-      container.innerHTML = appData.announcements.map(a => {
-        let text = a.text || '';
-           // Автоматически находим текстовые ссылки и превращаем их в кликабельные теги <a>
-        const urlRegex = /(https?:\/\/[^\s]+)/g;
-        text = text.replace(urlRegex, function(url) {
-          // Обрезаем слишком длинный адрес для красоты или оставляем целиком, но делаем ссылкой
-          return `<a href="${url}" target="_blank" style="color: var(--lego-blue); font-weight: 900; text-decoration: underline;">${url} ↗</a>`;
-        });
-
-        return `
-          <div class="announcement-card ${String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true ? 'important' : ''}">
-            <div class="announcement-date">📅 ${a.date || ''}</div>
-            <div class="announcement-header">${a.title || ''}</div>
-            <div class="announcement-text">${text}</div>
-          </div>
-        `;
-      }).join('');
-    }
-    // Инициализация при загрузке
+    // ИНИЦИАЛИЗАЦИЯ
+    initSeasonalTheme();
     setLanguage(currentLang);
     loadData();
   </script>
