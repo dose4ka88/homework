@@ -27,7 +27,6 @@
       font-family: 'Nunito', sans-serif;
     }
 
-    /* СЕЗОННЫЕ ЦВЕТА ФОНА */
     body {
       color: var(--text-main);
       padding: 20px 16px 50px 16px;
@@ -52,7 +51,6 @@
       background: linear-gradient(135deg, #2C1D11 0%, #3B2312 50%, #170E07 100%);
     }
 
-    /* АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ НА ФОНЕ */
     .seasonal-bg-elements {
       position: fixed;
       top: 0;
@@ -79,7 +77,6 @@
       100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ШАПКА ХАБА */
     .hero-header {
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
       border: 3px solid rgba(255, 255, 255, 0.15);
@@ -125,7 +122,6 @@
       gap: 8px;
     }
 
-    /* ПАНЕЛЬ СИНХРОНИЗАЦИИ И ЯЗЫКОВ */
     .sync-bar {
       display: flex;
       align-items: center;
@@ -199,7 +195,6 @@
       transform: translateY(-1px);
     }
 
-    /* ВКЛАДКИ */
     .tabs-nav {
       display: flex;
       gap: 8px;
@@ -254,7 +249,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ФИЛЬТР ДОМАШКИ */
     .filter-panel {
       display: flex;
       align-items: center;
@@ -285,7 +279,6 @@
       cursor: pointer;
     }
 
-    /* КАРТОЧКА ДНЯ ДОМАШКИ */
     .hw-day-block {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -418,7 +411,6 @@
       opacity: 0.75;
     }
 
-    /* РASCПИСАНИЕ */
     .schedule-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -509,7 +501,6 @@
       flex-shrink: 0;
     }
 
-    /* КАНИКУЛЫ */
     .vacations-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -574,7 +565,6 @@
       color: #000;
     }
 
-    /* СТИЛИ ДЛЯ ОБЪЯВЛЕНИЙ, РЕСУРСОВ, СОБЫТИЙ */
     .section-title {
       font-size: 20px;
       font-weight: 1000;
@@ -621,6 +611,55 @@
       line-height: 1.5;
     }
 
+    /* СТИЛИ ПРЕВЬЮ ДЛЯ ССЫЛОК В ОБЪЯВЛЕНИЯХ */
+    .announcement-link-preview {
+      margin-top: 12px;
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .announcement-link-preview:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    .announcement-preview-thumb {
+      height: 140px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .announcement-preview-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+    .announcement-preview-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .announcement-preview-title {
+      font-size: 15px;
+      font-weight: 1000;
+      color: var(--accent-blue);
+    }
+    .announcement-preview-url {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      word-break: break-all;
+    }
+
     .resources-grid, .worksheets-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -649,18 +688,38 @@
       text-decoration: underline;
     }
 
-    /* РАЗДЕЛ РАБОЧИЕ ЛИСТЫ */
     .worksheet-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      overflow: hidden;
       box-shadow: var(--shadow-hub);
       border: 3px solid #E2E8F0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      transition: transform 0.2s;
     }
-
+    .worksheet-card:hover {
+      transform: translateY(-3px);
+    }
+    .worksheet-preview-box {
+      height: 120px;
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 2px solid #E2E8F0;
+    }
+    .worksheet-file-icon {
+      font-size: 48px;
+    }
+    .worksheet-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 8px;
+    }
     .worksheet-subject-badge {
       display: inline-block;
       background: #DBEAFE;
@@ -706,7 +765,6 @@
       background: #1D4ED8;
     }
 
-    /* КВАРТАЛЫ И СОБЫТИЯ */
     .quarters-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -763,7 +821,6 @@
       margin-top: 4px;
     }
 
-    /* ЧЕК-ЛИСТ СБОРА ПОРТФЕЛЯ */
     .pack-checklist-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -822,7 +879,6 @@
 </head>
 <body>
 
-  <!-- Фон с предметами знаний и сезонными элементами -->
   <div class="seasonal-bg-elements" id="seasonalBgContainer"></div>
 
   <header class="hero-header">
@@ -846,7 +902,6 @@
     </div>
   </div>
 
-  <!-- Вкладки -->
   <div class="tabs-nav">
     <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
     <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
@@ -856,7 +911,6 @@
     <button class="tab-btn" id="tabEventsBtn" onclick="switchTab('eventsTab', this)">🎂 События</button>
   </div>
 
-  <!-- Вкладка 1: Домашка -->
   <div id="homeworkTab" class="tab-content active">
     <div class="filter-panel">
       <span class="filter-label" id="filterLabel">Показать:</span>
@@ -870,7 +924,6 @@
     <div id="homeworkContainer">Загрузка заданий...</div>
   </div>
 
-  <!-- Вкладка 2: Расписание -->
   <div id="scheduleTab" class="tab-content">
     <div id="scheduleContainer">Загрузка расписания уроков...</div>
 
@@ -882,18 +935,15 @@
     </div>
   </div>
 
-  <!-- Вкладка 3: Рабочие листы -->
   <div id="worksheetsTab" class="tab-content">
     <div class="section-title" id="secWorksheetsTitle">📄 Рабочие листы и распечатки с Google Диска</div>
     <div class="worksheets-grid" id="worksheetsContainer">Загрузка рабочих листов...</div>
   </div>
 
-  <!-- Вкладка 4: Каникулы -->
   <div id="vacationsTab" class="tab-content">
     <div class="vacations-grid" id="vacationsContainer"></div>
   </div>
 
-  <!-- Вкладка 5: Объявления и Ресурсы -->
   <div id="announceTab" class="tab-content">
     <div class="section-title" id="secAnnounceTitle">📢 Объявления от учителя</div>
     <div id="announcementsContainer"></div>
@@ -902,7 +952,6 @@
     <div class="resources-grid" id="resourcesContainer"></div>
   </div>
 
-  <!-- Вкладка 6: События и Дни рождения -->
   <div id="eventsTab" class="tab-content">
     <div class="section-title" id="secEventsTitle">🎂 Календарь событий и дни рождения</div>
     <div id="eventsContainer"></div>
@@ -1034,7 +1083,6 @@
       6: ['събота', 'суббота', 'saturday', 'сб']
     };
 
-    // НАСТРОЙКА СЕЗОННОГО ФОНА И ЭЛЕМЕНТОВ НАУКИ/ОБУЧЕНИЯ
     function initSeasonalTheme() {
       const month = new Date().getMonth() + 1;
       const body = document.body;
@@ -1211,7 +1259,7 @@
       }
     }
 
-    // РЕНДЕР РАБОЧИХ ЛИСТОВ (GOOGLE DISK)
+    // РЕНДЕР РАБОЧИХ ЛИСТОВ С ПРЕВЬЮ И ТИПОМ ФАЙЛА
     function renderWorksheets() {
       const container = document.getElementById('worksheetsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1221,19 +1269,46 @@
         return;
       }
 
-      container.innerHTML = appData.worksheets.map(w => `
-        <div class="worksheet-card">
-          <span class="worksheet-subject-badge">${w.subject || 'Материал'}</span>
-          <div class="worksheet-title">${w.title || 'Рабочий лист'}</div>
-          <div class="worksheet-desc">${w.description || ''}</div>
-          <a href="${w.url || '#'}" target="_blank" class="btn-download-ws">
-            ${t.btnOpenDrive} ↗
-          </a>
-        </div>
-      `).join('');
+      container.innerHTML = appData.worksheets.map(w => {
+        const url = w.url || '#';
+        const sub = (w.subject || 'Общее').toUpperCase();
+        
+        let fileIcon = '📄';
+        let fileTypeName = 'Google Документ';
+
+        if (url.includes('spreadsheets') || sub.includes('ТАБЛИЦ')) {
+          fileIcon = '📊';
+          fileTypeName = 'Google Таблица';
+        } else if (url.includes('presentation') || sub.includes('ПРЕЗЕНТАЦИЯ')) {
+          fileIcon = '📽️';
+          fileTypeName = 'Google Презентация';
+        } else if (url.includes('pdf') || url.endsWith('.pdf')) {
+          fileIcon = '📑';
+          fileTypeName = 'PDF Файл';
+        } else if (url.includes('forms')) {
+          fileIcon = '📝';
+          fileTypeName = 'Google Форма';
+        }
+
+        return `
+          <div class="worksheet-card">
+            <a href="${url}" target="_blank" class="worksheet-preview-box" title="Открыть материал">
+              <div class="worksheet-file-icon">${fileIcon}</div>
+              <span style="position: absolute; bottom: 8px; right: 10px; background: rgba(255,255,255,0.9); font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 6px; color: var(--text-muted);">${fileTypeName}</span>
+            </a>
+            <div class="worksheet-content">
+              <span class="worksheet-subject-badge">${w.subject || 'Материал'}</span>
+              <div class="worksheet-title">${w.title || 'Рабочий лист'}</div>
+              <div class="worksheet-desc">${w.description || ''}</div>
+              <a href="${url}" target="_blank" class="btn-download-ws" style="margin-top: auto;">
+                ${t.btnOpenDrive} ↗
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
-    // РЕНДЕР КАНИКУЛ
     function renderVacations() {
       const container = document.getElementById('vacationsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1281,7 +1356,7 @@
       container.innerHTML = html;
     }
 
-    // РЕНДЕР ОБЪЯВЛЕНИЙ С КЛИКАБЕЛЬНЫМИ ССЫЛКАМИ
+    // РЕНДЕР ОБЪЯВЛЕНИЙ С АВТОМАТИЧЕСКИМ ПРЕВЬЮ ДЛЯ ССЫЛОК И ВИДЕО
     function renderAnnouncements() {
       const container = document.getElementById('announcementsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1292,22 +1367,61 @@
 
       container.innerHTML = appData.announcements.map(a => {
         let text = a.text || '';
+        let embeddedPreviews = '';
+
+        // Находим все ссылки в тексте сообщения
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-        text = text.replace(urlRegex, function(url) {
-          return `<a href="${url}" target="_blank" style="color: var(--accent-blue); font-weight: 900; text-decoration: underline;">${url} ↗</a>`;
-        });
+        const matches = text.match(urlRegex);
+
+        if (matches && matches.length > 0) {
+          matches.forEach(url => {
+            // Проверяем YouTube
+            let youtubeId = null;
+            const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+            if (ytMatch) youtubeId = ytMatch[1];
+
+            if (youtubeId) {
+              const thumbUrl = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+              embeddedPreviews += `
+                <a href="${url}" target="_blank" class="announcement-link-preview">
+                  <div class="announcement-preview-thumb">
+                    <img src="${thumbUrl}" alt="Video Preview">
+                    <div style="position: absolute; background: rgba(0,0,0,0.7); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;">▶</div>
+                  </div>
+                  <div class="announcement-preview-body">
+                    <div class="announcement-preview-title">Смотреть видео на YouTube ↗</div>
+                    <div class="announcement-preview-url">${url}</div>
+                  </div>
+                </a>
+              `;
+            } else {
+              // Для остальных ссылок выводим аккуратную карточку-превью
+              embeddedPreviews += `
+                <a href="${url}" target="_blank" class="announcement-link-preview">
+                  <div class="announcement-preview-body" style="padding: 14px;">
+                    <div class="announcement-preview-title">🔗 Открыть ссылку ↗</div>
+                    <div class="announcement-preview-url">${url}</div>
+                  </div>
+                </a>
+              `;
+            }
+
+            // Заменяем саму текстовую ссылку в абзаце на красивый кликабельный тег
+            text = text.replace(url, `<a href="${url}" target="_blank" style="color: var(--accent-blue); font-weight: 900; text-decoration: underline;">${url} ↗</a>`);
+          });
+        }
 
         return `
           <div class="announcement-card ${String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true ? 'important' : ''}">
             <div class="announcement-date">📅 ${a.date || ''}</div>
             <div class="announcement-header">${a.title || ''}</div>
             <div class="announcement-text">${text}</div>
+            ${embeddedPreviews}
           </div>
         `;
       }).join('');
     }
 
-    // РЕНДЕР РЕСУРСОВ
     function renderResources() {
       const container = document.getElementById('resourcesContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1325,7 +1439,6 @@
       `).join('');
     }
 
-    // РЕНДЕР СОБЫТИЙ ПО КВАРТАЛАМ
     function renderEvents() {
       const container = document.getElementById('eventsContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1427,7 +1540,6 @@
       container.innerHTML = html;
     }
 
-    // РЕНДЕР ДОМАШКИ
     function renderHomework() {
       const container = document.getElementById('homeworkContainer');
       const t = TRANSLATIONS[currentLang];
@@ -1625,7 +1737,6 @@
       renderPackChecklist();
     }
 
-    // ИНИЦИАЛИЗАЦИЯ
     initSeasonalTheme();
     setLanguage(currentLang);
     loadData();
