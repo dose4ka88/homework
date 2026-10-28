@@ -659,10 +659,10 @@
       word-break: break-all;
     }
 
-    .resources-grid, .worksheets-grid {
+    .resources-grid, .worksheets-grid, .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
       margin-bottom: 24px;
     }
 
@@ -764,6 +764,41 @@
       background: #1D4ED8;
     }
 
+    /* Стили для встраиваемых мини-игр (iframe) */
+    .game-embed-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-hub);
+      border: 3px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+    }
+    .game-embed-header {
+      padding: 14px 18px;
+      background: #F8FAFC;
+      border-bottom: 2px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .game-embed-title {
+      font-size: 16px;
+      font-weight: 1000;
+      color: var(--text-main);
+    }
+    .game-embed-frame-wrap {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: #000;
+    }
+    .game-embed-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     .quarters-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -818,118 +853,6 @@
       border-radius: 6px;
       display: inline-block;
       margin-top: 4px;
-    }
-
-    /* Стили для мини-игр */
-    .games-menu-card {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-    .game-select-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: var(--shadow-hub);
-      border: 3px solid #E2E8F0;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.25s ease;
-    }
-    .game-select-card:hover {
-      border-color: var(--accent-blue);
-      transform: translateY(-4px);
-    }
-    .game-title {
-      font-size: 18px;
-      font-weight: 1000;
-      color: var(--text-main);
-      margin: 10px 0 6px 0;
-    }
-    .game-desc {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--text-muted);
-    }
-    .game-screen {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: var(--shadow-hub);
-      border: 3px solid var(--accent-blue);
-    }
-    .game-header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .btn-back-games {
-      background: #E2E8F0;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-weight: 900;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-    .digits-grid, .letters-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .selection-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
-      border: 2px solid var(--accent-blue);
-      background: #EFF6FF;
-      font-size: 18px;
-      font-weight: 1000;
-      color: var(--accent-blue);
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .selection-btn:hover {
-      background: var(--accent-blue);
-      color: #FFF;
-    }
-    .game-task-card {
-      background: #F8FAFC;
-      border: 2px solid #E2E8F0;
-      border-radius: var(--radius-md);
-      padding: 20px;
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .game-question {
-      font-size: 22px;
-      font-weight: 1000;
-      color: var(--text-main);
-      margin-bottom: 16px;
-    }
-    .game-options {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .game-option-btn {
-      padding: 12px;
-      background: #FFF;
-      border: 2px solid #CBD5E1;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 900;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .game-option-btn:hover {
-      border-color: var(--accent-blue);
-      background: #EFF6FF;
     }
 
     .pack-checklist-card {
@@ -1017,7 +940,7 @@
     <button class="tab-btn active" id="tabHwBtn" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
     <button class="tab-btn" id="tabScheduleBtn" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
     <button class="tab-btn" id="tabWorksheetsBtn" onclick="switchTab('worksheetsTab', this)">📄 Листы</button>
-    <button class="tab-btn" id="tabGamesBtn" onclick="switchTab('gamesTab', this)">🎮 Игры</button>
+    <button class="tab-btn" id="tabGamesBtn" onclick="switchTab('gamesTab', this)">🎮 Мини-игри</button>
     <button class="tab-btn" id="tabVacationsBtn" onclick="switchTab('vacationsTab', this)">🎉 Каникулы</button>
     <button class="tab-btn" id="tabAnnounceBtn" onclick="switchTab('announceTab', this)">📢 Новости</button>
     <button class="tab-btn" id="tabEventsBtn" onclick="switchTab('eventsTab', this)">🎂 События</button>
@@ -1052,24 +975,10 @@
     <div class="worksheets-grid" id="worksheetsContainer">Загрузка рабочих листов...</div>
   </div>
 
-  <!-- Вкладка мини-игр -->
+  <!-- Вкладка Мини-игри (встраиваемые игры через iframe) -->
   <div id="gamesTab" class="tab-content">
-    <div class="section-title">🎮 Образователни игри за 1. клас</div>
-    
-    <div id="gamesMenu" class="games-menu-card">
-      <div class="game-select-card" onclick="openGame('math')">
-        <div style="font-size: 40px;">🦁</div>
-        <div class="game-title">Математическа зоологическа градина</div>
-        <div class="game-desc">Избери цифра и тренирай събиране, изваждане и сравнение!</div>
-      </div>
-      <div class="game-select-card" onclick="openGame('letters')">
-        <div style="font-size: 40px;">👑</div>
-        <div class="game-title">Царство на буквите</div>
-        <div class="game-desc">Избери буква и решавай задачи за срички, думи и звукове!</div>
-      </div>
-    </div>
-
-    <div id="gamePlayContainer" style="display: none;"></div>
+    <div class="section-title" id="secGamesTitle">🎮 Образователни мини-игри</div>
+    <div class="games-grid" id="gamesContainer">Зареждане на игри...</div>
   </div>
 
   <div id="vacationsTab" class="tab-content">
@@ -1091,7 +1000,7 @@
 
   <script>
     let currentLang = localStorage.getItem('app_lang') || 'ru';
-    let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [], worksheets: [] };
+    let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [], worksheets: [], games: [] };
 
     const VACATIONS_DATA = [
       { id: 'autumn', icon: '🍂', title: { ru: 'Осенние каникулы', bg: 'Есенна ваканция' }, startDate: '2026-10-31', endDate: '2026-11-02', dateText: { ru: '31.10.2026 – 02.11.2026', bg: '31.10.2026 г. – 02.11.2026 г.' } },
@@ -1111,6 +1020,7 @@
         tabHw: '📝 Домашка',
         tabSchedule: '🎒 Расписание',
         tabWorksheets: '📄 Листы',
+        tabGames: '🎮 Мини-игри',
         tabVacations: '🎉 Каникулы',
         tabAnnounce: '📢 Новости',
         tabEvents: '🎂 События',
@@ -1135,10 +1045,12 @@
         secAnnounceTitle: '📢 Объявления от учителя',
         secResourcesTitle: '🔗 Полезные ресурсы и ссылки',
         secWorksheetsTitle: '📄 Рабочие листы для скачивания (Google Диск)',
+        secGamesTitle: '🎮 Образователни мини-игри',
         secEventsTitle: '🎂 Календарь событий и дни рождения',
         emptyAnnounce: '📢 Пока нет новых объявлений.',
         emptyResources: '🔗 Ссылки и ресурсы скоро появятся.',
         emptyWorksheets: '📄 Рабочие листы пока не добавлены.',
+        emptyGames: '🎮 Мини-игри скоро ще бъдат добавени.',
         emptyEvents: '🎉 Нет запланированных событий.',
         btnOpenDrive: '📄 Открыть / Скачать',
         packItems: [
@@ -1159,6 +1071,7 @@
         tabHw: '📝 Домашно',
         tabSchedule: '🎒 Програма',
         tabWorksheets: '📄 Листи',
+        tabGames: '🎮 Мини-игри',
         tabVacations: '🎉 Ваканции',
         tabAnnounce: '📢 Новини',
         tabEvents: '🎂 Събития',
@@ -1183,10 +1096,12 @@
         secAnnounceTitle: '📢 Съобщения от учителя',
         secResourcesTitle: '🔗 Линкове и ресурси',
         secWorksheetsTitle: '📄 Работни листи за изтегляне (Google Диск)',
+        secGamesTitle: '🎮 Образователни мини-игри',
         secEventsTitle: '🎂 Календар на събитията и рождени дни',
         emptyAnnounce: '📢 Все още няма нови съобщения.',
         emptyResources: '🔗 Линковете и ресурсите скоро ще бъдат добавени.',
         emptyWorksheets: '📄 Все още няма добавени работни листи.',
+        emptyGames: '🎮 Мини-игри скоро ще бъдат добавени.',
         emptyEvents: '🎉 Няма предстоящи събития.',
         btnOpenDrive: '📄 Отвори / Изтегли',
         packItems: [
@@ -1295,6 +1210,7 @@
       renderHomework();
       renderSchedule();
       renderWorksheets();
+      renderGames();
       renderVacations();
       renderAnnouncements();
       renderResources();
@@ -1311,6 +1227,7 @@
       document.getElementById('tabHwBtn').innerText = t.tabHw;
       document.getElementById('tabScheduleBtn').innerText = t.tabSchedule;
       document.getElementById('tabWorksheetsBtn').innerText = t.tabWorksheets;
+      document.getElementById('tabGamesBtn').innerText = t.tabGames;
       document.getElementById('tabVacationsBtn').innerText = t.tabVacations;
       document.getElementById('tabAnnounceBtn').innerText = t.tabAnnounce;
       document.getElementById('tabEventsBtn').innerText = t.tabEvents;
@@ -1322,6 +1239,7 @@
       document.getElementById('secAnnounceTitle').innerText = t.secAnnounceTitle;
       document.getElementById('secResourcesTitle').innerText = t.secResourcesTitle;
       document.getElementById('secWorksheetsTitle').innerText = t.secWorksheetsTitle;
+      document.getElementById('secGamesTitle').innerText = t.secGamesTitle;
       document.getElementById('secEventsTitle').innerText = t.secEventsTitle;
     }
 
@@ -1351,6 +1269,7 @@
         renderSchedule();
         renderHomework();
         renderWorksheets();
+        renderGames();
         renderVacations();
         renderAnnouncements();
         renderResources();
@@ -1391,136 +1310,37 @@
       }
     }
 
-    // МИНИ-ИГРЫ
-    function openGame(type) {
-      document.getElementById('gamesMenu').style.display = 'none';
-      const container = document.getElementById('gamePlayContainer');
-      container.style.display = 'block';
+    // РЕНДЕР ВСТРАИВАЕМЫХ МИНИ-ИГР (ИЗ ДАННЫХ ИЛИ ПРИМЕР)
+    function renderGames() {
+      const container = document.getElementById('gamesContainer');
+      const t = TRANSLATIONS[currentLang];
 
-      if (type === 'math') {
-        renderMathZooMenu();
-      } else if (type === 'letters') {
-        renderLettersKingdomMenu();
-      }
-    }
+      // Если в JSON есть массив игр, выводим их. Если нет — показываем подсказку или демо-карточку
+      const gamesList = appData.games || [];
 
-    function closeGameMenu() {
-      document.getElementById('gamesMenu').style.display = 'grid';
-      document.getElementById('gamePlayContainer').style.display = 'none';
-    }
-
-    function renderMathZooMenu() {
-      const container = document.getElementById('gamePlayContainer');
-      let html = `
-        <div class="game-screen">
-          <div class="game-header-bar">
-            <button class="btn-back-games" onclick="closeGameMenu()">⬅ Назад към игрите</button>
-            <div style="font-weight: 1000; color: var(--accent-blue);">🦁 Математическа зоологическа градина</div>
+      if (gamesList.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            ${t.emptyGames}<br>
+            <span style="font-size: 13px; font-weight: 800; color: var(--text-muted); margin-top: 8px; display: block;">
+              Можете да добавите вградени игри (iframe или HTML кодове) чрез вашата Google таблица (лист "Игри").
+            </span>
           </div>
-          <div style="text-align:center; font-weight: 900; margin-bottom: 16px;">Избери цифра от 0 до 9 за тренировка:</div>
-          <div class="digits-grid">
-      `;
-      for (let i = 0; i <= 9; i++) {
-        html += `<button class="selection-btn" onclick="startMathTask(${i})">${i}</button>`;
-      }
-      html += `</div></div>`;
-      container.innerHTML = html;
-    }
-
-    function startMathTask(digit) {
-      const types = ['add', 'sub', 'compare'];
-      const currentType = types[Math.floor(Math.random() * types.length)];
-      
-      let questionText = '';
-      let correctAnswer = 0;
-      let options = [];
-
-      if (currentType === 'add') {
-        const other = Math.floor(Math.random() * (10 - digit));
-        questionText = `${digit} + ${other} = ?`;
-        correctAnswer = digit + other;
-      } else if (currentType === 'sub') {
-        const other = Math.floor(Math.random() * (digit + 1));
-        questionText = `${digit} - ${other} = ?`;
-        correctAnswer = digit - other;
-      } else {
-        const other = Math.floor(Math.random() * 10);
-        questionText = `Кое е по-голямо: ${digit} или ${other}?`;
-        correctAnswer = Math.max(digit, other);
+        `;
+        return;
       }
 
-      options = [correctAnswer];
-      while (options.length < 4) {
-        let rnd = Math.floor(Math.random() * 11);
-        if (!options.includes(rnd)) options.push(rnd);
-      }
-      options.sort(() => Math.random() - 0.5);
-
-      const container = document.getElementById('gamePlayContainer');
-      container.innerHTML = `
-        <div class="game-screen">
-          <div class="game-header-bar">
-            <button class="btn-back-games" onclick="renderMathZooMenu()">⬅ Избери друга цифра</button>
-            <div style="font-weight: 1000; color: var(--accent-blue);">Цифра: ${digit} 🦁</div>
+      container.innerHTML = gamesList.map(g => `
+        <div class="game-embed-card">
+          <div class="game-embed-header">
+            <div class="game-embed-title">${g.title || 'Мини-игра'}</div>
+            <a href="${g.url || '#'}" target="_blank" style="font-size: 12px; font-weight: 900; color: var(--accent-blue); text-decoration: none;">На цял екран ↗</a>
           </div>
-          <div class="game-task-card">
-            <div class="game-question">${questionText}</div>
-            <div class="game-options">
-              ${options.map(opt => `<button class="game-option-btn" onclick="checkMathAnswer(${opt}, ${correctAnswer}, ${digit})">${opt}</button>`).join('')}
-            </div>
+          <div class="game-embed-frame-wrap">
+            <iframe src="${g.url}" allowfullscreen></iframe>
           </div>
         </div>
-      `;
-    }
-
-    function checkMathAnswer(selected, correct, digit) {
-      if (selected === correct) {
-        if (typeof confetti === 'function') confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
-        alert('Браво! Верен отговор! 🎉');
-      } else {
-        alert('Опитай пак! 💡');
-      }
-      startMathTask(digit);
-    }
-
-    const BULGARIAN_ALPHABET = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ю', 'Я'];
-
-    function renderLettersKingdomMenu() {
-      const container = document.getElementById('gamePlayContainer');
-      let html = `
-        <div class="game-screen">
-          <div class="game-header-bar">
-            <button class="btn-back-games" onclick="closeGameMenu()">⬅ Назад към игрите</button>
-            <div style="font-weight: 1000; color: var(--accent-blue);">👑 Царство на буквите</div>
-          </div>
-          <div style="text-align:center; font-weight: 900; margin-bottom: 16px;">Избери буква за упражнение:</div>
-          <div class="letters-grid">
-      `;
-      BULGARIAN_ALPHABET.forEach(lettr => {
-        html += `<button class="selection-btn" style="width:42px; height:42px; font-size:16px;" onclick="startLetterTask('${lettr}')">${lettr}</button>`;
-      });
-      html += `</div></div>`;
-      container.innerHTML = html;
-    }
-
-    function startLetterTask(letter) {
-      const container = document.getElementById('gamePlayContainer');
-      container.innerHTML = `
-        <div class="game-screen">
-          <div class="game-header-bar">
-            <button class="btn-back-games" onclick="renderLettersKingdomMenu()">⬅ Избери друга буква</button>
-            <div style="font-weight: 1000; color: var(--accent-blue);">Буква: ${letter} 👑</div>
-          </div>
-          <div class="game-task-card">
-            <div class="game-question">Какво ще правим с буква "${letter}"?</div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <button class="game-option-btn" onclick="alert('Супер! Съставяме срички: ${letter}А, ${letter}О, ${letter}У!')">📖 Състави срички</button>
-              <button class="game-option-btn" onclick="alert('Отлично! Думи с тази буква се срещат в нашия буквар!')">✍️ Намери думи с буквата</button>
-              <button class="game-option-btn" onclick="renderLettersKingdomMenu()">🔄 Избери друга буква</button>
-            </div>
-          </div>
-        </div>
-      `;
+      `).join('');
     }
 
     function renderWorksheets() {
@@ -1993,104 +1813,6 @@
       packState[id] = !packState[id];
       localStorage.setItem('pack_completed', JSON.stringify(packState));
       renderPackChecklist();
-    }
-    // РЕНДЕР РЕСУРСОВ С УНИВЕРСАЛЬНЫМИ ПРЕВЬЮ ДЛЯ ЛЮБЫХ САЙТОВ И YOUTUBE
-    function renderResources() {
-      const container = document.getElementById('resourcesContainer');
-      const t = TRANSLATIONS[currentLang];
-      if (!appData.resources || !Array.isArray(appData.resources) || appData.resources.length === 0) {
-        container.innerHTML = `<div class="empty-state">${t.emptyResources}</div>`;
-        return;
-      }
-
-      container.innerHTML = appData.resources.map(r => {
-        const url = r.url || '#';
-        const category = (r.category || '').toUpperCase();
-        
-        // 1. Проверяем YouTube (работает мгновенно без внешних запросов)
-        let youtubeId = null;
-        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-        if (ytMatch) {
-          youtubeId = ytMatch[1];
-        }
-
-        if (youtubeId || category.includes('ВИДЕО') || category.includes('YOUTUBE')) {
-          const thumbUrl = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : '';
-          return `
-            <div class="resource-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
-              ${thumbUrl ? `
-                <a href="${url}" target="_blank" style="position: relative; display: block; background: #000;">
-                  <img src="${thumbUrl}" alt="Video" style="width: 100%; height: 160px; object-fit: cover; display: block; opacity: 0.9;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">▶</div>
-                </a>
-              ` : ''}
-              <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
-                <div class="resource-category">${r.category || 'Видео'}</div>
-                <a href="${url}" target="_blank" class="resource-link" style="margin-top: 4px;">${r.title || 'Видеоролик'} ↗</a>
-                <div class="announcement-text" style="margin-top: 4px;">${r.description || ''}</div>
-              </div>
-            </div>
-          `;
-        }
-
-        // 2. Для любых других сайтов используем бесплатный сервис превью (Microlink)
-        // Он автоматически берет скриншот или Open Graph картинку сайта
-        const microlinkApi = `https://api.microlink.io?url=${encodeURIComponent(url)}`;
-        
-        return `
-          <div class="resource-card link-preview-card" data-url="${url}" data-fallback-title="${r.title || 'Ссылка'}" data-fallback-desc="${r.description || ''}" data-fallback-cat="${r.category || 'Ссылка'}" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
-            <a href="${url}" target="_blank" class="preview-img-wrap" style="display: block; background: #F1F5F9; height: 140px; overflow: hidden; position: relative;">
-              <img class="preview-img" src="" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-            </a>
-            <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
-              <div class="resource-category preview-cat">${r.category || 'Ссылка'}</div>
-              <a href="${url}" target="_blank" class="resource-link preview-title" style="margin-top: 4px;">${r.title || 'Загрузка превью...'} ↗</a>
-              <div class="announcement-text preview-desc" style="margin-top: 4px; font-size: 13px;">${r.description || ''}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Автоматически подгружаем данные для всех сторонних сайтов на странице
-      setTimeout(() => fetchAllPreviews(), 100);
-    }
-
-    // Функция автоматического запроса превью с сайтов
-    async function fetchAllPreviews() {
-      const cards = document.querySelectorAll('.link-preview-card');
-      cards.forEach(async (card) => {
-        const url = card.getAttribute('data-url');
-        const titleEl = card.querySelector('.preview-title');
-        const descEl = card.querySelector('.preview-desc');
-        const imgEl = card.querySelector('.preview-img');
-        const catEl = card.querySelector('.preview-cat');
-        
-        const fallbackTitle = card.getAttribute('data-fallback-title');
-        const fallbackDesc = card.getAttribute('data-fallback-desc');
-        const fallbackCat = card.getAttribute('data-fallback-cat');
-
-        try {
-          const res = await fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`);
-          const json = await res.json();
-          
-          if (json.status === 'success' && json.data) {
-            // Если в таблице не было названия или описания, подставляем с сайта
-            if (fallbackTitle === 'Ссылка' || !fallbackTitle) {
-              titleEl.innerHTML = (json.data.title || url) + ' ↗';
-            }
-            if (!fallbackDesc) {
-              descEl.innerHTML = json.data.description || '';
-            }
-            if (json.data.image && json.data.image.url) {
-              imgEl.src = json.data.image.url;
-              imgEl.style.display = 'block';
-            }
-          }
-        } catch (e) {
-          // Если сервис недоступен, оставляем то, что написал пользователь в таблице
-          console.log('Не удалось загрузить превью для:', url);
-        }
-      });
     }
 
     initSeasonalTheme();
