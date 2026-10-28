@@ -298,6 +298,13 @@
       "name": "Рожден ден на Никола",
       "icon": "🦸‍♂️",
       "description": ""
+    },
+    {
+      "type": "День рождения",
+      "date": "18.05.2019",
+      "name": "",
+      "icon": "📌",
+      "description": ""
     }
   ],
   "worksheets": [
