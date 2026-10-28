@@ -1,5 +1,5 @@
 {
-  "updatedAt": "28.10.2026 18:44",
+  "updatedAt": "28.10.2026 18:45",
   "schedule": [
     {
       "day": "Понеделник",
@@ -397,6 +397,12 @@
       "subject": "Математика",
       "title": "Работен лист",
       "url": "https://drive.google.com/file/d/1f7lSdV0b1jLMgjPhBQBq6mmuQH0Y2kk1/view?usp=drive_link",
+      "description": ""
+    },
+    {
+      "subject": "Общее",
+      "title": "Работен лист",
+      "url": "https://drive.google.com/file/d/1gvHnHXemwjCCua8obR2knTyP86OKO0Cg/view?usp=drivesdk",
       "description": ""
     }
   ],
