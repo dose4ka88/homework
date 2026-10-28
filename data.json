@@ -1,5 +1,5 @@
 {
-  "updatedAt": "28.10.2026 14:23",
+  "updatedAt": "28.10.2026 14:24",
   "schedule": [
     {
       "day": "Понеделник",
@@ -396,7 +396,7 @@
   ],
   "games": [
     {
-      "title": "Мини-игра",
+      "title": "Събиране и изваждане с числата до 10",
       "url": "<iframe style=\"max-width:100%\" src=\"https://wordwall.net/bg/embed/56d93a9268894f27bb462c35db25ed9f?themeId=53&templateId=30&fontStackId=0\" width=\"500\" height=\"380\" frameborder=\"0\" allowfullscreen></iframe>"
     }
   ]
