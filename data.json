@@ -1,5 +1,5 @@
 {
-  "updatedAt": "28.10.2026 14:20",
+  "updatedAt": "28.10.2026 14:23",
   "schedule": [
     {
       "day": "Понеделник",
@@ -394,5 +394,10 @@
       "description": ""
     }
   ],
-  "games": []
+  "games": [
+    {
+      "title": "Мини-игра",
+      "url": "<iframe style=\"max-width:100%\" src=\"https://wordwall.net/bg/embed/56d93a9268894f27bb462c35db25ed9f?themeId=53&templateId=30&fontStackId=0\" width=\"500\" height=\"380\" frameborder=\"0\" allowfullscreen></iframe>"
+    }
+  ]
 }
