@@ -1,5 +1,5 @@
 {
-  "updatedAt": "04.11.2026 18:19",
+  "updatedAt": "04.11.2026 18:20",
   "schedule": [
     {
       "day": "Понеделник",
@@ -250,6 +250,12 @@
       "category": "Видео",
       "title": "Събиране на три числа",
       "url": "https://www.youtube.com/watch?v=pDlfTpENWsA",
+      "description": ""
+    },
+    {
+      "category": "",
+      "title": "Буква Р",
+      "url": "https://www.youtube.com/watch?v=Xx-ct0ZG1LM",
       "description": ""
     }
   ],
