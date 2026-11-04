@@ -1,5 +1,5 @@
 {
-  "updatedAt": "04.11.2026 18:27",
+  "updatedAt": "04.11.2026 18:28",
   "schedule": [
     {
       "day": "Понеделник",
@@ -481,6 +481,12 @@
       "subject": "БЕЛ",
       "title": "Работен лист",
       "url": "https://drive.google.com/file/d/15ZgS79vQqr0rVTkgNJUF6znIWGNLY5QA/view?usp=drivesdk",
+      "description": ""
+    },
+    {
+      "subject": "Общее",
+      "title": "Работен лист",
+      "url": "https://drive.google.com/file/d/1EALvgqOxxH9KPaK24CVhlQwvV_ptUTFV/view?usp=drivesdk",
       "description": ""
     }
   ],
