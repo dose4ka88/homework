@@ -6,6 +6,13 @@
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F8FAFC" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Хаб 1Б">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
   <title>Классный хаб 1Б 📚✨</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900;1000&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -1276,11 +1283,221 @@
     .archive-list { margin-top: 14px; }
     .announcement-card.archived { opacity: 0.75; }
 
+    /* ===== Главная (блок для родителей) ===== */
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: start;
+    }
+    .home-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-hub);
+      border: 3px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .home-card.home-next { border-color: #10B981; background: var(--next-bg), var(--card-bg); }
+    .home-card.home-new { border-color: var(--btn-primary); }
+    .home-card-title { font-size: 19px; font-weight: 1000; color: var(--text-main); line-height: 1.25; }
+    .home-date { font-size: 14px; font-weight: 900; color: var(--accent-blue); }
+    .home-muted { font-size: 13px; font-weight: 800; color: var(--text-muted); }
+    .home-lessons {
+      list-style: none;
+      counter-reset: lesson;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .home-lessons li {
+      counter-increment: lesson;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+    .home-lessons li::before {
+      content: counter(lesson);
+      background: var(--accent-soft);
+      color: var(--accent-blue);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .reminder-pill {
+      background: var(--amber);
+      color: #000;
+      font-weight: 1000;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+    .home-progress .progress-text { font-size: 12px; }
+    .home-btn {
+      background: var(--btn-primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 900;
+      font-size: 14px;
+      cursor: pointer;
+      min-height: 44px;
+    }
+    .home-btn:hover { background: var(--btn-primary-hover); }
+    .home-btn.secondary { background: var(--surface-2); color: var(--text-main); }
+    .home-task-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .home-task-list li { display: flex; gap: 8px; align-items: center; font-weight: 800; font-size: 14px; color: var(--text-main); }
+    .home-task-list li.done span:last-child { text-decoration: line-through; color: var(--success-text); }
+    .home-links { display: flex; flex-direction: column; gap: 8px; }
+    .home-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+    .home-link:hover { border-color: var(--accent-blue); }
+    .home-link-icon { font-size: 18px; flex-shrink: 0; }
+    .home-link-text { flex: 1; min-width: 0; }
+    .home-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .useful-list { display: flex; flex-direction: column; gap: 8px; }
+    .useful-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .useful-icon { font-size: 18px; flex-shrink: 0; }
+    .useful-title { font-weight: 1000; font-size: 14px; }
+    .useful-value { font-weight: 800; font-size: 13px; color: var(--text-muted); }
+    .install-steps { font-size: 14px; font-weight: 800; color: var(--text-muted); line-height: 1.5; }
+
+    /* ===== Метки «Новое» ===== */
+    .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 10px;
+      background: #EF4444;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 1000;
+      margin-left: 4px;
+    }
+    .new-chip {
+      display: inline-block;
+      background: #EF4444;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 1000;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+    }
+    .card-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+    /* ===== Поиск и фильтры ===== */
+    .toolbar { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .search-input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 2px solid var(--border-strong);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 16px;
+      font-weight: 800;
+      outline: none;
+      box-shadow: var(--shadow-hub);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .search-input:focus { border-color: var(--accent-blue); }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+      border-radius: 20px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .chip.active { background: var(--btn-primary); border-color: var(--btn-primary); color: #FFFFFF; }
+    .no-results { margin-bottom: 24px; }
+
+    /* ===== Календарь и «Поделиться» ===== */
+    .card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .mini-btn {
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--text-main);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 38px;
+    }
+    .mini-btn:hover { border-color: var(--accent-blue); }
+    .mini-btn.wa { background: #25D366; border-color: #25D366; color: #FFFFFF; }
+    .mini-btn.viber { background: #7360F2; border-color: #7360F2; color: #FFFFFF; }
+    .share-panel { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
+    .share-panel[hidden] { display: none; }
+    .vac-cal-btn { margin-top: 10px; }
+    .event-cal-btn { padding: 6px 8px; min-height: 34px; font-size: 14px; flex-shrink: 0; }
+
     /* =========================================================
        АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ
        ========================================================= */
     @media (max-width: 640px) {
       .rewards-card { padding: 14px; }
+      .home-card { padding: 16px; }
+      .home-card-title { font-size: 17px; }
+      .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+      .chips::-webkit-scrollbar { display: none; }
       .reward-value { font-size: 20px; }
 
       body {
@@ -1398,7 +1615,8 @@
   </div>
 
   <nav class="tabs-nav" id="tabsNav">
-    <button class="tab-btn active" id="tabHwBtn" data-tab="homeworkTab" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
+    <button class="tab-btn active" id="tabHomeBtn" data-tab="homeTab" onclick="switchTab('homeTab', this)">🏠 Главная</button>
+    <button class="tab-btn" id="tabHwBtn" data-tab="homeworkTab" onclick="switchTab('homeworkTab', this)">📝 Домашка</button>
     <button class="tab-btn" id="tabScheduleBtn" data-tab="scheduleTab" onclick="switchTab('scheduleTab', this)">🎒 Расписание</button>
     <button class="tab-btn" id="tabAnnounceBtn" data-tab="announceTab" onclick="switchTab('announceTab', this)">📢 Новости</button>
     <button class="tab-btn" id="tabWorksheetsBtn" data-tab="worksheetsTab" onclick="switchTab('worksheetsTab', this)">📄 Листы</button>
@@ -1408,7 +1626,12 @@
     <button class="tab-btn" id="tabEventsBtn" data-tab="eventsTab" onclick="switchTab('eventsTab', this)">🎂 События</button>
   </nav>
 
-  <div id="homeworkTab" class="tab-content active">
+  <!-- ГЛАВНАЯ — сводка для родителей -->
+  <div id="homeTab" class="tab-content active">
+    <div id="homeContainer"></div>
+  </div>
+
+  <div id="homeworkTab" class="tab-content">
     <div id="rewardsContainer"></div>
 
     <div class="filter-panel">
@@ -1442,17 +1665,32 @@
 
   <div id="worksheetsTab" class="tab-content">
     <div class="section-title" id="secWorksheetsTitle">📄 Рабочие листы и распечатки с Google Диска</div>
+    <div class="toolbar" id="worksheetsToolbar">
+      <input type="search" class="search-input" id="worksheetsSearch" placeholder="🔍" oninput="setFilterQuery('worksheets', this.value)">
+      <div class="chips" id="worksheetsChips"></div>
+    </div>
+    <div class="empty-state no-results" id="worksheetsNoResults" style="display: none;"></div>
     <div class="worksheets-grid" id="worksheetsContainer">Загрузка рабочих листов...</div>
   </div>
 
   <!-- РЕСУРСЫ И ССЫЛКИ — отдельный раздел -->
   <div id="resourcesTab" class="tab-content">
     <div class="section-title" id="secResourcesTitle">🔗 Полезные ресурсы и ссылки</div>
+    <div class="toolbar" id="resourcesToolbar">
+      <input type="search" class="search-input" id="resourcesSearch" placeholder="🔍" oninput="setFilterQuery('resources', this.value)">
+      <div class="chips" id="resourcesChips"></div>
+    </div>
+    <div class="empty-state no-results" id="resourcesNoResults" style="display: none;"></div>
     <div class="resources-grid" id="resourcesContainer"></div>
   </div>
 
   <div id="gamesTab" class="tab-content">
     <div class="section-title" id="secGamesTitle">🎮 Обучающие мини-игры</div>
+    <div class="toolbar" id="gamesToolbar">
+      <input type="search" class="search-input" id="gamesSearch" placeholder="🔍" oninput="setFilterQuery('games', this.value)">
+      <div class="chips" id="gamesChips"></div>
+    </div>
+    <div class="empty-state no-results" id="gamesNoResults" style="display: none;"></div>
     <div class="games-grid" id="gamesContainer">Загрузка игр...</div>
   </div>
 
@@ -1803,6 +2041,518 @@
         </div>`;
     }
 
+    // =========================================================
+    // БЛОК ДЛЯ РОДИТЕЛЕЙ
+    // =========================================================
+
+    // Полезная информация на главной (звонки, контакты учителя, школа).
+    // Её можно вписать прямо сюда ИЛИ передавать из таблицы полем "info" в data.json.
+    // Пример строки:
+    //   { icon: '🔔', title: 'Звонки', value: '1 урок: 8:00–8:40', url: '' },
+    //   { icon: '📞', title: 'Учитель', value: 'Имя, телефон', url: 'tel:+359...' },
+    const USEFUL_INFO = [
+    ];
+
+    let DATA_LOADED = false;
+
+    const WEEKDAY_NAMES = {
+      ru: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+      bg: ['неделя', 'понеделник', 'вторник', 'сряда', 'четвъртък', 'петък', 'събота']
+    };
+
+    function goTab(tabId) {
+      const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (btn) switchTab(tabId, btn);
+      const nav = document.getElementById('tabsNav');
+      if (nav) window.scrollTo({ top: Math.max(0, nav.offsetTop - 8), behavior: 'smooth' });
+    }
+
+    function isVacationDay(d) {
+      return VACATIONS_DATA.some(v => {
+        const s = new Date(v.startDate + 'T00:00:00');
+        const e = new Date(v.endDate + 'T23:59:59');
+        return d >= s && d <= e;
+      });
+    }
+
+    function isSchoolDay(d) {
+      const dow = d.getDay();
+      return dow !== 0 && dow !== 6 && !isVacationDay(d);
+    }
+
+    // До 12:00 показываем сегодняшний учебный день, после — следующий (с учётом выходных и каникул)
+    function getNextSchoolDay() {
+      const today = startOfToday();
+      const d = new Date(today);
+      if (!(new Date().getHours() < 12 && isSchoolDay(d))) {
+        d.setDate(d.getDate() + 1);
+        for (let i = 0; i < 120 && !isSchoolDay(d); i++) d.setDate(d.getDate() + 1);
+      }
+      return { date: d, diff: Math.round((d - today) / 86400000) };
+    }
+
+    function formatDayMonth(d) {
+      return `${d.getDate()} ${MONTHS_MAP[currentLang][d.getMonth()]}`;
+    }
+
+    // Через сколько дней ближайшая годовщина даты "ДД.ММ" или "ДД.ММ.ГГГГ"
+    function daysUntilAnnual(dateStr) {
+      const parts = String(dateStr || '').split('.');
+      if (parts.length < 2) return Infinity;
+      const today = startOfToday();
+      const d = new Date(today.getFullYear(), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+      if (d < today) d.setFullYear(d.getFullYear() + 1);
+      return Math.round((d - today) / 86400000);
+    }
+
+    // Чек-лист портфеля сам очищается каждый день в 15:00 — к вечерним сборам он снова пустой
+    function packCycleId() {
+      return new Date(Date.now() - 15 * 3600 * 1000).toDateString();
+    }
+
+    function getPackState() {
+      const cycle = packCycleId();
+      if (lsGet('pack_cycle', '') !== cycle) {
+        lsSet('pack_cycle', cycle);
+        lsSet('pack_completed', '{}');
+      }
+      return lsGetJSON('pack_completed');
+    }
+
+    // ---------- МЕТКИ «НОВОЕ» ----------
+
+    const SECTIONS = {
+      news: { tab: 'announceTab', items: () => appData.announcements || [], key: a => 'n:' + (a.title || '') + '|' + (a.date || '') },
+      worksheets: { tab: 'worksheetsTab', items: () => appData.worksheets || [], key: w => 'w:' + cleanUrl(w.url) + '|' + (w.title || '') },
+      resources: { tab: 'resourcesTab', items: () => appData.resources || [], key: r => 'r:' + cleanUrl(r.url) + '|' + (r.title || '') },
+      games: { tab: 'gamesTab', items: () => appData.games || [], key: g => 'g:' + cleanUrl(g.url) + '|' + (g.title || '') }
+    };
+    const NEW_KEYS = { news: new Set(), worksheets: new Set(), resources: new Set(), games: new Set() };
+    const VIEWED = new Set();
+
+    function computeNewItems() {
+      const seen = lsGetJSON('seen_v1');
+      VIEWED.clear();
+      Object.keys(SECTIONS).forEach(name => {
+        const cfg = SECTIONS[name];
+        const keys = cfg.items().map(cfg.key);
+        if (!Array.isArray(seen[name])) {
+          seen[name] = keys; // первый визит — всё текущее считаем уже просмотренным
+          NEW_KEYS[name] = new Set();
+        } else {
+          const s = new Set(seen[name]);
+          NEW_KEYS[name] = new Set(keys.filter(k => !s.has(k)));
+        }
+      });
+      lsSet('seen_v1', JSON.stringify(seen));
+
+      const activeTab = document.querySelector('.tab-content.active');
+      const activeSection = activeTab && Object.keys(SECTIONS).find(n => SECTIONS[n].tab === activeTab.id);
+      if (activeSection) markSectionViewed(activeSection);
+    }
+
+    function markSectionViewed(name) {
+      const cfg = SECTIONS[name];
+      if (!cfg || !DATA_LOADED) return;
+      const seen = lsGetJSON('seen_v1');
+      const all = new Set(Array.isArray(seen[name]) ? seen[name] : []);
+      cfg.items().forEach(item => all.add(cfg.key(item)));
+      seen[name] = [...all];
+      lsSet('seen_v1', JSON.stringify(seen));
+      VIEWED.add(name);
+      updateTabBadges();
+    }
+
+    function newCount(name) {
+      return VIEWED.has(name) ? 0 : NEW_KEYS[name].size;
+    }
+
+    function newChipFor(name, item) {
+      return NEW_KEYS[name].has(SECTIONS[name].key(item))
+        ? `<span class="new-chip">${TRANSLATIONS[currentLang].newChip}</span>`
+        : '';
+    }
+
+    function updateTabBadges() {
+      Object.keys(SECTIONS).forEach(name => {
+        const btn = document.querySelector(`.tab-btn[data-tab="${SECTIONS[name].tab}"]`);
+        if (!btn) return;
+        let badge = btn.querySelector('.tab-badge');
+        const n = newCount(name);
+        if (n > 0) {
+          if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'tab-badge';
+            btn.appendChild(badge);
+          }
+          badge.textContent = n;
+        } else if (badge) {
+          badge.remove();
+        }
+      });
+    }
+
+    // ---------- ПОИСК И ФИЛЬТР ПО ПРЕДМЕТУ ----------
+
+    const FILTERS = { worksheets: { q: '', cat: 'all' }, resources: { q: '', cat: 'all' }, games: { q: '', cat: 'all' } };
+    const FILTER_CATS = { worksheets: [], resources: [], games: [] };
+    const FILTER_CONTAINERS = { worksheets: 'worksheetsContainer', resources: 'resourcesContainer', games: 'gamesContainer' };
+
+    function searchAttr(...parts) {
+      return escapeHtml(parts.filter(Boolean).join(' ').toLowerCase());
+    }
+
+    // Игры в таблице без предмета — угадываем по названию
+    function guessGameSubject(title) {
+      const t = String(title || '').toLowerCase();
+      if (/звук|букв|сричк|дум|четен|изречен|прочет|пиш/.test(t)) return 'БЕЛ';
+      if (/събир|изважд|числ|цифр|сметн|геометр|фигур|броим|математ|задач/.test(t)) return 'Математика';
+      if (/природ|сезон|годишн|календар|растен|животн|родин|празни/.test(t)) return 'Родинознание';
+      return TRANSLATIONS[currentLang].otherCat;
+    }
+
+    function setToolbarVisible(section, visible) {
+      const bar = document.getElementById(section + 'Toolbar');
+      if (bar) bar.style.display = visible ? '' : 'none';
+      if (!visible) {
+        const noRes = document.getElementById(section + 'NoResults');
+        if (noRes) noRes.style.display = 'none';
+      }
+    }
+
+    function renderChips(section, catList) {
+      const box = document.getElementById(section + 'Chips');
+      if (!box) return;
+      const t = TRANSLATIONS[currentLang];
+      const counts = {};
+      catList.forEach(c => { counts[c] = (counts[c] || 0) + 1; });
+      const cats = Object.keys(counts);
+      FILTER_CATS[section] = cats;
+      if (!cats.includes(FILTERS[section].cat)) FILTERS[section].cat = 'all';
+      if (cats.length < 2) { box.innerHTML = ''; return; }
+      const cur = FILTERS[section].cat;
+      box.innerHTML =
+        `<button type="button" class="chip ${cur === 'all' ? 'active' : ''}" onclick="setFilterCat('${section}', -1)">${t.chipAll} · ${catList.length}</button>` +
+        cats.map((c, i) => `<button type="button" class="chip ${cur === c ? 'active' : ''}" onclick="setFilterCat('${section}', ${i})">${escapeHtml(c)} · ${counts[c]}</button>`).join('');
+    }
+
+    function setFilterCat(section, idx) {
+      FILTERS[section].cat = idx < 0 ? 'all' : FILTER_CATS[section][idx];
+      document.querySelectorAll(`#${section}Chips .chip`).forEach((chip, i) => chip.classList.toggle('active', i === idx + 1));
+      applyFilter(section);
+    }
+
+    function setFilterQuery(section, value) {
+      FILTERS[section].q = String(value || '').trim().toLowerCase();
+      applyFilter(section);
+    }
+
+    function applyFilter(section) {
+      const container = document.getElementById(FILTER_CONTAINERS[section]);
+      const noRes = document.getElementById(section + 'NoResults');
+      if (!container) return;
+      const { q, cat } = FILTERS[section];
+      const cards = container.querySelectorAll('.filterable');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = (cat === 'all' || card.dataset.cat === cat) && (!q || (card.dataset.search || '').includes(q));
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (noRes) noRes.style.display = (cards.length && !visible) ? 'block' : 'none';
+    }
+
+    // ---------- ДОБАВИТЬ В КАЛЕНДАРЬ (.ics) ----------
+
+    let ANN_LIST = [];
+    let EVENT_LIST = [];
+
+    function icsDate(d) {
+      return d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+    }
+
+    function icsEscape(s) {
+      return String(s || '').replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+    }
+
+    function downloadIcs({ title, start, end, description, yearly }) {
+      const endExclusive = new Date(end || start);
+      endExclusive.setDate(endExclusive.getDate() + 1);
+      const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+      const lines = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Class hub 1B//RU', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:' + Date.now() + '-' + Math.random().toString(36).slice(2) + '@hub1b',
+        'DTSTAMP:' + stamp,
+        'DTSTART;VALUE=DATE:' + icsDate(start),
+        'DTEND;VALUE=DATE:' + icsDate(endExclusive),
+        'SUMMARY:' + icsEscape(title)
+      ];
+      if (description) lines.push('DESCRIPTION:' + icsEscape(description));
+      if (yearly) lines.push('RRULE:FREQ=YEARLY');
+      lines.push('BEGIN:VALARM', 'TRIGGER:-PT12H', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEscape(title), 'END:VALARM');
+      lines.push('END:VEVENT', 'END:VCALENDAR');
+
+      const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'hub1b-event.ics';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1500);
+    }
+
+    function addAnnouncementToCalendar(idx) {
+      const a = ANN_LIST[idx];
+      if (!a) return;
+      const dates = findDates(a.endDate || a.date);
+      if (!dates.length) return;
+      downloadIcs({
+        title: a.title || '📢',
+        start: new Date(Math.min(...dates)),
+        end: new Date(Math.max(...dates)),
+        description: String(a.text || '').replace(/\*\*/g, '')
+      });
+    }
+
+    function addVacationToCalendar(id) {
+      const v = VACATIONS_DATA.find(x => x.id === id);
+      if (!v) return;
+      downloadIcs({ title: `${v.icon} ${v.title[currentLang]}`, start: new Date(v.startDate + 'T00:00:00'), end: new Date(v.endDate + 'T00:00:00') });
+    }
+
+    function addEventToCalendar(idx) {
+      const e = EVENT_LIST[idx];
+      if (!e) return;
+      const days = daysUntilAnnual(e.date);
+      if (!isFinite(days)) return;
+      const d = startOfToday();
+      d.setDate(d.getDate() + days);
+      downloadIcs({
+        title: `${e.icon || '🎂'} ${e.name || ''}`,
+        start: d,
+        end: d,
+        description: e.description || '',
+        yearly: /рожд|birth/i.test(`${e.type || ''} ${e.name || ''}`)
+      });
+    }
+
+    // ---------- ПОДЕЛИТЬСЯ ОБЪЯВЛЕНИЕМ ----------
+
+    function annShareText(a) {
+      if (!a) return '';
+      const page = location.href.split('#')[0];
+      return `📢 ${a.title || ''}\n📅 ${a.date || ''}\n\n${String(a.text || '').replace(/\*\*/g, '')}\n\n${page}`;
+    }
+
+    async function shareAnnouncement(idx, btn) {
+      const a = ANN_LIST[idx];
+      if (!a) return;
+      if (navigator.share) {
+        try { await navigator.share({ title: a.title || '', text: annShareText(a) }); } catch (e) {}
+        return;
+      }
+      const panel = btn.parentElement.querySelector('.share-panel');
+      if (panel) panel.hidden = !panel.hidden;
+    }
+
+    async function copyAnnouncement(idx, btn) {
+      const text = annShareText(ANN_LIST[idx]);
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        ta.remove();
+      }
+      btn.textContent = TRANSLATIONS[currentLang].copied;
+    }
+
+    // ---------- ИКОНКА НА ЭКРАНЕ ТЕЛЕФОНА ----------
+
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      renderHome();
+    });
+
+    function isStandalone() {
+      return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+    }
+
+    async function installApp() {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      try { await deferredInstallPrompt.userChoice; } catch (e) {}
+      deferredInstallPrompt = null;
+      renderHome();
+    }
+
+    function hideInstallHint() {
+      lsSet('install_hint_hidden', '1');
+      renderHome();
+    }
+
+    // ---------- ГЛАВНЫЙ ЭКРАН ----------
+
+    function renderHome() {
+      const container = document.getElementById('homeContainer');
+      if (!container) return;
+      const t = TRANSLATIONS[currentLang];
+      const cards = [];
+      const today = startOfToday();
+
+      // 1. Следующий учебный день: уроки, физкультура, портфель
+      const next = getNextSchoolDay();
+      const dow = next.date.getDay();
+      const weekday = WEEKDAY_NAMES[currentLang][dow];
+      const dayTitle = next.diff === 0 ? t.homeToday : next.diff === 1 ? t.homeTomorrow : t.homeNextDay(weekday);
+      const scheduleItem = (appData.schedule || []).find(item => matchesDay(item.day, dow));
+      const lessons = scheduleItem ? (scheduleItem.lessons || []) : [];
+      const hasSport = lessons.some(l => /физ|спорт|фвс/i.test(l));
+      const packState = getPackState();
+      const packDone = t.packItems.filter(i => packState[i.id]).length;
+      const packPct = Math.round((packDone / t.packItems.length) * 100);
+
+      cards.push(`
+        <div class="home-card home-next">
+          <div class="home-card-title">${dayTitle}</div>
+          <div class="home-date">📅 ${weekday}, ${formatDayMonth(next.date)}</div>
+          ${lessons.length
+            ? `<ol class="home-lessons">${lessons.map(l => `<li>${escapeHtml(l)}</li>`).join('')}</ol>`
+            : `<div class="home-muted">${DATA_LOADED ? t.noLessons : '⏳'}</div>`}
+          ${hasSport ? `<div class="reminder-pill">${t.sportReminder}</div>` : ''}
+          <div class="home-progress">
+            <div class="progress-text"><span>${t.packProgress}</span><span>${packDone} / ${t.packItems.length}</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${packPct}%;"></div></div>
+          </div>
+          <button type="button" class="home-btn" onclick="goTab('scheduleTab')">${t.btnPack}</button>
+        </div>`);
+
+      // 2. Последнее домашнее задание
+      const hw = appData.homework || [];
+      if (hw.length) {
+        let latestIdx = hw.length - 1;
+        let latestDate = null;
+        hw.forEach((d, i) => {
+          const dt = findDates(d.date)[0];
+          if (dt && (!latestDate || dt >= latestDate)) { latestDate = dt; latestIdx = i; }
+        });
+        const day = hw[latestIdx];
+        const tasks = getDayTasks(day, latestIdx);
+        const state = lsGetJSON('hw_completed');
+        const done = tasks.filter(x => state[x.id]).length;
+        const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
+
+        cards.push(`
+          <div class="home-card">
+            <div class="home-card-title">${t.homeHomework}</div>
+            <div class="home-date">🗓️ ${formatPrettyDate(day.date)}</div>
+            <ul class="home-task-list">
+              ${tasks.map(x => `<li class="${state[x.id] ? 'done' : ''}"><span>${state[x.id] ? '✅' : '⬜'}</span><span>${x.sub.icon} ${escapeHtml(x.sub.name)}</span></li>`).join('')}
+            </ul>
+            <div class="home-progress">
+              <div class="progress-text"><span>${t.dayProgress}</span><span>${done} / ${tasks.length}</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${pct}%;"></div></div>
+            </div>
+            <button type="button" class="home-btn" onclick="goTab('homeworkTab')">${t.btnOpenHw}</button>
+          </div>`);
+      }
+
+      // 3. Что нового с прошлого визита
+      const newSections = Object.keys(SECTIONS).filter(n => newCount(n) > 0);
+      if (newSections.length) {
+        cards.push(`
+          <div class="home-card home-new">
+            <div class="home-card-title">${t.homeNew}</div>
+            <div class="home-links">
+              ${newSections.map(n => `
+                <button type="button" class="home-link" onclick="goTab('${SECTIONS[n].tab}')">
+                  <span class="home-link-text">${t.newLabels[n]}</span>
+                  <span class="tab-badge">+${newCount(n)}</span>
+                </button>`).join('')}
+            </div>
+          </div>`);
+      }
+
+      // 4. Скоро: каникулы, дни рождения (14 дней), объявления с датой
+      const upcoming = [];
+      const vac = VACATIONS_DATA.find(v => new Date(v.endDate + 'T23:59:59') >= today);
+      if (vac) {
+        const days = Math.ceil((new Date(vac.startDate + 'T00:00:00') - today) / 86400000);
+        upcoming.push({ icon: vac.icon, text: days <= 0 ? t.vacNow(vac.title[currentLang]) : t.vacIn(vac.title[currentLang], days), tab: 'vacationsTab', sort: Math.max(days, 0) });
+      }
+      (appData.events || []).forEach(e => {
+        const days = daysUntilAnnual(e.date);
+        if (days <= 14) upcoming.push({ icon: e.icon || '🎂', text: t.eventIn(e.name || '', days), tab: 'eventsTab', sort: days });
+      });
+      (appData.announcements || []).forEach(a => {
+        const ds = findDates(a.endDate || a.date);
+        if (!ds.length) return;
+        const first = new Date(Math.min(...ds));
+        const last = new Date(Math.max(...ds));
+        if (last < today) return;
+        upcoming.push({ icon: '📢', text: `${escapeHtml(a.title || '')} — ${escapeHtml(a.date || '')}`, tab: 'announceTab', sort: Math.max(0, Math.ceil((first - today) / 86400000)) });
+      });
+
+      if (upcoming.length) {
+        upcoming.sort((a, b) => a.sort - b.sort);
+        cards.push(`
+          <div class="home-card">
+            <div class="home-card-title">${t.homeUpcoming}</div>
+            <div class="home-links">
+              ${upcoming.slice(0, 6).map(u => `
+                <button type="button" class="home-link" onclick="goTab('${u.tab}')">
+                  <span class="home-link-icon">${u.icon}</span>
+                  <span class="home-link-text">${u.text}</span>
+                  <span>›</span>
+                </button>`).join('')}
+            </div>
+          </div>`);
+      }
+
+      // 5. Полезное
+      const info = [...(Array.isArray(appData.info) ? appData.info : []), ...USEFUL_INFO];
+      if (info.length) {
+        cards.push(`
+          <div class="home-card">
+            <div class="home-card-title">${t.homeUseful}</div>
+            <div class="useful-list">
+              ${info.map(i => {
+                const href = /^(tel:|mailto:|https?:)/i.test(String(i.url || '')) ? i.url : '';
+                const inner = `
+                  <span class="useful-icon">${i.icon || 'ℹ️'}</span>
+                  <span><div class="useful-title">${escapeHtml(i.title || '')}</div><div class="useful-value">${richText(i.value || '')}</div></span>`;
+                return href
+                  ? `<a class="useful-row" href="${escapeHtml(href)}" target="_blank" rel="noopener">${inner}</a>`
+                  : `<div class="useful-row">${inner}</div>`;
+              }).join('')}
+            </div>
+          </div>`);
+      }
+
+      // 6. Подсказка «Добавить на экран телефона»
+      if (!isStandalone() && !lsGet('install_hint_hidden', '')) {
+        const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        cards.push(`
+          <div class="home-card">
+            <div class="home-card-title">${t.installTitle}</div>
+            <div class="install-steps">${isIos ? t.installIos : t.installAndroid}</div>
+            <div class="home-actions">
+              ${deferredInstallPrompt ? `<button type="button" class="home-btn" onclick="installApp()">${t.btnInstall}</button>` : ''}
+              <button type="button" class="home-btn secondary" onclick="hideInstallHint()">${t.btnHide}</button>
+            </div>
+          </div>`);
+      }
+
+      container.innerHTML = `<div class="home-grid">${cards.join('')}</div>`;
+    }
+
     let currentLang = lsGet('app_lang', 'ru');
     let appData = { schedule: [], homework: [], announcements: [], resources: [], events: [], worksheets: [], games: [] };
 
@@ -1878,6 +2628,37 @@
         speakTitle: 'Прочитать вслух',
         relatedLabel: '🧩 По теме:',
         archiveTitle: '📦 Архив объявлений',
+        tabHome: '🏠 Главная',
+        homeToday: '🎒 Сегодня в школе',
+        homeTomorrow: '🎒 Завтра в школе',
+        homeNextDay: wd => `🎒 В школу: ${wd}`,
+        noLessons: 'Расписание на этот день не найдено',
+        sportReminder: '👟 Есть физкультура — не забудьте спортивную форму!',
+        packProgress: 'Портфель собран',
+        btnPack: '🎒 Собрать портфель',
+        homeHomework: '📝 Последнее задание',
+        btnOpenHw: 'Открыть домашку →',
+        homeNew: '🆕 Новое с прошлого визита',
+        newLabels: { news: '📢 Новости', worksheets: '📄 Рабочие листы', resources: '🔗 Ресурсы', games: '🎮 Мини-игры' },
+        homeUpcoming: '📆 Скоро',
+        vacIn: (name, n) => `${name}: через ${n} дн.`,
+        vacNow: name => `${name} — уже сейчас! 🎉`,
+        eventIn: (name, n) => n === 0 ? `${name} — сегодня! 🎉` : n === 1 ? `${name} — завтра` : `${name} — через ${n} дн.`,
+        homeUseful: 'ℹ️ Полезное',
+        installTitle: '📲 Добавьте хаб на экран телефона',
+        installIos: 'Откройте страницу в Safari, нажмите «Поделиться» ⬆️ и выберите «На экран „Домой“». Хаб будет открываться как приложение.',
+        installAndroid: 'В Chrome нажмите меню ⋮ и выберите «Добавить на главный экран» (или «Установить приложение»).',
+        btnInstall: '📲 Установить',
+        btnHide: 'Скрыть',
+        searchPlaceholder: '🔍 Поиск по названию...',
+        chipAll: 'Все',
+        otherCat: 'Другое',
+        noResults: '🔍 Ничего не найдено',
+        newChip: 'НОВОЕ',
+        btnCalendar: '📅 В календарь',
+        btnShare: '📤 Поделиться',
+        copyText: '📋 Копировать',
+        copied: '✓ Скопировано',
         packItems: [
           { id: 'p_lunch', text: '🍱 Ланчбокс с перекусом' },
           { id: 'p_water', text: '💧 Бутылочка с водой' },
@@ -1950,6 +2731,37 @@
         speakTitle: 'Прочети на глас',
         relatedLabel: '🧩 По темата:',
         archiveTitle: '📦 Архив със съобщения',
+        tabHome: '🏠 Начало',
+        homeToday: '🎒 Днес в училище',
+        homeTomorrow: '🎒 Утре в училище',
+        homeNextDay: wd => `🎒 На училище: ${wd}`,
+        noLessons: 'Няма програма за този ден',
+        sportReminder: '👟 Има ФВС — не забравяйте спортния екип!',
+        packProgress: 'Раницата е готова',
+        btnPack: '🎒 Приготви раницата',
+        homeHomework: '📝 Последно домашно',
+        btnOpenHw: 'Към домашното →',
+        homeNew: '🆕 Ново от последното посещение',
+        newLabels: { news: '📢 Новини', worksheets: '📄 Работни листи', resources: '🔗 Ресурси', games: '🎮 Мини-игри' },
+        homeUpcoming: '📆 Предстои',
+        vacIn: (name, n) => `${name}: след ${n} дни`,
+        vacNow: name => `${name} — в момента! 🎉`,
+        eventIn: (name, n) => n === 0 ? `${name} — днес! 🎉` : n === 1 ? `${name} — утре` : `${name} — след ${n} дни`,
+        homeUseful: 'ℹ️ Полезно',
+        installTitle: '📲 Добавете хъба на екрана на телефона',
+        installIos: 'Отворете страницата в Safari, натиснете „Сподели“ ⬆️ и изберете „Добави към началния екран“. Хъбът ще се отваря като приложение.',
+        installAndroid: 'В Chrome натиснете менюто ⋮ и изберете „Добавяне към началния екран“ (или „Инсталиране на приложението“).',
+        btnInstall: '📲 Инсталирай',
+        btnHide: 'Скрий',
+        searchPlaceholder: '🔍 Търсене по име...',
+        chipAll: 'Всички',
+        otherCat: 'Други',
+        noResults: '🔍 Няма намерени резултати',
+        newChip: 'НОВО',
+        btnCalendar: '📅 В календара',
+        btnShare: '📤 Сподели',
+        copyText: '📋 Копирай',
+        copied: '✓ Копирано',
         packItems: [
           { id: 'p_lunch', text: '🍱 Кутия за храна (ланчбокс)' },
           { id: 'p_water', text: '💧 Бутилка с вода' },
@@ -2068,6 +2880,8 @@
       renderResources();
       renderEvents();
       renderPackChecklist();
+      renderHome();
+      updateTabBadges();
     }
 
     function updateInterfaceTexts() {
@@ -2077,6 +2891,7 @@
       set('headerTitle', t.title);
       set('headerSubtitle', t.subtitle);
       set('btnRefresh', t.btnRefresh);
+      set('tabHomeBtn', t.tabHome);
       set('tabHwBtn', t.tabHw);
       set('tabScheduleBtn', t.tabSchedule);
       set('tabWorksheetsBtn', t.tabWorksheets);
@@ -2096,6 +2911,12 @@
       set('secGamesTitle', t.secGamesTitle);
       set('secEventsTitle', t.secEventsTitle);
       if (appData.updatedAt) set('lastUpdate', t.lastUpdatePrefix + appData.updatedAt);
+      ['worksheets', 'resources', 'games'].forEach(sec => {
+        const input = document.getElementById(sec + 'Search');
+        if (input) input.placeholder = t.searchPlaceholder;
+        set(sec + 'NoResults', t.noResults);
+      });
+      updateTabBadges();
     }
 
     function switchTab(tabId, btn) {
@@ -2108,16 +2929,20 @@
       btn.classList.add('active');
       lsSet('app_tab', tabId);
 
+      const section = Object.keys(SECTIONS).find(n => SECTIONS[n].tab === tabId);
+      if (section) markSectionViewed(section);
+      if (tabId === 'homeTab') renderHome();
+
       // На телефоне докручиваем выбранную вкладку в центр полосы
       if (btn.scrollIntoView) {
         btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     }
 
+    // При каждом открытии показываем главную со сводкой
     function restoreLastTab() {
-      const saved = lsGet('app_tab', 'homeworkTab');
-      const btn = document.querySelector(`.tab-btn[data-tab="${saved}"]`);
-      if (btn && document.getElementById(saved)) switchTab(saved, btn);
+      const btn = document.querySelector('.tab-btn[data-tab="homeTab"]');
+      if (btn) switchTab('homeTab', btn);
     }
 
     async function forceRefreshData() {
@@ -2133,6 +2958,8 @@
         if (!response.ok) throw new Error('data.json не найден');
         appData = await response.json();
         migrateHomeworkIds();
+        DATA_LOADED = true;
+        computeNewItems();
 
         document.getElementById('lastUpdate').innerText = TRANSLATIONS[currentLang].lastUpdatePrefix + (appData.updatedAt || '');
         renderAll();
@@ -2171,13 +2998,13 @@
       }
     }
 
-    // РЕНДЕР МИНИ-ИГР
     function renderGames() {
       const container = document.getElementById('gamesContainer');
       const t = TRANSLATIONS[currentLang];
       const gamesList = appData.games || [];
 
       if (gamesList.length === 0) {
+        setToolbarVisible('games', false);
         container.innerHTML = `
           <div class="empty-state">
             ${t.emptyGames}
@@ -2186,18 +3013,24 @@
         `;
         return;
       }
+      setToolbarVisible('games', true);
 
-      container.innerHTML = gamesList.map(g => {
+      const cats = gamesList.map(g => g.subject || guessGameSubject(g.title));
+
+      container.innerHTML = gamesList.map((g, i) => {
         const gameUrl = cleanUrl(g.url);
 
         return `
-          <div class="worksheet-card game-card">
+          <div class="worksheet-card game-card filterable" data-cat="${escapeHtml(cats[i])}" data-search="${searchAttr(g.title, g.description, cats[i])}">
             <a href="${gameUrl}" target="_blank" rel="noopener" class="worksheet-preview-box">
               <div class="worksheet-file-icon">🎮</div>
               <span class="file-type-chip">${t.gameLabel}</span>
             </a>
             <div class="worksheet-content">
-              <span class="worksheet-subject-badge">${t.gameBadge}</span>
+              <div class="card-badges">
+                <span class="worksheet-subject-badge">${escapeHtml(cats[i])}</span>
+                ${newChipFor('games', g)}
+              </div>
               <div class="worksheet-title">${g.title || t.gameDefaultTitle}</div>
               <div class="worksheet-desc">${g.description || t.gameDesc}</div>
               <a href="${gameUrl}" target="_blank" rel="noopener" class="btn-download-ws">${t.gamePlay}</a>
@@ -2205,6 +3038,9 @@
           </div>
         `;
       }).join('');
+
+      renderChips('games', cats);
+      applyFilter('games');
     }
 
     function renderWorksheets() {
@@ -2212,13 +3048,16 @@
       const t = TRANSLATIONS[currentLang];
 
       if (!appData.worksheets || !Array.isArray(appData.worksheets) || appData.worksheets.length === 0) {
+        setToolbarVisible('worksheets', false);
         container.innerHTML = `<div class="empty-state">${t.emptyWorksheets}</div>`;
         return;
       }
+      setToolbarVisible('worksheets', true);
 
       container.innerHTML = appData.worksheets.map(w => {
         const url = cleanUrl(w.url);
-        const sub = (w.subject || 'Общее').toUpperCase();
+        const cat = w.subject || 'Общее';
+        const sub = cat.toUpperCase();
 
         let fileIcon = '📄';
         let fileTypeName = 'Google Документ';
@@ -2238,13 +3077,16 @@
         }
 
         return `
-          <div class="worksheet-card">
+          <div class="worksheet-card filterable" data-cat="${escapeHtml(cat)}" data-search="${searchAttr(w.title, w.subject, w.description)}">
             <a href="${url}" target="_blank" rel="noopener" class="worksheet-preview-box">
               <div class="worksheet-file-icon">${fileIcon}</div>
               <span class="file-type-chip">${fileTypeName}</span>
             </a>
             <div class="worksheet-content">
-              <span class="worksheet-subject-badge">${w.subject || 'Материал'}</span>
+              <div class="card-badges">
+                <span class="worksheet-subject-badge">${w.subject || 'Материал'}</span>
+                ${newChipFor('worksheets', w)}
+              </div>
               <div class="worksheet-title">${w.title || 'Рабочий лист'}</div>
               <div class="worksheet-desc">${w.description || ''}</div>
               <a href="${url}" target="_blank" rel="noopener" class="btn-download-ws">${t.btnOpenDrive} ↗</a>
@@ -2252,6 +3094,9 @@
           </div>
         `;
       }).join('');
+
+      renderChips('worksheets', appData.worksheets.map(w => w.subject || 'Общее'));
+      applyFilter('worksheets');
     }
 
     // РЕНДЕР РЕСУРСОВ С ПРЕВЬЮ ДЛЯ САЙТОВ И YOUTUBE
@@ -2259,13 +3104,17 @@
       const container = document.getElementById('resourcesContainer');
       const t = TRANSLATIONS[currentLang];
       if (!appData.resources || !Array.isArray(appData.resources) || appData.resources.length === 0) {
+        setToolbarVisible('resources', false);
         container.innerHTML = `<div class="empty-state">${t.emptyResources}</div>`;
         return;
       }
+      setToolbarVisible('resources', true);
 
       container.innerHTML = appData.resources.map(r => {
         const url = cleanUrl(r.url);
         const category = (r.category || '').toUpperCase();
+        const filterAttrs = `data-cat="${escapeHtml(r.category || 'Ссылка')}" data-search="${searchAttr(r.title, r.description, r.category)}"`;
+        const isNew = newChipFor('resources', r);
 
         let youtubeId = null;
         const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
@@ -2274,7 +3123,7 @@
         if (youtubeId || category.includes('ВИДЕО') || category.includes('YOUTUBE')) {
           const thumbUrl = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : '';
           return `
-            <div class="resource-card">
+            <div class="resource-card filterable" ${filterAttrs}>
               ${thumbUrl ? `
                 <a href="${url}" target="_blank" rel="noopener" class="resource-thumb video">
                   <img src="${thumbUrl}" alt="Video" loading="lazy">
@@ -2282,7 +3131,7 @@
                 </a>
               ` : ''}
               <div class="resource-body">
-                <div class="resource-category">${r.category || 'Видео'}</div>
+                <div class="resource-category">${r.category || 'Видео'} ${isNew}</div>
                 <a href="${url}" target="_blank" rel="noopener" class="resource-link">${r.title || 'Видеоролик'} ↗</a>
                 <div class="announcement-text">${r.description || ''}</div>
               </div>
@@ -2291,13 +3140,13 @@
         }
 
         return `
-          <div class="resource-card link-preview-card" data-url="${url}" data-fallback-title="${r.title || 'Ссылка'}" data-fallback-desc="${r.description || ''}">
+          <div class="resource-card link-preview-card filterable" ${filterAttrs} data-url="${url}" data-fallback-title="${r.title || 'Ссылка'}" data-fallback-desc="${r.description || ''}">
             <a href="${url}" target="_blank" rel="noopener" class="resource-thumb">
               <div class="resource-thumb-placeholder">🔗</div>
               <img class="preview-img" src="" alt="Preview" style="display: none; position: relative;">
             </a>
             <div class="resource-body">
-              <div class="resource-category">${r.category || 'Ссылка'}</div>
+              <div class="resource-category">${r.category || 'Ссылка'} ${isNew}</div>
               <a href="${url}" target="_blank" rel="noopener" class="resource-link preview-title">${r.title || 'Загрузка превью...'} ↗</a>
               <div class="announcement-text preview-desc" style="font-size: 13px;">${r.description || ''}</div>
             </div>
@@ -2305,6 +3154,8 @@
         `;
       }).join('');
 
+      renderChips('resources', appData.resources.map(r => r.category || 'Ссылка'));
+      applyFilter('resources');
       setTimeout(() => fetchAllPreviews(), 100);
     }
 
@@ -2383,13 +3234,14 @@
             <div class="vacation-name">${v.title[currentLang]}</div>
             <div class="vacation-dates">📅 ${v.dateText[currentLang]}</div>
             <div class="vacation-countdown">${countdownText}</div>
+            ${now <= end ? `<button type="button" class="mini-btn vac-cal-btn" onclick="addVacationToCalendar('${v.id}')">${t.btnCalendar}</button>` : ''}
           </div>
         `;
       });
       container.innerHTML = html;
     }
 
-    function announcementCard(a, isArchived) {
+    function announcementCard(a, isArchived, idx) {
       const t = TRANSLATIONS[currentLang];
       const rawText = a.text || '';
       let embeddedPreviews = '';
@@ -2423,13 +3275,24 @@
       });
 
       const isImportant = !isArchived && (String(a.isImportant).toLowerCase() === 'true' || a.isImportant === true);
+      const canCalendar = !isArchived && findDates(a.endDate || a.date).length > 0;
+      const shareText = encodeURIComponent(annShareText(a));
 
       return `
         <div class="announcement-card ${isImportant ? 'important' : ''} ${isArchived ? 'archived' : ''}">
-          <div class="announcement-date">📅 ${a.date || ''}</div>
+          <div class="announcement-date">📅 ${a.date || ''} ${newChipFor('news', a)}</div>
           <div class="announcement-header">${a.title || ''}</div>
           <div class="announcement-text">${richText(rawText)}</div>
           ${embeddedPreviews}
+          <div class="card-actions">
+            ${canCalendar ? `<button type="button" class="mini-btn" onclick="addAnnouncementToCalendar(${idx})">${t.btnCalendar}</button>` : ''}
+            <button type="button" class="mini-btn" onclick="shareAnnouncement(${idx}, this)">${t.btnShare}</button>
+            <div class="share-panel" hidden>
+              <a class="mini-btn wa" href="https://wa.me/?text=${shareText}" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="mini-btn viber" href="viber://forward?text=${shareText}">Viber</a>
+              <button type="button" class="mini-btn" onclick="copyAnnouncement(${idx}, this)">${t.copyText}</button>
+            </div>
+          </div>
         </div>
       `;
     }
@@ -2439,7 +3302,8 @@
     function renderAnnouncements() {
       const container = document.getElementById('announcementsContainer');
       const t = TRANSLATIONS[currentLang];
-      if (!appData.announcements || appData.announcements.length === 0) {
+      ANN_LIST = appData.announcements || [];
+      if (ANN_LIST.length === 0) {
         container.innerHTML = `<div class="empty-state">${t.emptyAnnounce}</div>`;
         return;
       }
@@ -2448,22 +3312,22 @@
       const active = [];
       const archived = [];
 
-      appData.announcements.forEach(a => {
+      ANN_LIST.forEach((a, idx) => {
         const dates = findDates(a.endDate || a.date);
         const lastDate = dates.length ? new Date(Math.max(...dates)) : null;
-        if (lastDate && lastDate < today) archived.push(a);
-        else active.push(a);
+        if (lastDate && lastDate < today) archived.push({ a, idx });
+        else active.push({ a, idx });
       });
 
       let html = active.length
-        ? active.map(a => announcementCard(a, false)).join('')
+        ? active.map(({ a, idx }) => announcementCard(a, false, idx)).join('')
         : `<div class="empty-state">${t.emptyAnnounce}</div>`;
 
       if (archived.length) {
         html += `
           <details class="archive-box">
             <summary>${t.archiveTitle} (${archived.length})</summary>
-            <div class="archive-list">${archived.map(a => announcementCard(a, true)).join('')}</div>
+            <div class="archive-list">${archived.map(({ a, idx }) => announcementCard(a, true, idx)).join('')}</div>
           </details>
         `;
       }
@@ -2484,7 +3348,8 @@
       now.setHours(0,0,0,0);
 
       let minDaysDiff = Infinity;
-      const processedEvents = appData.events.map(e => {
+      EVENT_LIST = appData.events;
+      const processedEvents = appData.events.map((e, eventIdx) => {
         const parts = (e.date || '').split('.');
         let daysDiff = Infinity;
 
@@ -2504,7 +3369,7 @@
           daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
         }
 
-        return { ...e, daysDiff };
+        return { ...e, daysDiff, _idx: eventIdx };
       });
 
       processedEvents.forEach(e => {
@@ -2555,6 +3420,7 @@
                   ${e.description ? `<div class="event-row-desc">${e.description}</div>` : ''}
                   ${isNearest ? `<span class="congratulate-badge">${t.congratulate}</span>` : ''}
                 </div>
+                <button type="button" class="mini-btn event-cal-btn" title="${t.btnCalendar}" aria-label="${t.btnCalendar}" onclick="addEventToCalendar(${e._idx})">📅</button>
               </div>
             `;
           });
@@ -2715,7 +3581,7 @@
 
     function renderPackChecklist() {
       const grid = document.getElementById('packChecklistGrid');
-      const packState = lsGetJSON('pack_completed');
+      const packState = getPackState();
       const t = TRANSLATIONS[currentLang];
 
       let html = '';
@@ -2761,7 +3627,7 @@
     }
 
     function togglePackItem(id) {
-      const packState = lsGetJSON('pack_completed');
+      const packState = getPackState();
       packState[id] = !packState[id];
       lsSet('pack_completed', JSON.stringify(packState));
       renderPackChecklist();
