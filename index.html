@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="bg">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -7,12 +7,12 @@
   <meta name="theme-color" content="#F3F5F9" id="themeColorMeta">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Хаб 1Б">
+  <meta name="apple-mobile-web-app-title" content="Хъб 1Б">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" href="icon-192.png">
-  <title>Классный хаб 1Б</title>
+  <title>Класен хъб 1Б</title>
 
   <!-- Тема, размер шрифта и режим применяются до отрисовки, чтобы страница не «мигала» -->
   <script>
@@ -652,18 +652,6 @@
     .medal.got { border-color: var(--warn); background: linear-gradient(var(--warn-soft), var(--warn-soft)), var(--surface); }
     .medal.locked .e { filter: grayscale(1); opacity: 0.35; }
 
-    /* =========================================================
-       ОКНО «ДЛЯ ВЗРОСЛЫХ»
-       ========================================================= */
-    .modal-back { position: fixed; inset: 0; z-index: 100; background: rgba(2, 6, 23, 0.55); display: grid; place-items: center; padding: 16px; }
-    .modal-back[hidden] { display: none; }
-    .modal { width: 100%; max-width: 360px; background: var(--surface); border-radius: 22px; padding: 22px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 12px; }
-    .modal h3 { font-size: 1.25rem; font-weight: 800; }
-    .modal input { height: 56px; border-radius: 14px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text); font: inherit; font-size: 1.5rem; font-weight: 800; text-align: center; outline: none; }
-    .modal .err { color: var(--danger); font-weight: 700; font-size: 0.875rem; min-height: 1.2em; }
-    .modal-actions { display: flex; gap: 8px; }
-    .modal-actions .btn { flex: 1; }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -694,20 +682,6 @@
   </div>
 
   <nav class="bottom-nav" id="bottomNav"></nav>
-
-  <!-- Выход из режима ученика: простой пример для взрослых -->
-  <div class="modal-back" id="gate" hidden onclick="if (event.target === this) closeGate()">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-      <h3 id="gateTitle"></h3>
-      <div id="gateQuestion" class="muted"></div>
-      <input id="gateInput" type="text" inputmode="numeric" autocomplete="off" onkeydown="if (event.key === 'Enter') checkGate()">
-      <div class="err" id="gateErr"></div>
-      <div class="modal-actions">
-        <button class="btn secondary" type="button" id="gateCancel" onclick="closeGate()"></button>
-        <button class="btn" type="button" id="gateOk" onclick="checkGate()"></button>
-      </div>
-    </div>
-  </div>
 
   <script>
     // =========================================================
@@ -1068,7 +1042,7 @@
         loadError: 'Не удалось загрузить данные из таблицы. Проверьте интернет и нажмите «Обновить».',
 
         kidModeTitle: 'Режим ученика',
-        kidModeDesc: 'Простой яркий экран для ребёнка: только задания, игры и звёздочки. Чтобы вернуться, нужно решить пример для взрослых.',
+        kidModeDesc: 'Простой яркий экран для ребёнка: только задания, игры и звёздочки. Вернуться можно кнопкой «Родителям».',
         btnKidOn: 'Включить режим ученика',
         kidShort: 'Ученик', parentsBtn: 'Родителям',
 
@@ -1078,10 +1052,7 @@
         kidPlayTitle: 'Играй и учись 🎮', kidPlaySub: 'Выбери игру или видео',
         kidStarsTitle: 'Мои успехи 🌟', kidStarsSub: 'Делай задания каждый день и получай медали',
         medalGot: 'Получено!', medalLeft: n => `ещё ${n} дн.`, medalDays: n => `${n} дней`,
-        kidNoPlay: 'Игры скоро появятся.',
-
-        gateTitle: 'Для взрослых 🔒', gateQ: (a, b) => `Сколько будет ${a} + ${b}?`,
-        gateOk: 'Войти', gateCancel: 'Отмена', gateWrong: 'Неверно, попробуйте ещё раз'
+        kidNoPlay: 'Игры скоро появятся.'
       },
 
       bg: {
@@ -1178,7 +1149,7 @@
         loadError: 'Данните от таблицата не се заредиха. Проверете интернета и натиснете „Обнови“.',
 
         kidModeTitle: 'Режим ученик',
-        kidModeDesc: 'Прост и цветен екран за детето: само задачи, игри и звездички. За връщане трябва да се реши пример за възрастни.',
+        kidModeDesc: 'Прост и цветен екран за детето: само задачи, игри и звездички. Връщане – с бутона „За родители“.',
         btnKidOn: 'Включи режим ученик',
         kidShort: 'Ученик', parentsBtn: 'За родители',
 
@@ -1188,14 +1159,13 @@
         kidPlayTitle: 'Играй и учи 🎮', kidPlaySub: 'Избери игра или видео',
         kidStarsTitle: 'Моите успехи 🌟', kidStarsSub: 'Прави задачите всеки ден и печели медали',
         medalGot: 'Спечелен!', medalLeft: n => `още ${n} дни`, medalDays: n => `${n} дни`,
-        kidNoPlay: 'Игрите скоро ще бъдат добавени.',
-
-        gateTitle: 'За възрастни 🔒', gateQ: (a, b) => `Колко прави ${a} + ${b}?`,
-        gateOk: 'Влез', gateCancel: 'Отказ', gateWrong: 'Грешно, опитайте пак'
+        kidNoPlay: 'Игрите скоро ще бъдат добавени.'
       }
     };
 
-    let currentLang = lsGet('app_lang', 'ru') === 'bg' ? 'bg' : 'ru';
+    // Язык по умолчанию — болгарский. Русский включается в настройках и запоминается.
+    // Новый ключ ui_lang: старые версии сайта сами записывали 'ru' всем посетителям, поэтому старый ключ не используем.
+    let currentLang = lsGet('ui_lang', 'bg') === 'ru' ? 'ru' : 'bg';
     function T() { return TRANSLATIONS[currentLang]; }
 
     // =========================================================
@@ -1649,7 +1619,7 @@
     function setFont(f) { lsSet('ui_font', f); document.documentElement.classList.toggle('font-large', f === 'large'); renderAll(); }
     function setLanguage(lang) {
       currentLang = lang;
-      lsSet('app_lang', lang);
+      lsSet('ui_lang', lang);
       document.documentElement.lang = lang;
       renderAll();
     }
@@ -1661,35 +1631,10 @@
       document.documentElement.classList.add('kid');
       navigate('kidTasks');
     }
-    let GATE_ANSWER = 0;
-    function openGate() {
-      const t = T();
-      const a = 4 + Math.floor(Math.random() * 6);
-      const b = 3 + Math.floor(Math.random() * 7);
-      GATE_ANSWER = a + b;
-      document.getElementById('gateTitle').textContent = t.gateTitle;
-      document.getElementById('gateQuestion').textContent = t.gateQ(a, b);
-      document.getElementById('gateOk').textContent = t.gateOk;
-      document.getElementById('gateCancel').textContent = t.gateCancel;
-      document.getElementById('gateErr').textContent = '';
-      const input = document.getElementById('gateInput');
-      input.value = '';
-      document.getElementById('gate').hidden = false;
-      setTimeout(() => input.focus(), 50);
-    }
-    function closeGate() { document.getElementById('gate').hidden = true; }
-    function checkGate() {
-      const input = document.getElementById('gateInput');
-      if (parseInt(input.value, 10) === GATE_ANSWER) {
-        closeGate();
-        lsSet('ui_mode', 'parent');
-        document.documentElement.classList.remove('kid');
-        navigate('home');
-      } else {
-        document.getElementById('gateErr').textContent = T().gateWrong;
-        input.value = '';
-        input.focus();
-      }
+    function exitKidMode() {
+      lsSet('ui_mode', 'parent');
+      document.documentElement.classList.remove('kid');
+      navigate('home');
     }
 
     // =========================================================
@@ -1763,7 +1708,7 @@
         <div class="side-footer">
           ${mode === 'parent'
             ? `<button class="side-item" onclick="enterKidMode()">${icon('smile')}<span>${t.kidModeTitle}</span></button>`
-            : `<button class="side-item" onclick="openGate()">${icon('lock')}<span>${t.parentsBtn}</span></button>`}
+            : `<button class="side-item" onclick="exitKidMode()">${icon('lock')}<span>${t.parentsBtn}</span></button>`}
           <div class="seg full">
             <button class="${currentLang === 'ru' ? 'on' : ''}" onclick="setLanguage('ru')">RU</button>
             <button class="${currentLang === 'bg' ? 'on' : ''}" onclick="setLanguage('bg')">BG</button>
@@ -1780,7 +1725,7 @@
           ${mode === 'parent'
             ? `<button class="pill-btn" onclick="enterKidMode()">${icon('smile', 'sm')}<span>${t.kidShort}</span></button>
                <button class="icon-btn ${currentView === 'settings' ? 'on' : ''}" onclick="navigate('settings')" aria-label="${t.nav.settings}">${icon('sliders')}</button>`
-            : `<button class="pill-btn" onclick="openGate()">${icon('lock', 'sm')}<span>${t.parentsBtn}</span></button>`}
+            : `<button class="pill-btn" onclick="exitKidMode()">${icon('lock', 'sm')}<span>${t.parentsBtn}</span></button>`}
         </div>`;
 
       document.getElementById('bottomNav').innerHTML = NAV[mode].bottom.map(v => `
