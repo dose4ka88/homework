@@ -1744,6 +1744,54 @@
       else location.hash = v;
     }
 
+    // =========================================================
+    // СТАТИСТИКА ПОСЕЩЕНИЙ (видит только владелец — в Google-таблице)
+    // Без cookies и личных данных: случайный id устройства + раздел.
+    // Не считать своё устройство: открыть сайт с ?notrack=1 (вернуть: ?notrack=0)
+    // =========================================================
+    const STATS_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfThoz2NSaJuQXFlc_TviThSTGhhP3currS3hsqSJRYqe8VFA/formResponse';
+    const STATS_FIELD = 'entry.2082177926';
+    const STATS_LABELS = {
+      home: 'Главная', homework: 'Домашнее', schedule: 'Расписание', news: 'Новости',
+      competitions: 'Состязания', materials: 'Материалы', vacations: 'Каникулы', events: 'События',
+      more: 'Ещё', settings: 'Настройки', kidTasks: 'Ученик: задания', kidPlay: 'Ученик: игры', kidStars: 'Ученик: звёзды'
+    };
+    const statsState = { opened: false, seen: new Set() };
+    (function initStatsFlag() {
+      try {
+        const p = new URLSearchParams(location.search).get('notrack');
+        if (p === '1') lsSet('stats_off', '1');
+        if (p === '0') localStorage.removeItem('stats_off');
+      } catch (e) {}
+    })();
+    function statsEnabled() {
+      return location.hostname === 'dose4ka88.github.io' && lsGet('stats_off', '') !== '1' && !navigator.webdriver;
+    }
+    function statsDeviceId() {
+      let id = lsGet('stats_dev', '');
+      let first = 0;
+      if (!id) {
+        id = 'd' + Math.random().toString(36).slice(2, 10);
+        lsSet('stats_dev', id);
+        first = 1;
+      }
+      return { id, first };
+    }
+    function trackView(v) {
+      if (!statsEnabled()) return;
+      try {
+        const type = statsState.opened ? 'view' : 'open';
+        if (type === 'view' && statsState.seen.has(v)) return;
+        statsState.opened = true;
+        statsState.seen.add(v);
+        const dev = statsDeviceId();
+        const screen = window.matchMedia('(min-width: 900px)').matches ? 'd' : 'm';
+        const line = ['v1', dev.id, type, STATS_LABELS[v] || v, screen, getMode(), currentLang, type === 'open' ? dev.first : 0].join('|');
+        const body = new URLSearchParams({ [STATS_FIELD]: line });
+        fetch(STATS_FORM, { method: 'POST', mode: 'no-cors', body, keepalive: true }).catch(() => {});
+      } catch (e) {}
+    }
+
     function applyRoute() {
       let v = decodeURIComponent(location.hash.slice(1));
       if (!viewAllowed(v)) {
@@ -1759,6 +1807,7 @@
       renderView(v);
       renderNav();
       if (changed) window.scrollTo(0, 0);
+      trackView(v);
     }
     window.addEventListener('hashchange', applyRoute);
 
