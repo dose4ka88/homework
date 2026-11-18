@@ -1,5 +1,5 @@
 {
-  "updatedAt": "17.11.2026 20:35",
+  "updatedAt": "18.11.2026 07:10",
   "schedule": [
     {
       "day": "Понеделник",
@@ -383,6 +383,42 @@
       "title": "Буква Л",
       "url": "https://www.youtube.com/watch?v=E-f3H4oBRTY",
       "description": ""
+    },
+    {
+      "category": "Видео",
+      "title": "Звук и буква У",
+      "url": "https://www.youtube.com/watch?v=x4MTzZDJth8",
+      "description": "Звук и буква У – Български език, 1 клас"
+    },
+    {
+      "category": "Видео",
+      "title": "Главна ръкописна буква У",
+      "url": "https://www.youtube.com/watch?v=ClZpULo78_k",
+      "description": "Писане на главна ръкописна буква У"
+    },
+    {
+      "category": "Видео",
+      "title": "Число и цифра 10",
+      "url": "https://www.youtube.com/watch?v=fmYJx8DZ_CM",
+      "description": "Число и цифра 10 – Математика, 1 клас"
+    },
+    {
+      "category": "Видео",
+      "title": "Сравняване на числата до 10",
+      "url": "https://www.youtube.com/watch?v=-aQy8ss4RtU",
+      "description": "Сравняване на число и цифра 10 – Математика, 1 клас"
+    },
+    {
+      "category": "Пособие",
+      "title": "Опознавам и пазя моята родина",
+      "url": "https://www.nevena-darmoneva.com/products/urok-10-opoznavam-i-pazya-moyata-rodina/",
+      "description": "Родинознание, урок 10 – презентация и материали към урока"
+    },
+    {
+      "category": "Пособие",
+      "title": "Родинознание за 1. клас",
+      "url": "https://fliphtml5.com/uydxs/qavg/basic",
+      "description": "Учебникът по Родинознание като онлайн книжка"
     }
   ],
   "events": [
@@ -632,6 +668,12 @@
       "title": "Работен лист",
       "url": "https://drive.google.com/file/d/17vK7pEv6DxvZd7nt0yXlgBIiWOA4PIas/view?usp=drivesdk",
       "description": ""
+    },
+    {
+      "subject": "БЕЛ",
+      "title": "Работен лист",
+      "url": "https://pin.it/7sZzsuWxo",
+      "description": "Упражнение по ръкописно писане (Pinterest)"
     }
   ],
   "games": [
@@ -738,6 +780,22 @@
     {
       "title": "Звук и буква Л",
       "url": "https://ilieva-dabova.blogspot.com/2023/03/blog-post_29.html?fbclid=IwY2xjawVeyutleHRuA2FlbQIxMQBwZG9mBXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR_l5LiSRem3Sir8G8vyaYJy2HQBVSbYJ6F6SXVX9_qWkwH7i6gZTV9WfuTNTA_aem_hMFTXCZ9DzjKPpoBpO1g5A"
+    },
+    {
+      "title": "Звук и буква У",
+      "url": "https://bg.izzi.digital/DOS/1345058/1345103.html"
+    },
+    {
+      "title": "Звук и буква У – презентация",
+      "url": "https://www.canva.com/design/DAFgGKt25Mc/view"
+    },
+    {
+      "title": "Звук и буква У – презентация",
+      "url": "https://www.slideshare.net/slideshow/ss-14703956/14703956"
+    },
+    {
+      "title": "България – нашата родина",
+      "url": "https://ucha.se/watch/4038/balgariya/urok/12248"
     }
   ]
 }
