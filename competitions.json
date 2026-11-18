@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17T12:00:00+02:00",
+  "updatedAt": "2026-11-18T08:26:59+02:00",
   "criteria": "Математически състезания за 1 клас: Варна, Добрич, онлайн или в собственото училище",
   "sources": [
     "https://sites.google.com/view/smbvarna/състезания",
@@ -19,19 +19,40 @@
       "time": null,
       "status": "confirmed",
       "grades": "1–12 клас",
-      "location": { "types": ["varna"], "city": "Варна", "venue": "Мястото във Варна предстои да бъде обявено от СМБ – секция Варна" },
-      "organizer": { "name": "Съюз на математиците в България – секция Варна", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-      "registration": { "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна преди турнира.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "varna"
+        ],
+        "city": "Варна",
+        "venue": "Мястото във Варна предстои да бъде обявено от СМБ – секция Варна"
+      },
+      "organizer": {
+        "name": "Съюз на математиците в България – секция Варна",
+        "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+      },
+      "registration": {
+        "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна преди турнира.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Обявява се преди турнира",
-      "requirements": ["Предварително записване при организатора"],
+      "requirements": [
+        "Предварително записване при организатора"
+      ],
       "description": "Турнир на секциите на Съюза на математиците, провежда се едновременно в много градове.",
       "links": [
-        { "label": "СМБ Варна – състезания", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-        { "label": "Описание (Wunderkind)", "url": "https://wunderkind.bg/sastezaniya/ivan-salabashev" }
+        {
+          "label": "СМБ Варна – състезания",
+          "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+        },
+        {
+          "label": "Описание (Wunderkind)",
+          "url": "https://wunderkind.bg/sastezaniya/ivan-salabashev"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "koledno-2026",
@@ -41,19 +62,40 @@
       "time": null,
       "status": "confirmed",
       "grades": "1–7 клас (СМБ Варна); други календари посочват 1–10 клас",
-      "location": { "types": ["varna"], "city": "Варна", "venue": "Мястото във Варна предстои да бъде обявено от СМБ – секция Варна" },
-      "organizer": { "name": "Съюз на математиците в България – секция Варна", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-      "registration": { "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна преди състезанието.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "varna"
+        ],
+        "city": "Варна",
+        "venue": "Мястото във Варна предстои да бъде обявено от СМБ – секция Варна"
+      },
+      "organizer": {
+        "name": "Съюз на математиците в България – секция Варна",
+        "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+      },
+      "registration": {
+        "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна преди състезанието.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Обявява се преди състезанието",
-      "requirements": ["Предварително записване при организатора"],
+      "requirements": [
+        "Предварително записване при организатора"
+      ],
       "description": "Традиционно зимно състезание на Съюза на математиците, провежда се в много градове в средата на декември.",
       "links": [
-        { "label": "СМБ Варна – състезания", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-        { "label": "Описание (Wunderkind)", "url": "https://wunderkind.bg/sastezaniya/koledno-matematichesko-sastezanie" }
+        {
+          "label": "СМБ Варна – състезания",
+          "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+        },
+        {
+          "label": "Описание (Wunderkind)",
+          "url": "https://wunderkind.bg/sastezaniya/koledno-matematichesko-sastezanie"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "rebus-2027",
@@ -63,19 +105,40 @@
       "time": null,
       "status": "confirmed",
       "grades": "ПДГ и 1–7 клас",
-      "location": { "types": ["varna"], "city": "Варна", "venue": "ВВМУ „Н. Й. Вапцаров“" },
-      "organizer": { "name": "Учебен център „Ребус“, Варна", "url": "https://rebusvarna.com/" },
-      "registration": { "how": "Подробностите за записване ще бъдат публикувани на сайта на „Ребус“.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "varna"
+        ],
+        "city": "Варна",
+        "venue": "ВВМУ „Н. Й. Вапцаров“"
+      },
+      "organizer": {
+        "name": "Учебен център „Ребус“, Варна",
+        "url": "https://rebusvarna.com/"
+      },
+      "registration": {
+        "how": "Подробностите за записване ще бъдат публикувани на сайта на „Ребус“.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Не е обявена",
-      "requirements": ["Предварително записване при организатора"],
+      "requirements": [
+        "Предварително записване при организатора"
+      ],
       "description": "Варненско състезание за предучилищна група и ученици до 7 клас, провежда се в предпоследната неделя на януари.",
       "links": [
-        { "label": "Обява на „Ребус“", "url": "https://rebusvarna.com/%d0%bc%d0%b0%d1%82%d0%b5%d0%bc%d0%b0%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%be-%d1%81%d1%8a%d1%81%d1%82%d0%b5%d0%b7%d0%b0%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%b1%d1%83%d1%81-24-%d1%8f%d0%bd%d1%83/" },
-        { "label": "Календар на „Ребус“ 2026/2027", "url": "https://rebusvarna.com/event/%D0%BA%D0%B0%D0%BB%D0%B5%D0%BD%D0%B4%D0%B0%D1%80%D0%B5%D0%BD-%D0%BF%D0%BB%D0%B0%D0%BD-%D0%BD%D0%B0-%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F%D1%82%D0%B0-%D0%BF%D0%BE-%D0%BC%D0%B0/" }
+        {
+          "label": "Обява на „Ребус“",
+          "url": "https://rebusvarna.com/%d0%bc%d0%b0%d1%82%d0%b5%d0%bc%d0%b0%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%be-%d1%81%d1%8a%d1%81%d1%82%d0%b5%d0%b7%d0%b0%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%b1%d1%83%d1%81-24-%d1%8f%d0%bd%d1%83/"
+        },
+        {
+          "label": "Календар на „Ребус“ 2026/2027",
+          "url": "https://rebusvarna.com/event/%D0%BA%D0%B0%D0%BB%D0%B5%D0%BD%D0%B4%D0%B0%D1%80%D0%B5%D0%BD-%D0%BF%D0%BB%D0%B0%D0%BD-%D0%BD%D0%B0-%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F%D1%82%D0%B0-%D0%BF%D0%BE-%D0%BC%D0%B0/"
+        }
       ],
       "source": "auto",
-      "sourceUrl": "https://rebusvarna.com/",
-      "checkedAt": "2026-11-17"
+      "sourceUrl": "https://rebusvarna.com/%d0%bc%d0%b0%d1%82%d0%b5%d0%bc%d0%b0%d1%82%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%be-%d1%81%d1%8a%d1%81%d1%82%d0%b5%d0%b7%d0%b0%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%b1%d1%83%d1%81-24-%d1%8f%d0%bd%d1%83/",
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "mbg-zima-2027",
@@ -85,21 +148,51 @@
       "time": null,
       "status": "confirmed",
       "grades": "1–12 клас",
-      "location": { "types": ["varna", "school"], "city": "Варна", "venue": "В училище или партньорски център; във Варна „Ребус“ провежда кръга на 21.02.2027 във ВВМУ „Н. Й. Вапцаров“" },
-      "organizer": { "name": "Фондация „Математика без граници“ и „Инвариант М“ ЕООД", "url": "https://www.mathwithoutborders.bg/" },
-      "registration": { "how": "Участие чрез училището или одобрен партньорски център (поне 20 участници на кръг). Попитайте класния ръководител или „Ребус“ Варна.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "varna",
+          "school"
+        ],
+        "city": "Варна",
+        "venue": "В училище или партньорски център; във Варна „Ребус“ провежда кръга на 21.02.2027 във ВВМУ „Н. Й. Вапцаров“"
+      },
+      "organizer": {
+        "name": "Фондация „Математика без граници“ и „Инвариант М“ ЕООД",
+        "url": "https://www.mathwithoutborders.bg/"
+      },
+      "registration": {
+        "how": "Участие чрез училището или одобрен партньорски център (поне 20 участници на кръг). Попитайте класния ръководител или „Ребус“ Варна.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Определя се преди всеки кръг, плаща се по банков път от училището/центъра",
-      "requirements": ["Записване чрез училище или партньорски център", "Декларация за съгласие, подписана от родител", "Платена такса преди кръга"],
+      "requirements": [
+        "Записване чрез училище или партньорски център",
+        "Декларация за съгласие, подписана от родител",
+        "Платена такса преди кръга"
+      ],
       "description": "Международен турнир в няколко кръга. Пролетният полуфинал е през април 2027 в Стара Загора, финалът – 2–6 юли 2027 в Несебър.",
       "links": [
-        { "label": "Официален сайт", "url": "https://www.mathwithoutborders.bg/" },
-        { "label": "Регламент 2026/2027 (PDF)", "url": "http://www.mathwithoutborders.bg/wp-content/uploads/2026/09/РЕГЛАМЕНТ_-2026-2027_bg.pdf" },
-        { "label": "Календар 2026/2027 (PDF)", "url": "http://www.mathwithoutborders.bg/wp-content/uploads/2026/09/Календар2026-2027.pdf" },
-        { "label": "„Ребус“ Варна", "url": "https://rebusvarna.com/" }
+        {
+          "label": "Официален сайт",
+          "url": "https://www.mathwithoutborders.bg/"
+        },
+        {
+          "label": "Регламент 2026/2027 (PDF)",
+          "url": "http://www.mathwithoutborders.bg/wp-content/uploads/2026/09/РЕГЛАМЕНТ_-2026-2027_bg.pdf"
+        },
+        {
+          "label": "Календар 2026/2027 (PDF)",
+          "url": "http://www.mathwithoutborders.bg/wp-content/uploads/2026/09/Календар2026-2027.pdf"
+        },
+        {
+          "label": "„Ребус“ Варна",
+          "url": "https://rebusvarna.com/"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://aspire-center.com/olimpiadi/matematika-bez-granitsi",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "balgarsko-kenguru-2027",
@@ -109,18 +202,34 @@
       "time": null,
       "status": "tentative",
       "grades": "1–7 клас",
-      "location": { "types": ["school"], "city": "", "venue": "Мястото и начинът на провеждане предстои да бъдат обявени" },
-      "organizer": { "name": "По инициатива на 5 ОУ „Иван Вазов“, София, със Сдружение „Европейско кенгуру“", "url": "https://bulgarian-kangaroo.eu/" },
-      "registration": { "how": "Регламентът за 2027 г. още не е публикуван.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "school"
+        ],
+        "city": "",
+        "venue": "Мястото и начинът на провеждане предстои да бъдат обявени"
+      },
+      "organizer": {
+        "name": "По инициатива на 5 ОУ „Иван Вазов“, София, със Сдружение „Европейско кенгуру“",
+        "url": "https://bulgarian-kangaroo.eu/"
+      },
+      "registration": {
+        "how": "Регламентът за 2027 г. още не е публикуван.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Не е обявена",
       "requirements": [],
       "description": "Посочено в календарния план на Сдружение „Европейско кенгуру“. Проверете дали ще се провежда във Варна или във вашето училище.",
       "links": [
-        { "label": "Сдружение „Европейско кенгуру“", "url": "https://bulgarian-kangaroo.eu/" }
+        {
+          "label": "Сдружение „Европейско кенгуру“",
+          "url": "https://bulgarian-kangaroo.eu/"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://bulgarian-kangaroo.eu/",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "evropeysko-kenguru-2027",
@@ -130,20 +239,44 @@
       "time": "12:00",
       "status": "confirmed",
       "grades": "1–12 клас",
-      "location": { "types": ["school"], "city": "", "venue": "В собственото училище" },
-      "organizer": { "name": "Сдружение „Европейско кенгуру“, в календара на МОН", "url": "https://bulgarian-kangaroo.eu/" },
-      "registration": { "how": "Записването е през училището – попитайте класния ръководител.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "school"
+        ],
+        "city": "",
+        "venue": "В собственото училище"
+      },
+      "organizer": {
+        "name": "Сдружение „Европейско кенгуру“, в календара на МОН",
+        "url": "https://bulgarian-kangaroo.eu/"
+      },
+      "registration": {
+        "how": "Записването е през училището – попитайте класния ръководител.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Не е обявена",
-      "requirements": ["Записване чрез училището"],
+      "requirements": [
+        "Записване чрез училището"
+      ],
       "description": "Българското издание на международното „Кенгуру без граници“. На 17 април 2027 е и „Европейско кенгуру плюс“ (класовете предстои да бъдат обявени).",
       "links": [
-        { "label": "Сдружение „Европейско кенгуру“", "url": "https://bulgarian-kangaroo.eu/" },
-        { "label": "Регламент 2027 (МОН, PDF)", "url": "https://www.mon.bg/nfs/2026/10/26regl_ek_30102026.pdf" },
-        { "label": "Задачи от минали години", "url": "https://klasirane.com/competitions/EK" }
+        {
+          "label": "Сдружение „Европейско кенгуру“",
+          "url": "https://bulgarian-kangaroo.eu/"
+        },
+        {
+          "label": "Регламент 2027 (МОН, PDF)",
+          "url": "https://www.mon.bg/nfs/2026/10/26regl_ek_30102026.pdf"
+        },
+        {
+          "label": "Задачи от минали години",
+          "url": "https://klasirane.com/competitions/EK"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://wunderkind.bg/sastezaniya/evropeysko-kenguru",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "pregled-znaniyata-2027",
@@ -153,18 +286,36 @@
       "time": null,
       "status": "confirmed",
       "grades": "1–12 клас",
-      "location": { "types": ["varna"], "city": "Варна", "venue": "МГ „Д-р Петър Берон“" },
-      "organizer": { "name": "Съюз на математиците в България – секция Варна", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-      "registration": { "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "varna"
+        ],
+        "city": "Варна",
+        "venue": "МГ „Д-р Петър Берон“"
+      },
+      "organizer": {
+        "name": "Съюз на математиците в България – секция Варна",
+        "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+      },
+      "registration": {
+        "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Обявява се преди състезанието",
-      "requirements": ["Предварително записване при организатора"],
+      "requirements": [
+        "Предварително записване при организатора"
+      ],
       "description": "Варненско състезание на СМБ за всички класове.",
       "links": [
-        { "label": "СМБ Варна – Преглед на знанията", "url": "https://sites.google.com/view/smbvarna/%D0%BF%D1%80%D0%B5%D0%B3%D0%BB%D0%B5%D0%B4-%D0%BD%D0%B0-%D0%B7%D0%BD%D0%B0%D0%BD%D0%B8%D1%8F%D1%82%D0%B0-%D0%BF%D0%BE-%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0" }
+        {
+          "label": "СМБ Варна – Преглед на знанията",
+          "url": "https://sites.google.com/view/smbvarna/%D0%BF%D1%80%D0%B5%D0%B3%D0%BB%D0%B5%D0%B4-%D0%BD%D0%B0-%D0%B7%D0%BD%D0%B0%D0%BD%D0%B8%D1%8F%D1%82%D0%B0-%D0%BF%D0%BE-%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     },
     {
       "id": "velikdensko-2027",
@@ -174,19 +325,40 @@
       "time": null,
       "status": "confirmed",
       "grades": "1–12 клас (СМБ Варна); други календари посочват 1–10 клас",
-      "location": { "types": ["varna"], "city": "Варна", "venue": "Мястото във Варна предстои да бъде обявено от СМБ – секция Варна" },
-      "organizer": { "name": "Съюз на математиците в България – секция Варна", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-      "registration": { "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна.", "deadline": null, "url": null },
+      "location": {
+        "types": [
+          "varna"
+        ],
+        "city": "Варна",
+        "venue": "Мястото във Варна предстои да бъде обявено от СМБ – секция Варна"
+      },
+      "organizer": {
+        "name": "Съюз на математиците в България – секция Варна",
+        "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+      },
+      "registration": {
+        "how": "Записването и таксата се обявяват на сайта на СМБ – секция Варна.",
+        "deadline": null,
+        "url": null
+      },
       "fee": "Обявява се преди състезанието",
-      "requirements": ["Предварително записване при организатора"],
+      "requirements": [
+        "Предварително записване при организатора"
+      ],
       "description": "Пролетният тестов турнир на Съюза на математиците, провежда се едновременно в много градове.",
       "links": [
-        { "label": "СМБ Варна – състезания", "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F" },
-        { "label": "Описание (Wunderkind)", "url": "https://wunderkind.bg/sastezaniya/velikdensko-matematichesko-sastezanie" }
+        {
+          "label": "СМБ Варна – състезания",
+          "url": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F"
+        },
+        {
+          "label": "Описание (Wunderkind)",
+          "url": "https://wunderkind.bg/sastezaniya/velikdensko-matematichesko-sastezanie"
+        }
       ],
       "source": "auto",
       "sourceUrl": "https://sites.google.com/view/smbvarna/%D1%81%D1%8A%D1%81%D1%82%D0%B5%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F",
-      "checkedAt": "2026-11-17"
+      "checkedAt": "2026-11-18"
     }
   ]
 }
