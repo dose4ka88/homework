@@ -652,6 +652,32 @@
     .medal.got { border-color: var(--warn); background: linear-gradient(var(--warn-soft), var(--warn-soft)), var(--surface); }
     .medal.locked .e { filter: grayscale(1); opacity: 0.35; }
 
+    /* =========================================================
+       СОСТЯЗАНИЯ
+       ========================================================= */
+    .updated-pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px;
+      background: var(--success-soft); color: var(--success-ink); font-weight: 800; font-size: 0.8125rem;
+    }
+    .comp-top { align-items: flex-start; }
+    .comp-top .date-tile { width: 58px; height: 62px; }
+    .comp.soon { border-color: var(--warn); }
+    .comp-when { color: var(--text); }
+    .comp-facts { display: grid; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+    @media (min-width: 700px) { .comp-facts { grid-template-columns: 170px minmax(0, 1fr); gap: 10px 16px; } .comp-fact { display: contents; } }
+    .comp-fact dt { font-size: 0.8125rem; font-weight: 800; color: var(--text-3); }
+    .comp-fact dd { font-size: 0.9375rem; color: var(--text); overflow-wrap: anywhere; margin-bottom: 4px; }
+    .comp-fact dd a { font-weight: 700; }
+    .comp-src { margin-top: 12px; font-size: 0.75rem; font-weight: 600; color: var(--text-3); }
+    .tag.loc-varna { background: rgba(37, 99, 235, 0.12); color: #1D4ED8; }
+    .tag.loc-dobrich { background: rgba(13, 148, 136, 0.14); color: #0F766E; }
+    .tag.loc-online { background: rgba(147, 51, 234, 0.12); color: #7E22CE; }
+    .tag.loc-school { background: rgba(234, 179, 8, 0.18); color: #A16207; }
+    html.dark .tag.loc-varna { color: #93C5FD; }
+    html.dark .tag.loc-dobrich { color: #5EEAD4; }
+    html.dark .tag.loc-online { color: #D8B4FE; }
+    html.dark .tag.loc-school { color: #FDE047; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -669,6 +695,7 @@
       <section class="view" id="view-homework"></section>
       <section class="view" id="view-schedule"></section>
       <section class="view" id="view-news"></section>
+      <section class="view" id="view-competitions"></section>
       <section class="view" id="view-materials"></section>
       <section class="view" id="view-vacations"></section>
       <section class="view" id="view-events"></section>
@@ -938,6 +965,7 @@
       chevron: '<path d="m9 6 6 6-6 6"/>',
       link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
       download: '<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/>',
+      trophy: '<path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5.5h3V7a3 3 0 0 1-3 3M7 5.5H4V7a3 3 0 0 0 3 3"/>',
       copy: '<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/>'
     };
     function icon(name, cls) {
@@ -954,7 +982,7 @@
         brandSubKid: 'Режим ученика',
         nav: {
           home: 'Главная', homework: 'Домашка', schedule: 'Расписание', news: 'Новости', materials: 'Материалы',
-          vacations: 'Каникулы', events: 'События', more: 'Ещё', settings: 'Настройки',
+          vacations: 'Каникулы', events: 'События', competitions: 'Состязания', more: 'Ещё', settings: 'Настройки',
           kidTasks: 'Задания', kidPlay: 'Играть', kidStars: 'Успехи'
         },
         weekdays: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
@@ -1052,7 +1080,24 @@
         kidPlayTitle: 'Играй и учись 🎮', kidPlaySub: 'Выбери игру или видео',
         kidStarsTitle: 'Мои успехи 🌟', kidStarsSub: 'Делай задания каждый день и получай медали',
         medalGot: 'Получено!', medalLeft: n => `ещё ${n} дн.`, medalDays: n => `${n} дней`,
-        kidNoPlay: 'Игры скоро появятся.'
+        kidNoPlay: 'Игры скоро появятся.',
+
+        compTitle: 'Математические состязания',
+        compSub: 'Для 1 класса: Варна, Добрич, онлайн и в школе. Список обновляется каждый день.',
+        compUpdated: d => `Обновлено: ${d}`,
+        compNotUpdated: 'Список ещё не обновлялся',
+        locAll: 'Все',
+        loc: { varna: 'Варна', dobrich: 'Добрич', online: 'Онлайн', school: 'В школе', other: 'Место уточняется' },
+        fVenue: 'Место', fGrades: 'Классы', fOrganizer: 'Организатор', fRegistration: 'Как записаться',
+        fDeadline: 'Записаться до', fFee: 'Взнос', fNeed: 'Что нужно', fAbout: 'Подробнее',
+        tentative: 'Ждёт подтверждения', manual: 'Добавлено вручную',
+        btnRegister: 'Записаться',
+        compOngoing: 'Идёт сейчас',
+        compPast: 'Прошедшие состязания',
+        compEmpty: 'Подходящих состязаний пока не найдено.',
+        compEmptyFilter: 'Состязаний с таким местом нет.',
+        compSource: (host, d) => `Источник: ${host}${d ? ' · проверено ' + d : ''}`,
+        compMissing: 'Нет состязания, о котором писала учительница? Перешлите его администратору хаба — его добавят вручную.'
       },
 
       bg: {
@@ -1061,7 +1106,7 @@
         brandSubKid: 'Режим ученик',
         nav: {
           home: 'Начало', homework: 'Домашно', schedule: 'Програма', news: 'Новини', materials: 'Материали',
-          vacations: 'Ваканции', events: 'Събития', more: 'Още', settings: 'Настройки',
+          vacations: 'Ваканции', events: 'Събития', competitions: 'Състезания', more: 'Още', settings: 'Настройки',
           kidTasks: 'Задачи', kidPlay: 'Играй', kidStars: 'Успехи'
         },
         weekdays: ['неделя', 'понеделник', 'вторник', 'сряда', 'четвъртък', 'петък', 'събота'],
@@ -1159,7 +1204,24 @@
         kidPlayTitle: 'Играй и учи 🎮', kidPlaySub: 'Избери игра или видео',
         kidStarsTitle: 'Моите успехи 🌟', kidStarsSub: 'Прави задачите всеки ден и печели медали',
         medalGot: 'Спечелен!', medalLeft: n => `още ${n} дни`, medalDays: n => `${n} дни`,
-        kidNoPlay: 'Игрите скоро ще бъдат добавени.'
+        kidNoPlay: 'Игрите скоро ще бъдат добавени.',
+
+        compTitle: 'Математически състезания',
+        compSub: 'За 1 клас: Варна, Добрич, онлайн и в училище. Списъкът се обновява всеки ден.',
+        compUpdated: d => `Актуализирано: ${d}`,
+        compNotUpdated: 'Списъкът все още не е актуализиран',
+        locAll: 'Всички',
+        loc: { varna: 'Варна', dobrich: 'Добрич', online: 'Онлайн', school: 'В училище', other: 'Мястото се уточнява' },
+        fVenue: 'Място', fGrades: 'Класове', fOrganizer: 'Организатор', fRegistration: 'Как се записвате',
+        fDeadline: 'Срок за записване', fFee: 'Такса', fNeed: 'Какво е нужно', fAbout: 'Описание',
+        tentative: 'Очаква потвърждение', manual: 'Добавено ръчно',
+        btnRegister: 'Запиши се',
+        compOngoing: 'В момента',
+        compPast: 'Минали състезания',
+        compEmpty: 'Все още няма подходящи състезания.',
+        compEmptyFilter: 'Няма състезания с това място.',
+        compSource: (host, d) => `Източник: ${host}${d ? ' · проверено ' + d : ''}`,
+        compMissing: 'Липсва състезание, за което е писала учителката? Изпратете го на администратора на хъба – ще бъде добавено ръчно.'
       }
     };
 
@@ -1177,6 +1239,9 @@
     let LOADING = false;
     let LAST_LOAD = 0;
     let MATERIALS = [];
+    let COMPS = { updatedAt: null, items: [] };
+    let COMPS_LOADED = false;
+    let COMP_FILTER = 'all';
     let currentView = 'home';
 
     let HW_FILTER = 'active';
@@ -1395,9 +1460,10 @@
     // ---------- Метки «Новое» ----------
     const SECTIONS = {
       news: { items: () => appData.announcements || [], key: a => 'n:' + (a.title || '') + '|' + (a.date || '') },
-      materials: { items: () => MATERIALS, key: m => m.key }
+      materials: { items: () => MATERIALS, key: m => m.key },
+      comps: { items: () => COMPS.items || [], key: c => 'c:' + (c.id || c.title) }
     };
-    const NEW_KEYS = { news: new Set(), materials: new Set() };
+    const NEW_KEYS = { news: new Set(), materials: new Set(), comps: new Set() };
     const VIEWED = new Set();
 
     function computeNewItems() {
@@ -1414,7 +1480,8 @@
         else { const s = new Set(seen[name]); NEW_KEYS[name] = new Set(keys.filter(x => !s.has(x))); }
       });
       lsSet('seen_v1', JSON.stringify(seen));
-      if (SECTIONS[currentView]) markSectionViewed(currentView);
+      const cur = currentView === 'competitions' ? 'comps' : currentView;
+      if (SECTIONS[cur]) markSectionViewed(cur);
     }
 
     function markSectionViewed(name) {
@@ -1644,21 +1711,23 @@
     const KID_VIEWS = ['kidTasks', 'kidPlay', 'kidStars'];
     const NAV = {
       parent: {
-        side: ['home', 'homework', 'schedule', 'news', 'materials', 'vacations', 'events', 'settings'],
+        side: ['home', 'homework', 'schedule', 'news', 'competitions', 'materials', 'vacations', 'events', 'settings'],
         bottom: ['home', 'homework', 'schedule', 'news', 'more']
       },
       kid: { side: KID_VIEWS, bottom: KID_VIEWS }
     };
     const NAV_ICON = {
       home: 'home', homework: 'tasks', schedule: 'calendar', news: 'megaphone', materials: 'folder',
-      vacations: 'sun', events: 'gift', more: 'grid', settings: 'sliders',
+      vacations: 'sun', events: 'gift', competitions: 'trophy', more: 'grid', settings: 'sliders',
       kidTasks: 'tasks', kidPlay: 'game', kidStars: 'star'
     };
-    const MORE_VIEWS = ['more', 'materials', 'vacations', 'events', 'settings'];
+    const MORE_VIEWS = ['more', 'competitions', 'materials', 'vacations', 'events', 'settings'];
 
     function navBadge(v) {
       if (v === 'news') return newCount('news');
-      if (v === 'materials' || v === 'more') return newCount('materials');
+      if (v === 'materials') return newCount('materials');
+      if (v === 'competitions') return newCount('comps');
+      if (v === 'more') return newCount('materials') + newCount('comps');
       return 0;
     }
     function isNavActive(item) {
@@ -1685,7 +1754,8 @@
       currentView = v;
       stopSpeech();
       document.querySelectorAll('.view').forEach(el => el.classList.toggle('active', el.id === 'view-' + v));
-      if (SECTIONS[v]) markSectionViewed(v);
+      const section = v === 'competitions' ? 'comps' : v;
+      if (SECTIONS[section]) markSectionViewed(section);
       renderView(v);
       renderNav();
       if (changed) window.scrollTo(0, 0);
@@ -1744,6 +1814,10 @@
     // =========================================================
     async function loadData() {
       LOADING = true;
+      // Состязания лежат в отдельном файле competitions.json (его обновляет ежедневный поиск)
+      const compsPromise = fetch('competitions.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : null))
+        .catch(() => null);
       try {
         const response = await fetch('data.json?v=' + Date.now());
         if (!response.ok) throw new Error('data.json не найден');
@@ -1753,6 +1827,8 @@
         LAST_LOAD = Date.now();
         migrateHomeworkIds();
         MATERIALS = buildMaterials();
+        const comps = await compsPromise;
+        if (comps && Array.isArray(comps.items)) { COMPS = comps; COMPS_LOADED = true; }
         computeNewItems();
       } catch (error) {
         console.error('Ошибка загрузки:', error);
@@ -1911,6 +1987,7 @@
       const newRows = [];
       if (newCount('news')) newRows.push({ v: 'news', label: t.nav.news, ic: 'megaphone', n: newCount('news') });
       if (newCount('materials')) newRows.push({ v: 'materials', label: t.nav.materials, ic: 'folder', n: newCount('materials') });
+      if (newCount('comps')) newRows.push({ v: 'competitions', label: t.nav.competitions, ic: 'trophy', n: newCount('comps') });
       if (newRows.length) {
         cards.push(`
           <div class="card">
@@ -1938,6 +2015,12 @@
         const last = new Date(Math.max(...ds));
         if (last < today) return;
         up.push({ icon: '📢', text: escapeHtml(a.title || ''), sub: escapeHtml(a.date || ''), v: 'news', sort: Math.max(0, dayDiff(new Date(Math.min(...ds)), today)) });
+      });
+      (COMPS.items || []).forEach(c => {
+        const s = compStart(c);
+        if (!s || compEnd(c) < today) return;
+        const n = Math.max(0, dayDiff(s, today));
+        if (n <= 30) up.push({ icon: '🏆', text: escapeHtml(c.title), sub: `${compDateText(c)} · ${t.inDays(n)}`, v: 'competitions', sort: n });
       });
       if (up.length) {
         up.sort((a, b) => a.sort - b.sort);
@@ -2307,7 +2390,9 @@
       const vac = VACATIONS_DATA.find(v => new Date(v.endDate + 'T23:59:59') >= today);
       const vacSub = vac ? (dayDiff(new Date(vac.startDate + 'T00:00:00'), today) <= 0 ? t.vacNow(vac.title[currentLang]) : t.vacIn(vac.title[currentLang], dayDiff(new Date(vac.startDate + 'T00:00:00'), today))) : '';
       const ev = (appData.events || []).map(e => ({ e, n: daysUntilAnnual(e.date) })).sort((a, b) => a.n - b.n)[0];
+      const nextComp = (COMPS.items || []).filter(c => compStart(c) && compEnd(c) >= today).sort((a, b) => compStart(a) - compStart(b))[0];
       const rows = [
+        { v: 'competitions', ic: 'trophy', label: t.nav.competitions, sub: nextComp ? `${nextComp.title} — ${t.inDays(Math.max(0, dayDiff(compStart(nextComp), today)))}` : '', badge: newCount('comps') },
         { v: 'materials', ic: 'folder', label: t.nav.materials, sub: DATA_LOADED ? t.matSub(MATERIALS.length) : '', badge: newCount('materials') },
         { v: 'vacations', ic: 'sun', label: t.nav.vacations, sub: vacSub },
         { v: 'events', ic: 'gift', label: t.nav.events, sub: ev && isFinite(ev.n) ? `${ev.e.name || ''} — ${t.inDays(ev.n)}` : '' },
@@ -2356,6 +2441,161 @@
             ${!isStandalone() ? `<div class="card">${installBlock(false)}</div>` : ''}
           </div>
         </div>`;
+    }
+
+    // ---------- Состязания ----------
+    function compStart(c) { return c.date ? new Date(c.date + 'T00:00:00') : null; }
+    function compEnd(c) { return c.endDate ? new Date(c.endDate + 'T00:00:00') : compStart(c); }
+
+    function compDateText(c) {
+      const t = T();
+      const s = compStart(c);
+      if (!s) return '';
+      const e = compEnd(c);
+      let txt;
+      if (e && e > s) {
+        txt = s.getMonth() === e.getMonth()
+          ? `${s.getDate()}–${e.getDate()} ${t.months[s.getMonth()]}`
+          : `${formatDayMonth(s)} – ${formatDayMonth(e)}`;
+      } else {
+        txt = `${cap(weekdayName(s))}, ${formatDayMonth(s)}`;
+      }
+      if (s.getFullYear() !== new Date().getFullYear()) txt += ` ${s.getFullYear()}`;
+      if (c.time) txt += `, ${c.time}`;
+      return txt;
+    }
+
+    function compTypes(c) {
+      const types = (c.location && Array.isArray(c.location.types)) ? c.location.types : [];
+      return types.length ? types : ['other'];
+    }
+
+    function compShareText(c) {
+      const links = (c.links || []).map(l => `${l.label}: ${l.url}`).join('\n');
+      return `🏆 ${c.title}\n📅 ${compDateText(c)}\n📍 ${(c.location && c.location.venue) || ''}\n${c.grades ? '🎓 ' + c.grades + '\n' : ''}${links ? '\n' + links + '\n' : ''}\n${location.href.split('#')[0]}`;
+    }
+
+    async function shareComp(idx, btn) {
+      const c = COMPS.items[idx];
+      if (!c) return;
+      const text = compShareText(c);
+      if (navigator.share) {
+        try { await navigator.share({ title: c.title, text }); } catch (e) {}
+        return;
+      }
+      try { await navigator.clipboard.writeText(text); btn.textContent = T().copied; } catch (e) {}
+    }
+
+    function addCompToCalendar(idx) {
+      const c = COMPS.items[idx];
+      const s = c && compStart(c);
+      if (!s) return;
+      const desc = [
+        c.location && c.location.venue,
+        c.organizer && c.organizer.name,
+        c.registration && c.registration.how,
+        ...(c.links || []).map(l => `${l.label}: ${l.url}`)
+      ].filter(Boolean).join('\n');
+      downloadIcs({ title: `🏆 ${c.title}`, start: s, end: compEnd(c), description: desc });
+    }
+
+    function compCard(c, idx, past) {
+      const t = T();
+      const today = startOfToday();
+      const s = compStart(c);
+      const e = compEnd(c);
+      const n = s ? dayDiff(s, today) : null;
+      const ongoing = s && e && s <= today && e >= today;
+      const when = past ? '' : ongoing ? t.compOngoing : (n !== null ? cap(t.inDays(n)) : '');
+      const reg = c.registration || {};
+      const org = c.organizer || {};
+      const loc = c.location || {};
+      const facts = [];
+      if (loc.venue || loc.city) facts.push(['📍', t.fVenue, escapeHtml([loc.city, loc.venue].filter(Boolean).join(' · '))]);
+      if (c.grades) facts.push(['🎓', t.fGrades, escapeHtml(c.grades)]);
+      if (org.name) facts.push(['🏛️', t.fOrganizer, org.url ? `<a href="${escapeHtml(org.url)}" target="_blank" rel="noopener">${escapeHtml(org.name)} ↗</a>` : escapeHtml(org.name)]);
+      if (reg.how || reg.deadline) facts.push(['📝', t.fRegistration, `${escapeHtml(reg.how || '')}${reg.deadline ? `<br><b>${t.fDeadline}: ${formatPrettyDate(reg.deadline)}</b>` : ''}`]);
+      if (c.fee) facts.push(['💶', t.fFee, escapeHtml(c.fee)]);
+      if ((c.requirements || []).length) facts.push(['🎒', t.fNeed, c.requirements.map(r => `• ${escapeHtml(r)}`).join('<br>')]);
+      if (c.description) facts.push(['ℹ️', t.fAbout, richText(c.description)]);
+
+      const checked = c.checkedAt ? formatPrettyDate(c.checkedAt.split('-').reverse().join('.')) : '';
+      const src = c.source === 'manual' ? t.manual : (c.sourceUrl ? t.compSource(hostOf(c.sourceUrl), checked) : '');
+
+      return `
+        <article class="card comp ${past ? 'archived' : ''} ${n !== null && n >= 0 && n <= 14 && !past ? 'soon' : ''}">
+          <div class="item-row comp-top">
+            ${s ? `<span class="date-tile"><b>${s.getDate()}</b><span>${t.monthsShort[s.getMonth()]}</span></span>` : ''}
+            <div class="grow">
+              <div class="ann-meta">
+                ${compTypes(c).map(x => `<span class="tag loc-${x}">${t.loc[x] || x}</span>`).join('')}
+                ${c.status === 'tentative' ? `<span class="tag warn">${t.tentative}</span>` : ''}
+                ${c.source === 'manual' ? `<span class="tag">✍️ ${t.manual}</span>` : ''}
+                ${newChip('comps', c)}
+              </div>
+              <h3 class="ann-title">${escapeHtml(c.title)}</h3>
+              <div class="item-sub">${compDateText(c)}${when ? ` · <b class="comp-when">${when}</b>` : ''}</div>
+            </div>
+          </div>
+          ${facts.length ? `<dl class="comp-facts">${facts.map(([ic, label, val]) => `<div class="comp-fact"><dt>${ic} ${label}</dt><dd>${val}</dd></div>`).join('')}</dl>` : ''}
+          <div class="actions">
+            ${reg.url ? `<a class="btn sm" href="${escapeHtml(reg.url)}" target="_blank" rel="noopener">${t.btnRegister} ↗</a>` : ''}
+            ${(c.links || []).map(l => `<a class="btn ghost sm" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${icon('external', 'sm')} ${escapeHtml(l.label)}</a>`).join('')}
+            ${!past && s ? `<button class="btn ghost sm" onclick="addCompToCalendar(${idx})">${icon('calendarPlus', 'sm')} ${t.btnCalendar}</button>` : ''}
+            ${!past ? `<button class="btn ghost sm" onclick="shareComp(${idx}, this)">${icon('share', 'sm')} ${t.btnShare}</button>` : ''}
+          </div>
+          ${src ? `<div class="comp-src">${escapeHtml(src)}</div>` : ''}
+        </article>`;
+    }
+
+    function formatUpdatedAt(iso) {
+      const d = new Date(iso);
+      if (isNaN(d)) return escapeHtml(iso || '');
+      return `${formatDayMonth(d)} ${d.getFullYear()}, ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    }
+
+    function viewCompetitions() {
+      const t = T();
+      const updated = COMPS.updatedAt ? t.compUpdated(formatUpdatedAt(COMPS.updatedAt)) : t.compNotUpdated;
+      const head = pageHead(t.compTitle, t.compSub, `<span class="updated-pill">${icon('refresh', 'sm')} ${updated}</span>`);
+      if (!DATA_LOADED && !COMPS_LOADED) return head + loadingOrError();
+
+      const today = startOfToday();
+      const all = (COMPS.items || []).map((c, idx) => ({ c, idx })).filter(x => compStart(x.c));
+      if (!all.length) return head + `<div class="empty narrow"><span class="big">🏆</span>${t.compEmpty}</div>`;
+
+      const upcoming = all.filter(x => compEnd(x.c) >= today).sort((a, b) => compStart(a.c) - compStart(b.c));
+      const past = all.filter(x => compEnd(x.c) < today).sort((a, b) => compStart(b.c) - compStart(a.c));
+
+      const types = ['varna', 'dobrich', 'online', 'school', 'other'].filter(k => upcoming.some(x => compTypes(x.c).includes(k)));
+      if (COMP_FILTER !== 'all' && !types.includes(COMP_FILTER)) COMP_FILTER = 'all';
+      const shown = upcoming.filter(x => COMP_FILTER === 'all' || compTypes(x.c).includes(COMP_FILTER));
+
+      const chips = types.length > 1 ? `
+        <div class="chips" style="margin-bottom:16px">
+          <button class="chip ${COMP_FILTER === 'all' ? 'on' : ''}" onclick="COMP_FILTER='all'; renderView('competitions')">${t.locAll} <span class="n">${upcoming.length}</span></button>
+          ${types.map(k => `<button class="chip ${COMP_FILTER === k ? 'on' : ''}" onclick="COMP_FILTER='${k}'; renderView('competitions')">${t.loc[k]} <span class="n">${upcoming.filter(x => compTypes(x.c).includes(k)).length}</span></button>`).join('')}
+        </div>` : '';
+
+      let lastMonth = null;
+      const list = shown.map(x => {
+        const s = compStart(x.c);
+        const key = s.getFullYear() * 12 + s.getMonth();
+        const label = key !== lastMonth ? `<div class="month-label">${t.monthsNom[s.getMonth()]} ${s.getFullYear()}</div>` : '';
+        lastMonth = key;
+        return label + compCard(x.c, x.idx, false);
+      }).join('');
+
+      return head + `<div class="narrow">
+        ${chips}
+        <div class="news-list">${list || `<div class="empty">${t.compEmptyFilter}</div>`}</div>
+        ${past.length ? `
+          <details class="archive">
+            <summary><span>📦 ${t.compPast} (${past.length})</span><span class="chev">${icon('chevron', 'sm')}</span></summary>
+            <div class="news-list">${past.map(x => compCard(x.c, x.idx, true)).join('')}</div>
+          </details>` : ''}
+        <div class="notice" style="margin-top:18px;background:var(--surface-2);color:var(--text-2)">💡 ${t.compMissing}</div>
+      </div>`;
     }
 
     // =========================================================
@@ -2447,7 +2687,7 @@
     // ЗАПУСК
     // =========================================================
     const VIEW_RENDER = {
-      home: viewHome, homework: viewHomework, schedule: viewSchedule, news: viewNews, materials: viewMaterials,
+      home: viewHome, homework: viewHomework, schedule: viewSchedule, news: viewNews, competitions: viewCompetitions, materials: viewMaterials,
       vacations: viewVacations, events: viewEvents, more: viewMore, settings: viewSettings,
       kidTasks: viewKidTasks, kidPlay: viewKidPlay, kidStars: viewKidStars
     };
