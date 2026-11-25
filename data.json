@@ -1,5 +1,5 @@
 {
-  "updatedAt": "25.11.2026 09:32",
+  "updatedAt": "25.11.2026 09:41",
   "schedule": [
     {
       "day": "Понеделник",
@@ -493,6 +493,18 @@
       "title": "Събиране и изваждане с числото 10",
       "url": "https://www.youtube.com/watch?v=I6prW3nBFPo",
       "description": "Събиране и изваждане с числото 10 – Математика, 1 клас"
+    },
+    {
+      "category": "Видео",
+      "title": "Й или И (един – много)",
+      "url": "https://www.youtube.com/watch?v=yZvOjYwluJg",
+      "description": "Употреба на Й или И – един, много"
+    },
+    {
+      "category": "Видео",
+      "title": "Четене на думи с И и Й",
+      "url": "https://www.youtube.com/watch?v=F4_iuz1SVI0",
+      "description": "Четене на думи с И и Й – Български език, 1 клас"
     }
   ],
   "events": [
