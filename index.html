@@ -679,7 +679,7 @@
     html.dark .tag.loc-school { color: #FDE047; }
 
 
-    /* ===== Воловчето — помощник ===== */
+    /* ===== Воли — помощник ===== */
     .vol { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: calc(var(--nav-h) + 14px + env(safe-area-inset-bottom)); z-index: 45; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
     @media (min-width: 900px) { .vol { right: 28px; bottom: 24px; } }
     html.kid .vol { display: none; }
@@ -2856,7 +2856,7 @@
       if (VOL.open) {
         lsSet('vol_seen', '1');
         VOL.bubble = null;
-        if (!VOL.msgs.length) VOL.msgs.push({ html: L('Здравей! Аз съм Воловчето 🦉 Помагам да намериш домашното, програмата и новините. Избери въпрос:', 'Привет! Я Воловчето 🦉 Помогаю найти домашку, расписание и новости. Выберите вопрос:') });
+        if (!VOL.msgs.length) VOL.msgs.push({ html: L('Здравей! Аз съм Воли 🦉 Помагам да намериш домашното, програмата и новините. Избери въпрос:', 'Привет! Я Воли 🦉 Помогаю найти домашку, расписание и новости. Выберите вопрос:') });
       }
       volRender();
     }
@@ -2888,12 +2888,12 @@
       if (!el) return;
       if (!VOL.open) {
         el.innerHTML = `${VOL.bubble ? `<div class="vol-bubble" onclick="volToggle()" style="cursor:pointer">${VOL.bubble}<button class="x" onclick="event.stopPropagation(); volMute()" aria-label="${L('Скрий', 'Скрыть')}">✕</button></div>` : ''}
-          <button class="vol-fab ${VOL.bubble ? 'talk' : ''}" onclick="volToggle()" aria-label="${L('Попитай Воловчето', 'Спросить Воловчето')}">${volSvg()}</button>`;
+          <button class="vol-fab ${VOL.bubble ? 'talk' : ''}" onclick="volToggle()" aria-label="${L('Попитай Воли', 'Спросить Воли')}">${volSvg()}</button>`;
         return;
       }
       el.innerHTML = `
-        <div class="vol-panel" role="dialog" aria-label="Воловчето">
-          <div class="vol-head">${volSvg(1)}<div><b>Воловчето</b><small>${L('Помощник на класа', 'Помощник класса')}</small></div>
+        <div class="vol-panel" role="dialog" aria-label="Воли">
+          <div class="vol-head">${volSvg(1)}<div><b>Воли</b><small>${L('Помощник на класа', 'Помощник класса')}</small></div>
             <button class="icon-btn" onclick="volToggle()" aria-label="${L('Затвори', 'Закрыть')}">✕</button></div>
           <div class="vol-body" id="volBody">${VOL.msgs.map(m => `<div class="vb ${m.me ? 'me' : ''}">${m.html}${m.go ? `<br><button class="btn sm secondary" onclick="volGo('${m.go}')">${L('Отвори', 'Открыть')}: ${T().nav[m.go]}</button>` : ''}</div>`).join('')}</div>
           <div class="vol-chips">${Object.keys(VOL_Q).map(k => `<button class="chip" onclick="volAsk('${k}')">${L(VOL_Q[k][0], VOL_Q[k][1])}</button>`).join('')}</div>
